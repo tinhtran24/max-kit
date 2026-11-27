@@ -1,0 +1,4 @@
+node_modules/
+.max-kit/
+*.log
+.DS_Store
