@@ -444,7 +444,7 @@ function redactPaths(payload) {
     for (const [actual, label] of labels.entries()) {
       redacted = redacted.split(actual).join(label);
     }
-    return redacted.replace(/(?:\/[^\s:'"]+)+/g, (match) => labelFor(match));
+    return redacted.replace(/[A-Za-z]:[\\/][^\s:'"]*|(?:\/[^\s:'"]+)+/g, (match) => labelFor(match));
   };
   payload.repo.root = labelFor(payload.repo.root);
   payload.current.root = labelFor(payload.current.root);
