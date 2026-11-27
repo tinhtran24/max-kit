@@ -3,22 +3,26 @@ id: MK-PORT-002
 title: "Migration batch 2: workflow pack complete, mk plan and mk prefs"
 area: packs
 priority: high
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
-  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 2): plan, cook, fix, test and the rest of workflow."
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 2):
+    plan, cook, fix, test and the rest of workflow."
 behavior: >
-  The workflow pack is complete (24 skills, 10 agents). Plan state lives in files managed by mk plan (no index);
-  preferences resolve through mk prefs with the same JSON shape; plans link to harness features and completion warns
-  until mk verify passes. Opt-in cloud experiment and render-CLI routes are removed.
+  The workflow pack is complete (24 skills, 10 agents). Plan state lives in
+  files managed by mk plan (no index); preferences resolve through mk prefs with
+  the same JSON shape; plans link to harness features and completion warns until
+  mk verify passes. Opt-in cloud experiment and render-CLI routes are removed.
 acceptance:
   - id: AC1
-    then: mk plan creates, checks, resolves, validates and closes plans using only the files
+    then: mk plan creates, checks, resolves, validates and closes plans using only
+      the files
   - id: AC2
     then: mk prefs merges user and project preferences and exposes them under .prefs
   - id: AC3
-    then: skills lint passes with source-name patterns, including bare prefixes, and no dead mk subcommands
+    then: skills lint passes with source-name patterns, including bare prefixes, and
+      no dead mk subcommands
 watch:
   - src/plans/
   - src/cli/plan.mjs
@@ -28,10 +32,13 @@ verification:
   mode: automated
   commands:
     - run: npm test
-      covers: [AC1, AC2]
+      covers: [ AC1, AC2 ]
     - run: npm run check
-      covers: [AC3]
-  expected_result: "All tests pass including test/plan.test.mjs; check passed with forbidden patterns active."
-evidence: []
+      covers: [ AC3 ]
+  expected_result: "All tests pass including test/plan.test.mjs; check passed with
+    forbidden patterns active."
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-002.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
