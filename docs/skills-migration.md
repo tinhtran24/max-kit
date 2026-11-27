@@ -33,7 +33,7 @@ A knowledgebase enables packs in `max-kit.config.json` › `packs`. `mk sync` re
 | `workflow` | advise, brainstorm, plan, cook, fix, debug, test, code-review, scout, ask, explain, bro, sumup, problem-solving, predict, scenario, issue-to-plan, atoz, research, research-prompt, sowat, xia, fable-thinking | `plan` writes harness features with acceptance criteria; `cook` and `fix` close with `mk verify` |
 | `continuity` | handoff, journal, retro, watzup, context-engineering, dogfood, goal-warmup, loop, autoresearch, codex-goal, folder-context, interview-docs | `journal` writes through `mk log`; `handoff` reads active features |
 | `delivery` | git, github, review-pr, ship, vibe, worktree | `ship` runs `mk check` and `mk verify` before the PR |
-| `orchestration` | orchestrate, team, project-management, plans-kanban, router (from the source router skill), help, find-skills, skill-creator, coding-level | needs the most rewriting: built around the source CLI |
+| `orchestration` | team, project-management, plans-kanban, router, help, find-skills, skill-creator, coding-level; orchestrate deferred | router written new; help, coding-level and plans-kanban rewritten on `mk skills`, `mk prefs` and `mk plan`; skill-creator keeps local authoring and drops publishing lanes |
 | `frontend` | frontend-design, frontend, react, web-frameworks, tanstack, ui-styling, uiux, ux-audit, page-builder, stitch, show-off, threejs, shader, webmcp | large (about 2.7 MB) |
 | `backend` | backend, databases, better-auth, payments, shopify, google-adk, agentize, mcp-builder | |
 | `ops` | devops, deploy, security, vault | `vault` needs `mk secrets` (section 4) or is rewritten for the user's secret manager |
@@ -62,7 +62,8 @@ Counts are calls found in the source skills.
 | `update`, `self-update` | 49 | `npm update max-kit && mk update` | map now |
 | `test optimize/classify-e2e/benchmark` | 11 | none: suite optimisation runs on repository tools | remove the CLI passages |
 | `skills link/route/kit` | 203 (with below) | `mk sync`, pack config | map now |
-| `skills improve/evolution/self-improve` | | `mk improve` (Phase 7: corrections to review queue) | build, then map |
+| `skills self-improve status/history` | | `mk improve status/events` | done |
+| `skills improve/evolution/kit/link`, `features list` | | none: personal kits, overlays and SkillX publishing are not part of max-kit | removed with their lanes |
 | `secrets set/get/list/search/annotate/rotate/delete/compare/import-env/export/run/request/approve/grants/revoke/audit/status` | about 75 | `mk secrets <same>` (local vault) | map now |
 | `secrets sync/recovery/members/remote/bundle/trust/alias/approvals` | about 59 | none until a sync server exists | rewrite: drop sync and recovery passages, keep local use |
 | `config prefs resolve/get/set/unset/validate` | about 30 | `mk prefs <same>` (`resolve --json` keeps the `.prefs` shape) | done |
@@ -102,7 +103,7 @@ Each batch is one pull request with a harness feature, the port report in the ru
 | 5 | `docs`, `diagrams` | 0 |
 | 6 | `frontend`, `backend`, `mobile` | 0 |
 | 7 | `ops` (after the `secrets` decision), `quality`, `media`, `security-intel` | Phase 6 |
-| 8 | `orchestration` and the remaining hooks as max-kit guards (privacy, context budget, pre-compact capture, self-improve) | Phases 5–7 |
+| 8 | `orchestration`, dogfood and `mk improve` (session and guard events, session-start nudge); orchestrate deferred pending a decision | Phases 5–7 |
 
 Hooks are not copied as files: each becomes a max-kit guard so it works in every runtime. The mapping is privacy-block and secret-output to Phase 6; context-firewall, scout-block and pre-compact to Phase 5; self-improve recorder and nudge, and the agent-behaviour linter, to Phase 7. Statusline and notification hooks are left out for now.
 

@@ -33,7 +33,7 @@ skill created through the installed `mk-skill-creator`.
 
 ## Intent and defaults
 
-These are skill arguments, not executable `ak` CLI subcommands:
+These are skill arguments, not CLI subcommands:
 
 ```text
 /mk-page-builder setup ./apps/storefront

@@ -2,7 +2,7 @@
 
 `.mmd` input renders with the vendored [Pele](https://github.com/obsidianmd/pele)
 bundle (`assets/pele.mjs`, v1.6.0, MIT; see `references/vendoring-metadata.yaml`
-for the one escaping change that keeps it intact through `ak` installs) through `scripts/render-mermaid.mjs`.
+for the one escaping change that keeps it intact through skill installs) through `scripts/render-mermaid.mjs`.
 Pele targets Mermaid 12.1.0 syntax with its own layout and visual style, so a
 diagram looks different from Mermaid's default rendering. It runs in Node
 without a browser, so `render.py --no-png` writes the HTML and SVG without

@@ -25,7 +25,7 @@ current implementation support.
 | ID | Kind | Notes |
 |---|---|---|
 | `claude-code` | CLI | Default target for interactive-workflow continuation. |
-| `codex` | CLI | Uses the local `ak` MCP runtime for dispatch. |
+| `codex` | CLI | Runs the `codex` CLI. |
 | `internal` | Current-runtime session | See `mk-orchestrate/references/session-routing.md`. `--model` is rejected. |
 
 ## External, preflight-gated

@@ -105,8 +105,8 @@ section of the shared files-first plan-state reference
    commits the finalized plan files with the ship, so `status: completed` reaches
    the target branch in the same merge as the code.
 
-Do **not** run `mk plan close` here — that is the merge flow's job (the index
-stays `active` through the review window). On any failure or missing `ak`, report
+Do **not** run `mk plan close` here — that is the merge flow's job (the plan
+stays `active` through the review window). On any failure or missing `mk`, report
 the plan-dir path + reason and continue the ship with a warning; never hand-edit
 or delete plan files.
 

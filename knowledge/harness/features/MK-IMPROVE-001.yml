@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-IMPROVE-001
+title: "mk improve: content-free session and guard events with a session-start nudge"
+area: improve
+priority: medium
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Phase 7 of docs/plan.md; mk-dogfood's evidence mode needs it (migration batch 8)."
+behavior: >
+  One record per session (skills, tool calls, tool errors per skill), guard decisions recorded, nothing from the
+  conversation stored; a nudge shows once when a skill keeps failing or a guard keeps firing; recording can be off.
+acceptance:
+  - id: AC1
+    then: records hold names and counts only, one per session id
+  - id: AC2
+    then: nudges appear once, with evidence ids for dogfood or a team-rule suggestion
+  - id: AC3
+    then: improve.enabled false records nothing
+watch:
+  - src/improve/
+  - src/guards/improve.mjs
+  - src/cli/improve.mjs
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [AC1, AC2, AC3]
+  expected_result: "test/improve.test.mjs passes with the full suite."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27

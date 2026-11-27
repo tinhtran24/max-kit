@@ -54,6 +54,8 @@ test("transform renames, maps exact commands and reports the rest", () => {
   assert.equal(transform("break the jazz-band", SRC).out, "break the jazz-band", "only whole-prefix matches change");
   assert.equal(renamePath("techniques/fx-document-lezz-hunt.md", SRC), "techniques/fx-document-lezz-hunt.md", "a prefix inside a word is not a prefix");
   assert.equal(renamePath("zz-guide.md", SRC), "mk-guide.md");
+  assert.equal(renamePath("tests/test_zz_docs_fixture.py", SRC), "tests/test_mk_docs_fixture.py", "snake form in paths");
+  assert.equal(transform("legacy zz:plan input and pizza:x", SRC).out, "legacy mk:plan input and pizza:x", "colon namespace form");
   assert.equal(renamePath("scripts/find_zeta_repo.py", SRC), "scripts/find_max_kit_repo.py", "product names in paths follow the content rules");
   assert.equal(renamePath("assets/zeta-engineer-cases.json", SRC), "assets/max-kit-engineer-cases.json");
   assert.equal(renamePath("refs/zz-a/x.md", SRC), "refs/mk-a/x.md");
