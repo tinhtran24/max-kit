@@ -29,7 +29,7 @@ test("create scaffolds plan and phases, makes it current, and validates", () => 
   assert.match(plan, /^feature: SHOP-ORDER-001$/m);
   assert.match(plan, /^branch: feat\/totals$/m);
   assert.match(plan, /\| 2 \| \[API layer\]\(phase-02-api-layer\.md\) \| pending \| 0\/1 \|/);
-  assert.equal(mk(repo, "plan", "resolve").stdout.trim(), path.relative(repo, dir));
+  assert.equal(mk(repo, "plan", "resolve").stdout.trim(), path.relative(fs.realpathSync.native(repo), fs.realpathSync.native(dir)));
   assert.equal(mk(repo, "plan", "validate").status, 0);
 });
 

@@ -23,7 +23,14 @@ function git(cwd, args) {
   }
 }
 
-export const workspaceRoot = (cwd = process.cwd()) => git(cwd, ["rev-parse", "--show-toplevel"]) || path.resolve(cwd);
+export const realPath = (p) => {
+  try {
+    return fs.realpathSync.native(p);
+  } catch {
+    return path.resolve(p);
+  }
+};
+export const workspaceRoot = (cwd = process.cwd()) => realPath(git(cwd, ["rev-parse", "--show-toplevel"]) || cwd);
 export const plansDir = (cwd = process.cwd()) => process.env.MK_PLANS_DIR || path.join(workspaceRoot(cwd), "plans");
 const pointerFile = (cwd) => {
   const gitDir = git(cwd, ["rev-parse", "--absolute-git-dir"]);

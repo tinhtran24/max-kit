@@ -3,7 +3,7 @@ import path from "node:path";
 import { parseArgs } from "./args.mjs";
 import { findRoot, loadConfig } from "../core/config.mjs";
 import { loadFeatures } from "../core/harness/store.mjs";
-import { addPhase, createPlan, listPlans, locate, PlanError, readPlan, refresh, resolveCurrent, setChecks, updatePlan, usePlan, validatePlan, workspaceRoot } from "../plans/plans.mjs";
+import { realPath, addPhase, createPlan, listPlans, locate, PlanError, readPlan, refresh, resolveCurrent, setChecks, updatePlan, usePlan, validatePlan, workspaceRoot } from "../plans/plans.mjs";
 
 const USAGE = `usage: mk plan <command>
 
@@ -23,7 +23,7 @@ const USAGE = `usage: mk plan <command>
 <plan> is a plan folder, its name, or a unique part of it; omitted means the current plan.
 The plan files are the only state: there is no index to rebuild.`;
 
-const rel = (p) => path.relative(process.cwd(), p) || ".";
+const rel = (p) => path.relative(realPath(process.cwd()), realPath(p)) || ".";
 
 function summary(plan) {
   const lines = [`${plan.name}  ${plan.meta.title || ""}`, `  status ${plan.meta.status || "pending"}, state ${plan.meta.state || "active"}, ${plan.progress.done}/${plan.progress.total} done (${plan.progress.percent}%)${plan.meta.feature ? `, feature ${plan.meta.feature}` : ""}${plan.meta.linked_pr ? `, PR #${plan.meta.linked_pr}` : ""}`];
