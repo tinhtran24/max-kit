@@ -1,0 +1,19 @@
+{
+  "name": "{{project}}-knowledgebase",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "check": "max-kit check",
+    "sync": "max-kit sync",
+    "index": "max-kit index",
+    "rollup": "max-kit rollup",
+    "new:feature": "max-kit new feature",
+    "new:run": "max-kit new run",
+    "log": "max-kit log",
+    "doctor": "max-kit doctor"
+  },
+  "devDependencies": {
+    "max-kit": "{{kitSpec}}"
+  }
+}

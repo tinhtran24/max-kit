@@ -1,0 +1,43 @@
+{
+  "name": "max-kit",
+  "version": "0.1.0",
+  "description": "Control-plane kit for coding agents: boot routing, evidence-based done, safety guards, rendered for each agent runtime.",
+  "type": "module",
+  "bin": {
+    "max-kit": "bin/max-kit.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin",
+    "src",
+    "profiles",
+    "skills",
+    "agents",
+    "hooks",
+    "template",
+    "schemas",
+    ".claude-plugin",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check": "node bin/max-kit.mjs check",
+    "sync": "node bin/max-kit.mjs sync",
+    "index": "node bin/max-kit.mjs index",
+    "rollup": "node bin/max-kit.mjs rollup",
+    "new:feature": "node bin/max-kit.mjs new feature",
+    "new:run": "node bin/max-kit.mjs new run",
+    "log": "node bin/max-kit.mjs log",
+    "doctor": "node bin/max-kit.mjs doctor"
+  },
+  "dependencies": {
+    "yaml": "2.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinhtran24/max-kit.git"
+  },
+  "license": "UNLICENSED"
+}

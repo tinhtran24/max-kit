@@ -38,12 +38,12 @@ max-kit/
       claude/             adapter.mjs, templates/
       codex/              adapter.mjs, templates/
       agents-md/          generic AGENTS.md renderer used by many runtimes
-  profiles/               rails, laravel, node, django, go, generic (YAML)
+  profiles/               generic, rails, laravel, node, django, go (JSON, so the hook path needs no dependency)
   packs/                  security, onboarding, tracker-github, tracker-jira, tracker-linear, code-index
-  content/
-    rules/                team-rules and boot text (Markdown with front matter)
-    skills/               harness, handoff, verify (SKILL.md format)
-    agents/               verifier, reviewer (Markdown with front matter)
+  skills/                 harness, handoff, verify (SKILL.md format; also the Claude plugin's skills)
+  agents/                 verifier, reviewer (Markdown with front matter)
+  hooks/hooks.json        Claude plugin hooks, all pointing at `max-kit hook`
+  .claude-plugin/         plugin and marketplace manifests
   template/               knowledgebase skeleton copied by init
   schemas/                JSON Schemas: config, feature, run, adapter manifest
   test/                   unit + golden-file tests per adapter
@@ -56,9 +56,9 @@ Every piece of content is loaded into one in-memory model before any runtime see
 
 | Kind | Source | Fields |
 | --- | --- | --- |
-| rule | `content/rules/*.md`, `knowledge/synthesis/team-rules.md` | id, scope (boot, repo, folder), body, budget weight |
-| skill | `content/skills/*/SKILL.md`, pack skills | name, description, triggers, body, scripts |
-| agent | `content/agents/*.md` | name, description, tools (neutral names), body |
+| rule | `knowledge/synthesis/team-rules.md`, `agent-boot.md` | id, scope (boot, repo, folder), body, budget weight |
+| skill | `skills/*/SKILL.md`, pack skills | name, description, triggers, body, scripts |
+| agent | `agents/*.md` | name, description, tools (neutral names), body |
 | guard | `src/guards/*.mjs` + profile patterns | id, event (session, prompt, pre-tool, stop, pre-compact), tool kinds, decide(input) |
 | command | `package.json` scripts of the knowledgebase | name, description |
 
@@ -142,7 +142,7 @@ Each phase ends with its features passing in the kit's own harness (the kit dogf
 
 ### Phase 0 — Repository and foundation (1–2 days)
 
-- Create `max-kit` on GitHub; MIT or internal licence; Node 20+, ESM, one runtime dependency (`yaml`).
+- Create `max-kit` on GitHub; choose a licence; Node 20+, ESM, one runtime dependency (`yaml`), none on the hook path.
 - CI: lint, unit tests, golden tests, `max-kit check` on the kit itself, on macOS, Linux and Windows.
 - Port the existing harness tooling (feature lint, index, runs, log, rollup, wiki lint, boot budget) into `src/core/harness/` behind the new CLI; drop shell scripts.
 - Schemas for config, feature, run.

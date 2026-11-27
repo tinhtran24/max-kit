@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tinhtran24/max-kit/schemas/feature.json",
+  "title": "max-kit harness feature",
+  "type": "object",
+  "required": ["id", "title", "area", "state", "verification_level", "trigger", "behavior", "verification", "updated_at"],
+  "properties": {
+    "id": { "type": "string", "description": "Matches the file name and harness.idPattern, e.g. APP-AUTH-001" },
+    "title": { "type": "string" },
+    "products": { "type": "array", "items": { "type": "string" } },
+    "area": { "type": "string" },
+    "priority": { "enum": ["low", "medium", "high"] },
+    "state": { "enum": ["draft", "reviewable", "active", "blocked", "passing", "retired"] },
+    "verification_level": { "enum": ["contract", "structural", "dry_run", "boot", "endpoint", "golden_path", "e2e", "manual"] },
+    "trigger": {
+      "type": "object",
+      "required": ["type", "summary"],
+      "properties": {
+        "type": { "enum": ["user_request", "ticket", "incident", "eval_finding", "source_review", "tooling_decision", "migration"] },
+        "summary": { "type": "string" },
+        "ref": { "type": "string", "description": "Ticket key, incident id or URL" }
+      }
+    },
+    "behavior": { "type": "string", "description": "Observable behavior that proves the feature works" },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "in": { "type": "array", "items": { "type": "string" } },
+        "out": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "source": { "type": "object" },
+    "verification": {
+      "type": "object",
+      "required": ["expected_result"],
+      "properties": {
+        "mode": { "enum": ["automated", "manual"] },
+        "commands": { "type": "array", "items": { "type": "string" } },
+        "protocol": { "type": "string" },
+        "expected_result": { "type": "string" }
+      }
+    },
+    "evidence": { "type": "array", "items": { "type": "string" }, "description": "Paths relative to knowledge/ (usually harness/runs/...) or URLs" },
+    "unknowns": { "type": "array", "items": { "type": "string" } },
+    "blocker": { "type": "string" },
+    "updated_at": { "type": "string", "format": "date" },
+    "last_verified_at": { "type": "string", "format": "date" }
+  }
+}

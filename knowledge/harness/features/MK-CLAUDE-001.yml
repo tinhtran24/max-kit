@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-CLAUDE-001
+title: "Claude Code adapter: plugin, hooks, CLAUDE.md import and adapter registry"
+area: adapters
+priority: high
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Claude Code first, with an adapter contract so other runtimes can be added later without core changes."
+behavior: >
+  sync renders AGENTS.md and a CLAUDE.md that imports it; the hook bridge turns Claude payloads into neutral guard
+  input and back; external adapters load from the config or max-kit-adapter-* packages; conflicting renders are errors.
+scope:
+  in: [src/adapters, hooks/hooks.json, .claude-plugin, skills/harness]
+  out: [Codex adapter (Phase 3), live install into a Claude Code session]
+verification:
+  mode: automated
+  commands:
+    - npm test
+  expected_result: "test/adapters.test.mjs passes, including golden files and the external adapter case."
+evidence:
+  - harness/runs/2026-11-27-phase-1-tests.md
+unknowns:
+  - "Plugin install and hooks inside a live Claude Code session not yet exercised; needs a manual run after merge."
+updated_at: 2026-11-27

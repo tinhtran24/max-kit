@@ -1,0 +1,4 @@
+node_modules/
+.max-kit/
+.DS_Store
+# app checkouts that live inside this folder, one per line, e.g. /api/

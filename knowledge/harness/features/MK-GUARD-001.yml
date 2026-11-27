@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-GUARD-001
+title: "Guards: boot context, protected push, deploy-branch edit, migration, risky command, evidence at stop"
+area: guards
+priority: high
+state: passing
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Safe by default in any repo; guard logic written once and shared by every runtime."
+behavior: >
+  Replaying recorded Claude payloads: push to a protected branch is denied, task branches pass, deploy-branch edits
+  and new hand-written migrations are denied, risky commands ask, stop blocks once when repos are dirty without a
+  recent run, nothing happens outside a knowledgebase, and bad input fails open.
+scope:
+  in: [src/guards, src/cli/hook.mjs, test/fixtures/claude]
+  out: [secret and privacy guards (Phase 6)]
+verification:
+  mode: automated
+  commands:
+    - npm test
+  expected_result: "test/guards.test.mjs and test/branch.test.mjs pass."
+evidence:
+  - harness/runs/2026-11-27-phase-1-tests.md
+unknowns: []
+updated_at: 2026-11-27
+last_verified_at: 2026-11-27
