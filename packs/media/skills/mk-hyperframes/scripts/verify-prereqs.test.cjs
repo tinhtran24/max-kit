@@ -5,6 +5,8 @@ const test = require('node:test');
 
 const SCRIPT = path.join(__dirname, 'verify-prereqs.mjs');
 
+const NEEDS_NODE_22 = Number(process.versions.node.split('.')[0]) < 22 && 'HyperFrames needs Node 22; this runtime is older, so the ready path cannot pass here';
+
 function runScript(args, envOverrides = {}) {
   return spawnSync(process.execPath, [SCRIPT, ...args], {
     encoding: 'utf8',
@@ -22,7 +24,7 @@ test('verify-prereqs: MOCK_FFMPEG_PRESENT is ignored without MK_HYPERFRAMES_TEST
   assert.doesNotMatch(result.stdout, /\(mocked\)/);
 });
 
-test('verify-prereqs: Node >= 22 + FFmpeg + FFprobe present -> exit 0, stdout contains READY', () => {
+test('verify-prereqs: Node >= 22 + FFmpeg + FFprobe present -> exit 0, stdout contains READY', { skip: NEEDS_NODE_22 }, () => {
   const result = runScript([], { MOCK_FFMPEG_PRESENT: '1' });
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /READY/);
@@ -46,7 +48,7 @@ test('verify-prereqs: FFprobe missing via MOCK_FFPROBE_PRESENT=0 -> non-zero exi
   assert.match(result.stderr, /FFprobe/);
 });
 
-test('verify-prereqs: --json mode produces valid JSON on stdout when all checks pass', () => {
+test('verify-prereqs: --json mode produces valid JSON on stdout when all checks pass', { skip: NEEDS_NODE_22 }, () => {
   const result = runScript(['--json'], { MOCK_FFMPEG_PRESENT: '1' });
   assert.equal(result.status, 0, result.stderr);
   const parsed = JSON.parse(result.stdout);
