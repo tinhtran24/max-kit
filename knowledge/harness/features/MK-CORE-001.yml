@@ -3,7 +3,7 @@ id: MK-CORE-001
 title: "CLI and harness core: init, check, sync, new feature and run, log, index, rollup"
 area: core
 priority: high
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
@@ -20,6 +20,8 @@ verification:
     - npm test
     - npm run check
   expected_result: "All tests pass, including test/harness.test.mjs; npm run check prints check passed."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-phase-1-tests.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27

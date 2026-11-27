@@ -19,7 +19,8 @@ verification:
   commands:
     - npm test
   expected_result: "test/adapters.test.mjs passes, including golden files and the external adapter case."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-phase-1-tests.md
 unknowns:
   - "Plugin install and hooks inside a live Claude Code session not yet exercised; needs a manual run after merge."
 updated_at: 2026-11-27
