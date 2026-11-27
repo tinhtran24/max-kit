@@ -4,7 +4,8 @@
   "description": "Control-plane kit for coding agents: boot routing, evidence-based done, safety guards, rendered for each agent runtime.",
   "type": "module",
   "bin": {
-    "max-kit": "bin/max-kit.mjs"
+    "max-kit": "bin/max-kit.mjs",
+    "mk": "bin/max-kit.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -19,7 +20,9 @@
     "template",
     "schemas",
     ".claude-plugin",
-    "README.md"
+    "README.md",
+    "packs",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "scripts": {
     "test": "node --test",
@@ -32,7 +35,8 @@
     "log": "node bin/max-kit.mjs log",
     "doctor": "node bin/max-kit.mjs doctor",
     "verify": "node bin/max-kit.mjs verify",
-    "detect": "node bin/max-kit.mjs detect"
+    "detect": "node bin/max-kit.mjs detect",
+    "skills:lint": "node bin/max-kit.mjs skills lint"
   },
   "dependencies": {
     "yaml": "2.5.1"

@@ -51,7 +51,12 @@ export default {
   },
 
   render(model) {
+    const packFiles = [
+      ...(model.packSkills || []).flatMap((skill) => skill.files.map((f) => ({ path: `.claude/skills/${skill.name}/${f.path}`, content: f.content }))),
+      ...(model.packAgents || []).map((a) => ({ path: `.claude/agents/${a.name}.md`, content: a.raw }))
+    ];
     return [
+      ...packFiles,
       {
         path: "CLAUDE.md",
         content: `${GENERATED}
