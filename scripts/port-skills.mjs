@@ -23,7 +23,10 @@ const EXACT = [
   [/^update\b(?! --)/, "mk update"],
   [/^journal create\b/, "mk log"],
   [/^secrets (set|get|describe|list|search|annotate|rotate|delete|rm|compare|import-env|export|run|request|approve|grants|revoke|audit|status)\b/, "mk secrets $1"],
-  [/^secrets grant\b/, "mk secrets approve"]
+  [/^secrets grant\b/, "mk secrets approve"],
+  [/^config prefs (resolve|get|set|unset|validate)\b/, "mk prefs $1"],
+  [/^plan (create|add-phase|list|search|show|status|check|uncheck|update|use|resolve|validate|close|archive)\b/, "mk plan $1"],
+  [/^plan$/, "mk plan"]
 ];
 
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -60,13 +63,13 @@ function walk(dir) {
 
 export function transform(text, o) {
   const unmapped = [];
-  let out = text.replace(new RegExp(`(^|[\\s\`'"(])${esc(o.cli)} ([a-z][a-z-]*(?: [a-z][a-z-]*)?)`, "gm"), (m, lead, sub) => {
+  let out = text.replace(new RegExp(`(^|[\\s\`'"(])${esc(o.cli)} ([a-z][a-z-]*(?: [a-z][a-z-]*){0,2})`, "gm"), (m, lead, sub) => {
     for (const [re, to] of EXACT) if (re.test(sub)) return `${lead}${sub.replace(re, to)}`;
     unmapped.push(sub.split(" ")[0]);
     return m;
   });
   out = out
-    .replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}(?=[a-z0-9])`, "g"), "$1mk-")
+    .replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`, "g"), "$1mk-")
     .replace(new RegExp(esc(o.configDir), "g"), ".max-kit")
     .replace(new RegExp(esc(o.product), "gi"), "max-kit")
     .replace(/^license:\s*Proprietary.*\n/gm, "")
@@ -77,7 +80,7 @@ export function transform(text, o) {
 
 function residuals(text, o) {
   const found = [];
-  if (new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}[a-z]`).test(text)) found.push("prefix");
+  if (new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`).test(text)) found.push("prefix");
   if (new RegExp(esc(o.product), "i").test(text)) found.push("product");
   if (text.includes(o.configDir)) found.push("config-dir");
   if (new RegExp(`(^|[\\s\`'"(])${esc(o.cli)} [a-z]`, "m").test(text)) found.push("cli");

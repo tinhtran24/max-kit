@@ -20,7 +20,7 @@ const write = (file, text) => {
 
 function sourceKit() {
   const dir = tmpDir("source");
-  write(path.join(dir, "skills", "zz-alpha", "SKILL.md"), `---\nname: zz-alpha\ndescription: "Alpha skill; pairs with zz-beta."\nlicense: Proprietary\nmetadata:\n  author: zeta\n---\n\n# Alpha\n\nRun \`zz doctor\` then \`zz plan update\`. Settings live in .zeta/config.yaml. Built by Zeta.\n`);
+  write(path.join(dir, "skills", "zz-alpha", "SKILL.md"), `---\nname: zz-alpha\ndescription: "Alpha skill; pairs with zz-beta."\nlicense: Proprietary\nmetadata:\n  author: zeta\n---\n\n# Alpha\n\nRun \`zz doctor\` then \`zz plan reindex\`. Settings live in .zeta/config.yaml. Built by Zeta.\n`);
   write(path.join(dir, "skills", "zz-alpha", "LICENSE.txt"), "zz-alpha\nCopyright (c) 2026 Zeta. All Rights Reserved.\n");
   write(path.join(dir, "skills", "zz-beta", "SKILL.md"), `---\nname: zz-beta\ndescription: "Beta skill."\n---\n\n# Beta\n\nSee [ref](references/zz-guide.md).\n`);
   write(path.join(dir, "skills", "zz-beta", "references", "zz-guide.md"), "guide\n");
@@ -41,10 +41,10 @@ after(() => {
 });
 
 test("transform renames, maps exact commands and reports the rest", () => {
-  const { out, unmapped } = transform("Use zz-alpha. Run `zz doctor` and `zz plan update`. See .zeta/x and zeta docs.\nlicense: Proprietary\n  author: zeta\n", SRC);
+  const { out, unmapped } = transform("Use zz-alpha. Run `zz doctor` and `zz plan reindex`. See .zeta/x and zeta docs.\nlicense: Proprietary\n  author: zeta\n", SRC);
   assert.match(out, /Use mk-alpha\./);
   assert.match(out, /`mk doctor`/);
-  assert.match(out, /`zz plan update`/, "unmapped commands are left for a person to rewrite");
+  assert.match(out, /`zz plan reindex`/, "unmapped commands are left for a person to rewrite");
   assert.deepEqual(unmapped, ["plan"]);
   assert.match(out, /\.max-kit\/x and max-kit docs/);
   assert.doesNotMatch(out, /license:/);
@@ -87,7 +87,7 @@ test("skills lint checks names, references, commands and forbidden names", () =>
   const alpha = path.join(packs, "core-pack", "skills", "mk-alpha", "SKILL.md");
   const original = fs.readFileSync(alpha, "utf8");
 
-  fs.writeFileSync(alpha, original.replace(/`zz plan update`/, "`mk verify`"));
+  fs.writeFileSync(alpha, original.replace(/`zz plan reindex`/, "`mk verify`"));
   assert.deepEqual(lint().errors, []);
 
   fs.writeFileSync(alpha, `${original}\nAlso run \`mk frobnicate\` and use mk-nowhere.\n`);
@@ -98,7 +98,7 @@ test("skills lint checks names, references, commands and forbidden names", () =>
   process.env.MK_SKILLS_FORBIDDEN = "\\bzz ";
   assert.match(lint().errors.join("\n"), /forbidden source name/);
   delete process.env.MK_SKILLS_FORBIDDEN;
-  fs.writeFileSync(alpha, original.replace(/`zz plan update`/, "`mk verify`"));
+  fs.writeFileSync(alpha, original.replace(/`zz plan reindex`/, "`mk verify`"));
 });
 
 test("enabled packs render for claude and codex, with requires, and are pruned when disabled", async () => {

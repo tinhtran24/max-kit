@@ -38,6 +38,7 @@ verification:
     (includes skills lint)."
 evidence:
   - harness/runs/2026-11-27-verify-mk-packs-001.md
+  - harness/runs/2026-11-27-verify-mk-packs-001-2.md
 unknowns: []
 updated_at: 2026-11-27
 last_verified_at: 2026-11-27

@@ -2,19 +2,29 @@
   "description": "Plan, build, debug, fix, test and review with harness evidence.",
   "requires": [],
   "skills": [
+    "mk-advise",
     "mk-ask",
     "mk-atoz",
+    "mk-bootstrap",
+    "mk-brainstorm",
     "mk-bro",
+    "mk-code-review",
+    "mk-cook",
+    "mk-debug",
     "mk-explain",
     "mk-fable-thinking",
+    "mk-fix",
     "mk-issue-to-plan",
+    "mk-plan",
     "mk-predict",
     "mk-problem-solving",
     "mk-research",
     "mk-research-prompt",
+    "mk-scenario",
     "mk-scout",
     "mk-sowat",
     "mk-sumup",
+    "mk-test",
     "mk-xia"
   ],
   "agents": [
@@ -25,22 +35,10 @@
     "mk-debugger",
     "mk-explore",
     "mk-fullstack-developer",
+    "mk-planner",
     "mk-researcher",
     "mk-tester"
   ],
-  "planned": [
-    "mk-advise",
-    "mk-brainstorm",
-    "mk-plan",
-    "mk-cook",
-    "mk-fix",
-    "mk-debug",
-    "mk-test",
-    "mk-code-review",
-    "mk-scenario",
-    "mk-bootstrap"
-  ],
-  "plannedAgents": [
-    "mk-planner"
-  ]
+  "planned": [],
+  "plannedAgents": []
 }
