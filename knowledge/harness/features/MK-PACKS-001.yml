@@ -1,18 +1,22 @@
 # yaml-language-server: $schema=../../../schemas/feature.json
 id: MK-PACKS-001
-title: "Skill packs and port tooling: mk alias, pack loading and rendering, skills lint, port script"
+title: "Skill packs and port tooling: mk alias, pack loading and rendering,
+  skills lint, port script"
 area: packs
 priority: high
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
-  summary: "Move the owner's existing agent kit into max-kit as opt-in mk-* packs (docs/skills-migration.md, batch 0)."
+  summary: "Move the owner's existing agent kit into max-kit as opt-in mk-* packs
+    (docs/skills-migration.md, batch 0)."
 behavior: >
-  Knowledgebases enable packs in the config; sync renders their skills and agents for Claude and Codex, follows
-  requires, prunes files of disabled packs and reports unknown packs. The port script renames to mk-, maps exact CLI
-  equivalents, removes the owner's notices and keeps third-party ones; skills lint rejects dead commands, unknown mk-
-  references, wrong names, oversize skills and forbidden source names.
+  Knowledgebases enable packs in the config; sync renders their skills and
+  agents for Claude and Codex, follows requires, prunes files of disabled packs
+  and reports unknown packs. The port script renames to mk-, maps exact CLI
+  equivalents, removes the owner's notices and keeps third-party ones; skills
+  lint rejects dead commands, unknown mk- references, wrong names, oversize
+  skills and forbidden source names.
 acceptance:
   - id: AC1
     then: enabled packs render for both runtimes and disabled packs are pruned
@@ -28,9 +32,12 @@ verification:
   mode: automated
   commands:
     - run: npm test
-      covers: [AC1, AC2, AC3]
+      covers: [ AC1, AC2, AC3 ]
     - run: npm run check
-  expected_result: "All tests pass including test/packs.test.mjs; check passed (includes skills lint)."
-evidence: []
+  expected_result: "All tests pass including test/packs.test.mjs; check passed
+    (includes skills lint)."
+evidence:
+  - harness/runs/2026-11-27-verify-mk-packs-001.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
