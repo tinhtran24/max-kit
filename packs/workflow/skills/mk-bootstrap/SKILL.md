@@ -125,7 +125,7 @@ After early phases (research, tech stack, design), trigger downstream skills:
 ### Surface Skills
 Route each surface to its owning skill during tech stack, design and
 implementation: `mk-web-frameworks` or `mk-frontend` for web,
-`mk-mobile-development` for mobile, `mk-backend-development` for APIs,
+`mk-mobile` for mobile, `mk-backend` for APIs,
 `mk-mcp-builder` for MCP servers, `mk-webmcp` for WebMCP, `mk-agentize` for
 agent-facing CLIs. The checklist names the rest.
 

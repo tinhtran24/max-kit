@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-007
+title: "Migration batch 6b: backend and mobile packs with short names"
+area: packs
+priority: medium
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the backend and mobile packs (docs/skills-migration.md batch 6), keeping skill names short."
+behavior: >
+  The backend pack ships 8 skills (backend, databases, better-auth, payments, shopify, google-adk, agentize,
+  mcp-builder) and the mobile pack ships mk-mobile; long source names are shortened everywhere and forbidden in lint.
+acceptance:
+  - id: AC1
+    then: skills lint passes with source names and the old long names forbidden
+  - id: AC2
+    then: the backend Python suites pass (better-auth 31, shopify 28, databases 46)
+watch:
+  - packs/backend/
+  - packs/mobile/
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+    - run: npm run check
+      covers: [AC1]
+  covers: [AC2]
+  expected_result: "All tests pass; check passed with forbidden patterns active."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27

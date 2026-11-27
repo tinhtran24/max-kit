@@ -1,10 +1,10 @@
 {
   "description": "iOS and Android apps.",
   "requires": [],
-  "skills": [],
-  "agents": [],
-  "planned": [
-    "mk-mobile-development"
+  "skills": [
+    "mk-mobile"
   ],
+  "agents": [],
+  "planned": [],
   "plannedAgents": []
 }

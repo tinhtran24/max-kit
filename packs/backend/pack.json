@@ -1,17 +1,20 @@
 {
   "description": "Backend services, databases, auth, payments, commerce and MCP servers.",
   "requires": [],
-  "skills": [],
-  "agents": [],
-  "planned": [
-    "mk-backend-development",
-    "mk-databases",
-    "mk-better-auth",
-    "mk-payment-integration",
-    "mk-shopify",
-    "mk-google-adk-python",
+  "skills": [
     "mk-agentize",
-    "mk-mcp-builder"
+    "mk-backend",
+    "mk-better-auth",
+    "mk-databases",
+    "mk-google-adk",
+    "mk-mcp-builder",
+    "mk-payments",
+    "mk-shopify"
   ],
-  "plannedAgents": []
+  "agents": [],
+  "planned": [],
+  "plannedAgents": [],
+  "maxSkillKb": {
+    "mk-payments": 660
+  }
 }
