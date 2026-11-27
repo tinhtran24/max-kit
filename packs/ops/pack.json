@@ -2,13 +2,12 @@
   "description": "Deploy, DevOps, security audits and secrets.",
   "requires": [],
   "skills": [
+    "mk-deploy",
+    "mk-devops",
+    "mk-security",
     "mk-vault"
   ],
   "agents": [],
-  "planned": [
-    "mk-devops",
-    "mk-deploy",
-    "mk-security"
-  ],
+  "planned": [],
   "plannedAgents": []
 }

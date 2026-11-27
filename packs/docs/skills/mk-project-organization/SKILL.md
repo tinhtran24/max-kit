@@ -216,7 +216,7 @@ Other skills reference it when determining output paths:
 - `project-management` → docs/ + plans/
 - `ui-ux-designer` / `frontend-design` → assets/designs/
 - `ai-artist` / `ai-multimodal` → assets/generated/
-- `media-processing` → assets/videos/, assets/images/
+- `mk-media` → assets/videos/, assets/images/
 - `git` → respects all naming conventions
 - `descriptive-name` hook → code file naming (JS/TS/Python/Shell = kebab-case)
 
