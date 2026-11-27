@@ -17,7 +17,7 @@ const isText = (file) => {
 
 const USAGE = `usage: node scripts/port-skills.mjs --source <skills dir> --prefix <source prefix, e.g. xx-> --cli <source cli name>
          --product <source product name> --config-dir <source config folder> [--agents <agents dir>]
-         [--pack <id> | --skill <mk-name,...>] [--rename <old>=<new>,...] [--write] [--report <file>]
+         [--pack <id> | --skill <mk-name,...>] [--rename <old>=<new>,...] [--token <text>=<replacement>,...] [--write] [--report <file>]
 
 Without --write it only reports. With --write it copies the selected planned skills into their pack.`;
 
@@ -68,17 +68,33 @@ function walk(dir) {
   return out;
 }
 
+export function productForm(match, pre, word, post) {
+  if (!pre && !post) return "max-kit";
+  const snake = pre.endsWith("_") || post.startsWith("_") || (!pre && /^[a-z]/.test(word) && /^[A-Z_]/.test(post) === false && post.startsWith("_"));
+  if (word === word.toUpperCase()) return `${pre}MAX_KIT${post}`;
+  if (snake && word === word.toLowerCase()) return `${pre}max_kit${post}`;
+  if (/^[A-Z]/.test(word) || pre) return `${pre}MaxKit${post}`;
+  return `${pre}maxKit${post}`;
+}
+
 export function transform(text, o) {
   const unmapped = [];
-  let out = text.replace(new RegExp(`(^|[\\s\`'"(])${esc(o.cli)} ([a-z][a-z-]*(?: [a-z][a-z-]*){0,2})`, "gm"), (m, lead, sub) => {
+  let tokenized = text;
+  for (const [from, to] of Object.entries(o.tokens || {}).sort((a, b) => b[0].length - a[0].length)) {
+    tokenized = tokenized.replace(new RegExp(`(?<![A-Za-z0-9_])${esc(from)}(?![A-Za-z0-9_-])`, "gi"), to);
+  }
+  let out = tokenized.replace(new RegExp(`(^|[\\s\`'"(])${esc(o.cli)} ([a-z][a-z-]*(?: [a-z][a-z-]*){0,2})`, "gm"), (m, lead, sub) => {
     for (const [re, to] of EXACT) if (re.test(sub)) return `${lead}${sub.replace(re, to)}`;
     unmapped.push(sub.split(" ")[0]);
     return m;
   });
   out = out
     .replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`, "g"), "$1mk-")
-    .replace(new RegExp(esc(o.configDir), "g"), ".max-kit")
-    .replace(new RegExp(esc(o.product), "gi"), "max-kit")
+    .replace(new RegExp(`(?<![A-Za-z0-9])(_*)${esc(o.prefix.replace(/-$/, ""))}_`, "g"), "$1mk_")
+    .replace(new RegExp(`_${esc(o.prefix.replace(/-$/, ""))}_`, "g"), "_mk_")
+    .replace(new RegExp(`(?<![A-Za-z0-9]|\\\\[nrt])${esc(o.prefix.replace(/-$/, "").toUpperCase())}_|(?<=\\\\[nrt])${esc(o.prefix.replace(/-$/, "").toUpperCase())}_`, "g"), "MK_")
+    .replace(new RegExp(`${esc(o.configDir)}(?![A-Za-z0-9_])`, "g"), ".max-kit")
+    .replace(new RegExp(`([A-Za-z0-9_]*?)(${esc(o.product)})([A-Za-z0-9_]*)`, "gi"), productForm)
     .replace(/^license:\s*Proprietary.*\n/gm, "")
     .replace(/^(\s*author:\s*).+$/gm, "$1max-kit");
   for (const [from, to] of Object.entries(o.renames || {})) out = out.replace(new RegExp(`\\bmk-${esc(from)}\\b`, "g"), `mk-${to}`);
@@ -106,7 +122,7 @@ function licenceAction(text, o) {
 }
 
 function main() {
-  const a = parseArgs(process.argv.slice(2), { flags: ["write", "help"], options: ["source", "agents", "prefix", "cli", "product", "config-dir", "pack", "skill", "report", "rename", "packs-dir", "notices"] });
+  const a = parseArgs(process.argv.slice(2), { flags: ["write", "help"], options: ["source", "agents", "prefix", "cli", "product", "config-dir", "pack", "skill", "report", "rename", "packs-dir", "notices", "token"] });
   const o = { source: a.options.source, agents: a.options.agents, prefix: a.options.prefix, cli: a.options.cli, product: a.options.product, configDir: a.options["config-dir"] };
   if (a.flags.help || !o.source || !o.prefix || !o.cli || !o.product || !o.configDir) {
     console.log(USAGE);
@@ -115,6 +131,7 @@ function main() {
   if (a.options["packs-dir"]) PACKS = path.resolve(a.options["packs-dir"]);
   if (a.options.notices) NOTICES = path.resolve(a.options.notices);
   const only = a.options.skill ? new Set(a.options.skill.split(",")) : null;
+  o.tokens = Object.fromEntries((a.options.token || "").split(",").filter(Boolean).map((p) => p.split("=")));
   o.renames = Object.fromEntries((a.options.rename || "").split(",").filter(Boolean).map((p) => p.split("=")));
   const report = { skills: [], agents: [], unplaced: [] };
   const notices = [];

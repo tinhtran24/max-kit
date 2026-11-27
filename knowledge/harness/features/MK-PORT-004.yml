@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-004
+title: "Migration batch 4: delivery pack, mk lang, mk pr-body, identifier-aware
+  porting"
+area: packs
+priority: high
+state: passing
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 4):
+    git, github, review-pr, ship, vibe, worktree."
+behavior: >
+  The delivery pack ships 6 skills and the git-manager agent. Ship gates on mk
+  check and mk verify inside a knowledgebase; review-pr and ship check PR bodies
+  with mk pr-body and write in the language from mk lang; worktree reads its
+  root from mk prefs locations. The port script renames the product inside code
+  identifiers and the prefix in snake and upper case without breaking scripts.
+acceptance:
+  - id: AC1
+    then: the ported worktree and ship script suites pass (worktree 101,
+      resolve-root 19, compose 14)
+  - id: AC2
+    then: mk lang and mk pr-body behave as the helper scripts they replace
+  - id: AC3
+    then: skills lint passes with source-name patterns including snake, upper and
+      identifier forms
+watch:
+  - scripts/port-skills.mjs
+  - src/cli/lang.mjs
+  - src/cli/pr-body.mjs
+  - packs/delivery/
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [ AC1, AC2 ]
+    - run: npm run check
+      covers: [ AC3 ]
+  expected_result: "All tests pass; check passed with forbidden patterns active."
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-004-2.md
+  - harness/runs/2026-11-27-verify-mk-port-004-3.md
+unknowns: []
+updated_at: 2026-11-27
+last_verified_at: 2026-11-27

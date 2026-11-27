@@ -3,9 +3,7 @@
   "requires": [
     "workflow"
   ],
-  "skills": [],
-  "agents": [],
-  "planned": [
+  "skills": [
     "mk-git",
     "mk-github",
     "mk-review-pr",
@@ -13,7 +11,9 @@
     "mk-vibe",
     "mk-worktree"
   ],
-  "plannedAgents": [
+  "agents": [
     "mk-git-manager"
-  ]
+  ],
+  "planned": [],
+  "plannedAgents": []
 }

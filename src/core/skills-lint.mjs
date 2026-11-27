@@ -110,13 +110,19 @@ export function lintSkills(root = KIT_ROOT) {
             if (!elsewhere) r.errors.push(`${at}/${relf}: broken link ${target}`);
           }
         }
-        for (const [, ref] of body.matchAll(/(?<![\w/.-])(mk-[a-z0-9]+(?:-[a-z0-9]+)*)(?![\w/-]|\.[a-z0-9])/g)) {
+        const isTest = /\.test\.[a-z]+$/.test(relf);
+        for (const [, ref] of isTest ? [] : body.matchAll(/(?<![\w/.-])(mk-[a-z0-9]+(?:-[a-z0-9]+)*)(?![\w/-]|\.[a-z0-9])/g)) {
           if (ref === name || ported.has(ref)) continue;
           if (!known.has(ref)) r.errors.push(`${at}/${relf}: refers to ${ref}, which is not a max-kit skill or agent`);
           else unresolved.set(ref, (unresolved.get(ref) || new Set()).add(name));
         }
-        const code = [...body.matchAll(/```[\s\S]*?```|`[^`\n]+`/g)].map((m) => m[0]).join("\n");
-        for (const [, cmd, sub] of code.matchAll(/(?:^|[\s`'"(;&|])(?:mk|max-kit) ([a-z][a-z-]*)(?:[ \t]+([a-z][a-z-]*))?/gm)) {
+        const commands = [];
+        for (const [, span] of body.matchAll(/`([^`\n]+)`/g)) commands.push(span);
+        for (const [block] of body.matchAll(/```[\s\S]*?```/g)) for (const line of block.split("\n")) commands.push(...line.split(/\s(?:\||&&|;)\s/));
+        for (const c of commands) {
+          const m = c.trim().match(/^(?:\$\s+)?(?:npx\s+(?:--no-install\s+)?)?(?:mk|max-kit) ([a-z][a-z-]*)(?:[ \t]+([a-z][a-z-]*))?/);
+          if (!m) continue;
+          const [, cmd, sub] = m;
           if (!COMMAND_NAMES.includes(cmd)) r.errors.push(`${at}/${relf}: mentions "mk ${cmd}", which is not a max-kit command`);
           else if (sub && SUBCOMMANDS[cmd] && !SUBCOMMANDS[cmd].includes(sub)) r.errors.push(`${at}/${relf}: mentions "mk ${cmd} ${sub}", which is not a max-kit command`);
         }

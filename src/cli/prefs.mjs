@@ -4,7 +4,7 @@ import path from "node:path";
 import { CONFIG_FILE, findRoot } from "../core/config.mjs";
 import { parseArgs } from "./args.mjs";
 
-const userFile = () => path.join(process.env.MK_PREFS_DIR || path.join(os.homedir(), ".max-kit"), "prefs.json");
+const userFile = () => path.join(process.env.MK_PREFS_DIR || process.env.MAX_KIT_HOME || path.join(os.homedir(), ".max-kit"), "prefs.json");
 const readJson = (f) => {
   try {
     return JSON.parse(fs.readFileSync(f, "utf8"));
