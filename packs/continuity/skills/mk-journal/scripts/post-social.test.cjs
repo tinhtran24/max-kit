@@ -354,7 +354,7 @@ test('post-social: --channels resolves a named `groups.*` entry from journal.yam
   }
 });
 
-test('post-social: live path — a real spawnSync round-trip through a fake npx succeeds and returns the post URL', () => {
+test('post-social: live path — a real spawnSync round-trip through a fake npx succeeds and returns the post URL', { skip: POSIX_ONLY }, () => {
   const projectRoot = makeProject();
   const binDir = makeFakeNpxDir();
   try {
@@ -385,7 +385,7 @@ test('post-social: live path — a real spawnSync round-trip through a fake npx 
   }
 });
 
-test('post-social: live path — a mid-run failure still flushes the earlier SUCCESS to posted.json', () => {
+test('post-social: live path — a mid-run failure still flushes the earlier SUCCESS to posted.json', { skip: POSIX_ONLY }, () => {
   const projectRoot = makeProject();
   const binDir = makeFakeNpxDir();
   try {
@@ -432,7 +432,7 @@ test('post-social: live path — a mid-run failure still flushes the earlier SUC
   }
 });
 
-test('post-social: child process env is scoped to ZERNIO_* + passthrough keys — unrelated secrets do not leak', () => {
+test('post-social: child process env is scoped to ZERNIO_* + passthrough keys — unrelated secrets do not leak', { skip: POSIX_ONLY }, () => {
   const projectRoot = makeProject();
   const binDir = makeFakeNpxDir();
   const envDumpPath = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'mk-journal-envdump-')), 'env.json');
