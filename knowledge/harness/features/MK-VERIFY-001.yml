@@ -1,21 +1,26 @@
 # yaml-language-server: $schema=../../../schemas/feature.json
 id: MK-VERIFY-001
-title: "Trustworthy evidence: verify command, acceptance criteria, stale evidence, verifier agent, redaction"
+title: "Trustworthy evidence: verify command, acceptance criteria, stale
+  evidence, verifier agent, redaction"
 area: harness
 priority: high
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
-  summary: "Phase 4 of docs/plan.md: evidence written by the tool from real output, tied to a commit, and flagged when the code moves on."
+  summary: "Phase 4 of docs/plan.md: evidence written by the tool from real
+    output, tied to a commit, and flagged when the code moves on."
 behavior: >
-  max-kit verify runs a feature's commands in their repos and records commit, branch, dirty flag and redacted output;
-  passing is set only when every command passed, no unknowns are open and the repo is clean; check warns when watched
-  paths changed after the verified commit; acceptance criteria must be covered by commands or the protocol.
+  max-kit verify runs a feature's commands in their repos and records commit,
+  branch, dirty flag and redacted output; passing is set only when every command
+  passed, no unknowns are open and the repo is clean; check warns when watched
+  paths changed after the verified commit; acceptance criteria must be covered
+  by commands or the protocol.
 acceptance:
   - id: AC1
     when: verification commands pass in a clean repo
-    then: a run file with commit and redacted output exists and the feature is passing with that evidence
+    then: a run file with commit and redacted output exists and the feature is
+      passing with that evidence
   - id: AC2
     when: a command fails, an unknown is open or the repo is dirty
     then: the feature is not marked passing (and passing is demoted on failure)
@@ -30,9 +35,11 @@ verification:
   mode: automated
   commands:
     - run: npm test
-      covers: [AC1, AC2, AC3]
+      covers: [ AC1, AC2, AC3 ]
     - run: npm run check
   expected_result: "All tests pass, including test/verify.test.mjs; check passed."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-verify-mk-verify-001.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
