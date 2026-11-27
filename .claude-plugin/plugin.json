@@ -1,0 +1,9 @@
+{
+  "name": "max-kit",
+  "version": "0.1.0",
+  "description": "Control-plane knowledgebase for coding agents: boot context, branch, migration and risky-command guards, evidence reminder, harness skill. Acts only inside a folder with max-kit.config.json.",
+  "author": { "name": "tinhtran24" },
+  "homepage": "https://github.com/tinhtran24/max-kit",
+  "repository": "https://github.com/tinhtran24/max-kit",
+  "keywords": ["harness", "knowledgebase", "guards", "evidence"]
+}

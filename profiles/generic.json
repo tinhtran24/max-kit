@@ -1,0 +1,21 @@
+{
+  "id": "generic",
+  "description": "Any stack. Conservative defaults; other profiles extend this one.",
+  "testCommand": "",
+  "migrations": {
+    "paths": ["/db/migrate/", "/db/migrations/", "/migrations/"],
+    "generator": ""
+  },
+  "riskyCommands": [
+    "\\bDROP\\s+(TABLE|DATABASE|SCHEMA)\\b",
+    "\\bTRUNCATE\\s+TABLE\\b",
+    "\\bkubectl\\s+(exec|port-forward|delete|apply|scale|rollout)\\b",
+    "\\bterraform\\s+(apply|destroy)\\b",
+    "\\bhelm\\s+(install|upgrade|uninstall)\\b",
+    "docker(-|\\s+)compose\\s+up(\\s+-d)?\\s*$",
+    "(^|[^a-z])(staging|production|prod)\\.[a-z0-9.-]+\\.(com|net|io|org|dev|app)\\b",
+    "\\.rds\\.amazonaws\\.com\\b",
+    "\\b(NODE_ENV|RAILS_ENV|APP_ENV)=production\\b"
+  ],
+  "secretPaths": ["(^|/)\\.env(\\.|$)", "\\.pem$", "\\.key$", "(^|/)id_(rsa|ed25519)$", "(^|/)credentials(\\.json)?$"]
+}

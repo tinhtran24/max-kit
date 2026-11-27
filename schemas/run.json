@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tinhtran24/max-kit/schemas/run.json",
+  "title": "max-kit harness run front matter",
+  "type": "object",
+  "required": ["features", "date", "result"],
+  "properties": {
+    "features": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "date": { "type": "string", "format": "date" },
+    "result": { "enum": ["passed", "failed", "blocked", "skipped"] },
+    "tier": { "enum": ["high", "low"] },
+    "repo": { "type": "string" },
+    "commit": { "type": "string" },
+    "pr": { "type": "string" }
+  }
+}

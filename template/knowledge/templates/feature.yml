@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=../../../node_modules/max-kit/schemas/feature.json
+id: {{id}}
+title: "{{title}}"
+area: {{area}}
+priority: medium
+state: draft
+verification_level: manual
+trigger:
+  type: {{trigger}}
+  summary: "TODO: the request, ticket, incident or decision that makes this real."
+  ref: ""
+behavior: >
+  TODO: observable behavior that proves the feature works.
+scope:
+  in: []
+  out: []
+verification:
+  mode: manual
+  commands: []
+  protocol: "TODO: steps, or replace with commands."
+  expected_result: "TODO"
+evidence: []
+unknowns:
+  - "TODO: remove when resolved"
+updated_at: {{date}}

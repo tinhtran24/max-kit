@@ -1,0 +1,33 @@
+{
+  "$schema": "./schemas/config.json",
+  "project": "max-kit",
+  "idPrefix": "MK",
+  "profile": "generic",
+  "repos": [],
+  "targets": [
+    "claude"
+  ],
+  "branches": {
+    "protected": [
+      "main"
+    ],
+    "deploy": []
+  },
+  "guards": {
+    "riskyCommands": {
+      "extend": []
+    },
+    "migrationPaths": {
+      "extend": []
+    }
+  },
+  "harness": {
+    "staleActiveDays": 30,
+    "staleVerifiedDays": 120
+  },
+  "boot": {
+    "maxChars": 9000,
+    "maxInstructionLines": 80
+  },
+  "kitVersion": "0.1.0"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "max-kit",
+  "description": "max-kit: control-plane knowledgebase for coding agents",
+  "owner": {
+    "name": "tinhtran24"
+  },
+  "plugins": [
+    {
+      "name": "max-kit",
+      "source": "./",
+      "description": "Control-plane knowledgebase for coding agents: boot context, guards, evidence-based done."
+    }
+  ]
+}

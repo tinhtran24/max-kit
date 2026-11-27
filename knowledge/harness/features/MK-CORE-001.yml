@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-CORE-001
+title: "CLI and harness core: init, check, sync, new feature and run, log, index, rollup"
+area: core
+priority: high
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Build max-kit Phase 0 and Phase 1 from docs/plan.md: a generic, installable control-plane kit."
+behavior: >
+  max-kit init creates a knowledgebase that passes max-kit check; the check fails on passing without evidence,
+  blocked without blocker, stale generated files, broken links, boot budget overflow and duplicated rules.
+scope:
+  in: [src/cli, src/core, template, schemas, profiles]
+  out: [stack detection (Phase 2), verify command (Phase 4)]
+verification:
+  mode: automated
+  commands:
+    - npm test
+    - npm run check
+  expected_result: "All tests pass, including test/harness.test.mjs; npm run check prints check passed."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27
