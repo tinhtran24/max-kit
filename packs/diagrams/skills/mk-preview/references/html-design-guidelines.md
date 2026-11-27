@@ -392,4 +392,4 @@ If `/mk-ai-multimodal` skill is available and image generation is appropriate, i
 
 **When to skip:** Anything Mermaid or CSS handles well. Generic decoration that doesn't convey meaning. Data-heavy pages where images would distract. Always degrade gracefully — the page should stand on its own with CSS and typography alone.
 
-For `--slides` presentation-grade output, consider invoking `/mk-ui-ux-pro-max` for richer style selection and distinctive font/palette pairing.
+For `--slides` presentation-grade output, consider invoking `/mk-uiux` for richer style selection and distinctive font/palette pairing.

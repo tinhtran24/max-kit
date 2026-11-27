@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-006
+title: "Migration batch 6a: frontend pack with short skill names"
+area: packs
+priority: medium
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the frontend pack; the owner asked for short names instead of long or branded ones (2026-11-27)."
+behavior: >
+  The frontend pack ships 14 skills and the ui-ux-designer agent with short names (mk-uiux, mk-react, mk-frontend,
+  mk-ux-audit); no old long name remains in any pack, and rename-skill renames a skill everywhere and refuses
+  duplicates across packs. Ported JS and Python suites pass and the uiux search engine works after the rename.
+acceptance:
+  - id: AC1
+    then: skills lint passes with the old long names and source names forbidden
+  - id: AC2
+    then: ported suites pass (JS in npm test; web-frameworks and ui-styling Python suites)
+  - id: AC3
+    then: rename-skill moves folders, rewrites references including slash commands and paths, and refuses duplicates
+watch:
+  - packs/frontend/
+  - scripts/rename-skill.mjs
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [AC2, AC3]
+    - run: npm run check
+      covers: [AC1]
+  covers: [AC2]
+  expected_result: "All tests pass; check passed with forbidden patterns active."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27

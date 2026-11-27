@@ -25,7 +25,7 @@ file to choose the mode.
   `/mk-tech-graph`.
 - Generated images or multimodal analysis: use `/mk-ai-multimodal`.
 - UI/UX style selection for slides or high-polish HTML: use
-  `/mk-ui-ux-pro-max`.
+  `/mk-uiux`.
 - Documentation update after a durable visual: use `/mk-docs update` and
   `../../docs/references/documentation-management.md`.
 

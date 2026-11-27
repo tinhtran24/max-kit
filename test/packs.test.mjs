@@ -130,3 +130,24 @@ test("enabled packs render for claude and codex, with requires, and are pruned w
   cfg = editConfig(kb, (c) => (c.packs = ["nope"]));
   assert.match((await syncKnowledgebase(cfg, { check: true })).errors.join("\n"), /unknown pack "nope"/);
 });
+
+test("rename-skill moves the folder and rewrites references, slash commands and paths", async () => {
+  const { renameSkill } = await import("../scripts/rename-skill.mjs");
+  const root = tmpDir("rename");
+  write(path.join(root, "a", "pack.json"), JSON.stringify({ description: "a", skills: ["mk-long-name"], planned: [], maxSkillKb: { "mk-long-name": 900 } }));
+  write(path.join(root, "a", "skills", "mk-long-name", "SKILL.md"), "---\nname: mk-long-name\ndescription: d\n---\nSee [x](../mk-long-name/ref.md).\n");
+  write(path.join(root, "b", "pack.json"), JSON.stringify({ description: "b", skills: ["mk-user"], planned: [] }));
+  write(path.join(root, "b", "skills", "mk-user", "SKILL.md"), "---\nname: mk-user\ndescription: d\n---\nRun /mk-long-name, then mk-long-name. Not mk-long-name-extra or file.mk-long-name.\n");
+  const r = renameSkill("mk-long-name", "mk-short", { packs: root });
+  assert.equal(r.manifests, 1);
+  assert.ok(fs.existsSync(path.join(root, "a", "skills", "mk-short", "SKILL.md")));
+  const meta = JSON.parse(fs.readFileSync(path.join(root, "a", "pack.json"), "utf8"));
+  assert.deepEqual(meta.skills, ["mk-short"]);
+  assert.deepEqual(meta.maxSkillKb, { "mk-short": 900 });
+  assert.match(fs.readFileSync(path.join(root, "a", "skills", "mk-short", "SKILL.md"), "utf8"), /^name: mk-short$[\s\S]*\(\.\.\/mk-short\/ref\.md\)/m);
+  assert.equal(
+    fs.readFileSync(path.join(root, "b", "skills", "mk-user", "SKILL.md"), "utf8").split("\n").at(-2),
+    "Run /mk-short, then mk-short. Not mk-long-name-extra or file.mk-long-name."
+  );
+  assert.throws(() => renameSkill("mk-user", "mk-short", { packs: root }), /already exists/);
+});

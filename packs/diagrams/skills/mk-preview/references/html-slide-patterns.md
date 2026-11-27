@@ -6,7 +6,7 @@ CSS patterns, JS engine, slide type layouts, transitions, navigation chrome, and
 
 **Before generating**, also read `./html-css-patterns.md` for shared patterns (Mermaid zoom controls, overflow protection, depth tiers, status badges) and `./html-libraries.md` for Mermaid theming, Chart.js, and font pairings. Those patterns apply to slides too — this file adds slide-specific patterns on top.
 
-For presentation-grade output, consider invoking `/mk-ui-ux-pro-max` for richer style selection and distinctive font/palette pairing.
+For presentation-grade output, consider invoking `/mk-uiux` for richer style selection and distinctive font/palette pairing.
 
 ---
 

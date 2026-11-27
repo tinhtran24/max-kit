@@ -165,7 +165,7 @@ Follow the 4-phase workflow:
 
 **Theme toggle:** Every HTML page includes the light/dark theme toggle button from the `html-css-patterns.md` → "Theme Toggle Button" section. Place the toggle button (`<button class="theme-toggle">`) as the first child of `<body>` with its CSS and JS inlined, so the page paints in the reader's theme without a flash.
 
-For `--slides`: recommend invoking `/mk-ui-ux-pro-max` for richer style selection.
+For `--slides`: recommend invoking `/mk-uiux` for richer style selection.
 Must use `/mk-mermaidjs-v11` for any Mermaid diagrams.
 
 ### HTML Step 4: Open in Browser

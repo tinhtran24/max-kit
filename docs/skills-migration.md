@@ -6,9 +6,9 @@ This plan moves the source kit's agent content into max-kit: 105 skills (12.8 MB
 
 | Rule | How |
 | --- | --- |
-| Naming | Every skill, agent and command uses the `mk-` prefix. The CLI gains an `mk` alias, so `mk check` = `max-kit check`. No source prefix, source product name or source config folder remains anywhere in the repo. `mk skills lint` enforces this. |
+| Naming | Every skill, agent and command uses the `mk-` prefix, with a short descriptive name: long or branded source names are shortened (`uiux`, `react`, `frontend`, `ux-audit`) with `scripts/rename-skill.mjs mk-old=mk-new`, which moves the folder and rewrites every reference across packs. The CLI gains an `mk` alias, so `mk check` = `max-kit check`. No source prefix, source product name or source config folder remains anywhere in the repo. `mk skills lint` enforces this. |
 | Owner's notices | The source kit's proprietary licence files and `license: Proprietary` front matter are removed. Ported content is licensed under max-kit's licence. |
-| Third-party notices | MIT and Apache material from other authors keeps its copyright and licence text, collected in `THIRD_PARTY_NOTICES.md` (one section per skill). Affected: handoff, deep-swe, folder-context, interview-docs, research-prompt, codex-goal, chrome-profile, cti-expert, design, tech-graph, agent-browser, mcp-builder, skill-creator, ui-styling, ui-ux-pro-max (data), react-best-practices (check upstream before porting). |
+| Third-party notices | MIT and Apache material from other authors keeps its copyright and licence text, collected in `THIRD_PARTY_NOTICES.md` (one section per skill). Affected: handoff, deep-swe, folder-context, interview-docs, research-prompt, codex-goal, chrome-profile, cti-expert, design, tech-graph, agent-browser, mcp-builder, skill-creator, ui-styling, uiux (data), react. |
 | No dead commands | A skill may only tell the agent to run commands that exist. Source CLI calls are mapped to `mk` commands (section 4) or the passage is rewritten. The port script reports every unmapped call; a skill does not ship with any. |
 | Small core | Only the harness workflow is always on. Everything else ships in opt-in packs, so an unused skill never competes for triggering. |
 
@@ -34,7 +34,7 @@ A knowledgebase enables packs in `max-kit.config.json` › `packs`. `mk sync` re
 | `continuity` | handoff, journal, retro, watzup, context-engineering, dogfood, goal-warmup, loop, autoresearch, codex-goal, folder-context, interview-docs | `journal` writes through `mk log`; `handoff` reads active features |
 | `delivery` | git, github, review-pr, ship, vibe, worktree | `ship` runs `mk check` and `mk verify` before the PR |
 | `orchestration` | orchestrate, team, project-management, plans-kanban, router (from the source router skill), help, find-skills, skill-creator, coding-level | needs the most rewriting: built around the source CLI |
-| `frontend` | frontend-design, frontend-development, react-best-practices, web-frameworks, tanstack, ui-styling, ui-ux-pro-max, enhance-ux-ax, page-builder, stitch, show-off, threejs, shader, webmcp | large (about 2.7 MB) |
+| `frontend` | frontend-design, frontend, react, web-frameworks, tanstack, ui-styling, uiux, ux-audit, page-builder, stitch, show-off, threejs, shader, webmcp | large (about 2.7 MB) |
 | `backend` | backend-development, databases, better-auth, payment-integration, shopify, google-adk-python, agentize, mcp-builder | |
 | `ops` | devops, deploy, security, vault | `vault` needs `mk secrets` (section 4) or is rewritten for the user's secret manager |
 | `quality` | web-testing, agent-browser, chrome-profile, deep-swe | |
