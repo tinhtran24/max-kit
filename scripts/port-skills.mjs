@@ -79,6 +79,7 @@ function residuals(text, o) {
   if (new RegExp(esc(o.product), "i").test(text)) found.push("product");
   if (text.includes(o.configDir)) found.push("config-dir");
   if (new RegExp(`(^|[\\s\`'"(])${esc(o.cli)} [a-z]`, "m").test(text)) found.push("cli");
+  if (/[A-Za-z0-9]max-kit|max-kit[A-Za-z0-9]/.test(text)) found.push("glued-rename");
   if (/\$CLAUDE_PROJECT_DIR\/\.claude\/(hooks|scripts)|\.claude\/(hooks|scripts)\//.test(text)) found.push("external-hook-path");
   return found;
 }

@@ -73,6 +73,8 @@ export function lintSkills(root = KIT_ROOT) {
       else {
         if (fm.name !== name) r.errors.push(`${at}: front matter name "${fm.name}" must equal the folder name`);
         if (!fm.description) r.errors.push(`${at}: description is required`);
+        if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(name) || name.length > 64) r.errors.push(`${at}: name must be lower-case kebab, at most 64 characters`);
+        if (fm.description.length > 1024) r.errors.push(`${at}: description is ${fm.description.length} characters, limit 1024`);
       }
       if (u.pack && !name.startsWith("mk-")) r.errors.push(`${at}: pack skill names start with mk-`);
       if (names.has(name)) r.errors.push(`${at}: name also used by ${names.get(name)}`);
@@ -98,7 +100,8 @@ export function lintSkills(root = KIT_ROOT) {
           if (!known.has(ref)) r.errors.push(`${at}/${relf}: refers to ${ref}, which is not a max-kit skill or agent`);
           else unresolved.set(ref, (unresolved.get(ref) || new Set()).add(name));
         }
-        for (const [, cmd] of body.matchAll(/(?:^|[\s`'"(])(?:mk|max-kit) ([a-z][a-z-]*)\b/gm)) {
+        const code = [...body.matchAll(/```[\s\S]*?```|`[^`\n]+`/g)].map((m) => m[0]).join("\n");
+        for (const [, cmd] of code.matchAll(/(?:^|[\s`'"(;&|])(?:mk|max-kit) ([a-z][a-z-]*)\b/gm)) {
           if (!COMMAND_NAMES.includes(cmd)) r.errors.push(`${at}/${relf}: mentions "mk ${cmd}", which is not a max-kit command`);
         }
       }
