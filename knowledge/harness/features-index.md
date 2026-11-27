@@ -6,7 +6,7 @@ Read this at boot to choose the feature id, then open only `harness/features/<ID
 
 ## State Summary
 
-draft: 0, reviewable: 0, active: 2, blocked: 0, passing: 10, retired: 0
+draft: 0, reviewable: 0, active: 2, blocked: 0, passing: 11, retired: 0
 
 ## Feature Lookup
 
@@ -22,5 +22,6 @@ draft: 0, reviewable: 0, active: 2, blocked: 0, passing: 10, retired: 0
 | MK-PORT-002 | passing | packs | Migration batch 2: workflow pack complete, mk plan and mk prefs | 2026-11-27 |
 | MK-PORT-003 | passing | packs | Migration batch 3: continuity pack, mk journal and mk handoff | 2026-11-27 |
 | MK-PORT-004 | passing | packs | Migration batch 4: delivery pack, mk lang, mk pr-body, identifier-aware porting | 2026-11-27 |
+| MK-PORT-005 | passing | packs | Migration batch 5: docs and diagrams packs | 2026-11-27 |
 | MK-SECRETS-001 | passing | security | Secrets: local encrypted vault (mk secrets), agent approvals, output redaction, secret-file guard, mk-vault skill | 2026-11-27 |
 | MK-VERIFY-001 | passing | harness | Trustworthy evidence: verify command, acceptance criteria, stale evidence, verifier agent, redaction | 2026-11-27 |

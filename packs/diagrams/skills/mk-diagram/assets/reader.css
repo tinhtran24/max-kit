@@ -1,0 +1,316 @@
+/* max-kit Diagram Reader Styles & Presets (Archify-informed) */
+
+.mk-diagram-root {
+  --mk-bg: #ffffff;
+  --mk-surface: #f8fafc;
+  --mk-surface-border: #e2e8f0;
+  --mk-text-primary: #0f172a;
+  --mk-text-secondary: #475569;
+  --mk-text-muted: #94a3b8;
+  --mk-accent: #2563eb;
+  --mk-accent-light: #dbeafe;
+  --mk-node-bg: #ffffff;
+  --mk-node-border: #cbd5e1;
+  --mk-edge-stroke: #64748b;
+  --mk-edge-active: #2563eb;
+  --mk-badge-bg: #f1f5f9;
+  --mk-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --mk-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mk-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  font-family: var(--mk-font-sans);
+  background-color: var(--mk-bg);
+  color: var(--mk-text-primary);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--mk-surface-border);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Preset: Classic (Light / Dark) */
+.mk-diagram-root[data-preset="classic"][data-theme="light"],
+.mk-diagram-root[data-preset="classic"]:not([data-theme="dark"]) {
+  --mk-bg: #ffffff;
+  --mk-surface: #f8fafc;
+  --mk-surface-border: #e2e8f0;
+  --mk-text-primary: #0f172a;
+  --mk-text-secondary: #475569;
+  --mk-node-bg: #ffffff;
+  --mk-node-border: #cbd5e1;
+  --mk-edge-stroke: #64748b;
+  --mk-edge-active: #2563eb;
+}
+.mk-diagram-root[data-preset="classic"][data-theme="dark"] {
+  --mk-bg: #090d16;
+  --mk-surface: #0f172a;
+  --mk-surface-border: #1e293b;
+  --mk-text-primary: #f8fafc;
+  --mk-text-secondary: #94a3b8;
+  --mk-node-bg: #0f172a;
+  --mk-node-border: #334155;
+  --mk-edge-stroke: #475569;
+  --mk-edge-active: #38bdf8;
+}
+
+/* Preset: Signal Flow (Light / Dark) */
+.mk-diagram-root[data-preset="signal-flow"][data-theme="light"],
+.mk-diagram-root[data-preset="signal-flow"]:not([data-theme="dark"]) {
+  --mk-bg: #f0fdf4;
+  --mk-surface: #dcfce7;
+  --mk-surface-border: #86efac;
+  --mk-text-primary: #14532d;
+  --mk-text-secondary: #166534;
+  --mk-accent: #059669;
+  --mk-node-bg: #ffffff;
+  --mk-node-border: #10b981;
+  --mk-edge-stroke: #059669;
+  --mk-edge-active: #047857;
+}
+.mk-diagram-root[data-preset="signal-flow"][data-theme="dark"] {
+  --mk-bg: #031c18;
+  --mk-surface: #064e3b;
+  --mk-surface-border: #047857;
+  --mk-text-primary: #ecfdf5;
+  --mk-text-secondary: #a7f3d0;
+  --mk-accent: #34d399;
+  --mk-node-bg: #064e3b;
+  --mk-node-border: #10b981;
+  --mk-edge-stroke: #34d399;
+  --mk-edge-active: #6ee7b7;
+}
+
+/* Preset: Blueprint (Light / Dark) */
+.mk-diagram-root[data-preset="blueprint"][data-theme="light"],
+.mk-diagram-root[data-preset="blueprint"]:not([data-theme="dark"]) {
+  --mk-bg: #f0f9ff;
+  --mk-surface: #e0f2fe;
+  --mk-surface-border: #7dd3fc;
+  --mk-text-primary: #0369a1;
+  --mk-text-secondary: #0284c7;
+  --mk-accent: #0284c7;
+  --mk-node-bg: #ffffff;
+  --mk-node-border: #0ea5e9;
+  --mk-edge-stroke: #0284c7;
+  --mk-edge-active: #0369a1;
+  --mk-font-sans: var(--mk-font-mono);
+}
+.mk-diagram-root[data-preset="blueprint"][data-theme="dark"] {
+  --mk-bg: #081d33;
+  --mk-surface: #0c2a4a;
+  --mk-surface-border: #1e4976;
+  --mk-text-primary: #e0f2fe;
+  --mk-text-secondary: #bae6fd;
+  --mk-accent: #38bdf8;
+  --mk-node-bg: #0c213a;
+  --mk-node-border: #38bdf8;
+  --mk-edge-stroke: #7dd3fc;
+  --mk-edge-active: #38bdf8;
+  --mk-font-sans: var(--mk-font-mono);
+}
+
+/* Preset: Editorial (Light / Dark) */
+.mk-diagram-root[data-preset="editorial"][data-theme="light"],
+.mk-diagram-root[data-preset="editorial"]:not([data-theme="dark"]) {
+  --mk-bg: #faf8f5;
+  --mk-surface: #f3efe6;
+  --mk-surface-border: #e2dacb;
+  --mk-text-primary: #1c1917;
+  --mk-text-secondary: #57534e;
+  --mk-accent: #991b1b;
+  --mk-node-bg: #ffffff;
+  --mk-node-border: #d6cfc4;
+  --mk-edge-stroke: #78716c;
+  --mk-edge-active: #991b1b;
+}
+.mk-diagram-root[data-preset="editorial"][data-theme="dark"] {
+  --mk-bg: #1c1917;
+  --mk-surface: #292524;
+  --mk-surface-border: #44403c;
+  --mk-text-primary: #fafaf9;
+  --mk-text-secondary: #d6d3d1;
+  --mk-accent: #ef4444;
+  --mk-node-bg: #292524;
+  --mk-node-border: #78716c;
+  --mk-edge-stroke: #a8a29e;
+  --mk-edge-active: #f87171;
+}
+
+/* Toolbar & Reader Controls */
+.mk-diagram-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: var(--mk-surface);
+  border-bottom: 1px solid var(--mk-surface-border);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mk-diagram-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mk-text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mk-diagram-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.mk-chapter-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--mk-bg);
+  border: 1px solid var(--mk-surface-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.mk-chapter-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mk-text-secondary);
+}
+
+.mk-diagram-btn {
+  background: var(--mk-bg);
+  border: 1px solid var(--mk-surface-border);
+  color: var(--mk-text-primary);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+.mk-diagram-btn:hover {
+  background-color: var(--mk-surface);
+  border-color: var(--mk-accent);
+}
+.mk-diagram-btn:focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 1px;
+}
+
+.mk-diagram-search-input {
+  background: var(--mk-bg);
+  border: 1px solid var(--mk-surface-border);
+  color: var(--mk-text-primary);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  width: 140px;
+}
+.mk-diagram-search-input:focus {
+  outline: 2px solid var(--mk-accent);
+  border-color: transparent;
+}
+
+/* Main Viewport */
+.mk-diagram-viewport {
+  position: relative;
+  overflow: auto;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: var(--mk-bg);
+}
+
+.mk-diagram-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Node, Boundary & Edge Styling */
+.mk-node {
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+.mk-node:hover {
+  transform: translateY(-2px);
+}
+.mk-node.is-dimmed {
+  opacity: 0.25;
+}
+.mk-node.is-focused rect,
+.mk-node.is-focused circle {
+  stroke: var(--mk-accent) !important;
+  stroke-width: 3px !important;
+}
+
+.mk-edge path,
+.mk-edge line,
+.mk-edge polyline {
+  transition: stroke 0.2s ease, opacity 0.2s ease;
+}
+.mk-edge.is-dimmed {
+  opacity: 0.15;
+}
+.mk-edge.is-highlighted path,
+.mk-edge.is-highlighted line,
+.mk-edge.is-highlighted polyline {
+  stroke: var(--mk-edge-active) !important;
+  stroke-width: 2.5px !important;
+}
+.mk-edge text {
+  stroke: none !important;
+  stroke-width: 0 !important;
+  stroke-dasharray: none !important;
+  animation: none !important;
+  fill: var(--mk-text-secondary);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Trace Motion Animation (Finite, <= 8s) */
+@keyframes mk-trace-stroke {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.mk-diagram-root[data-animation="trace"] .mk-edge.is-active-trace path,
+.mk-diagram-root[data-animation="trace"] .mk-edge.is-active-trace line,
+.mk-diagram-root[data-animation="trace"] .mk-edge.is-active-trace polyline {
+  stroke-dasharray: 6 4;
+  animation: mk-trace-stroke 2.5s ease-in-out forwards;
+}
+
+/* Presentation Stage (F) */
+.mk-diagram-root.is-presentation {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  border-radius: 0;
+  border: none;
+  height: 100vh;
+  width: 100vw;
+}
+.mk-diagram-root.is-presentation .mk-diagram-viewport {
+  height: calc(100vh - 48px);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .mk-node, .mk-edge, .mk-diagram-btn {
+    transition: none !important;
+    animation: none !important;
+  }
+}
