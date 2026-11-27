@@ -105,7 +105,7 @@ verify-and-improve loop lives in `references/shared-phases.md`.
 ## Surface: mobile app
 
 - Platforms and minimum OS versions, native or cross-platform stack; route
-  to `mk-mobile-development`.
+  to `mk-mobile`.
 - Target devices and orientations, offline behavior, push notifications,
   deep links, permissions and their rationale strings.
 - Store listing assets, privacy disclosures, signing and provisioning, beta
@@ -123,11 +123,11 @@ verify-and-improve loop lives in `references/shared-phases.md`.
 ## Surface: API or backend service
 
 - Protocol (REST, GraphQL, gRPC, WebSocket), resource model, versioning,
-  pagination and error shape; route to `mk-backend-development`.
+  pagination and error shape; route to `mk-backend`.
 - Authentication and authorization (`mk-better-auth` when it fits), rate
   limits, idempotency, audit logging.
 - Data stores, schema and migrations with backups (`mk-databases`); payments
-  when required (`mk-payment-integration`).
+  when required (`mk-payments`).
 - Published API reference (for example OpenAPI) and health endpoint.
 
 ## Surface: MCP server
