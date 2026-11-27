@@ -6,7 +6,7 @@ Read this at boot to choose the feature id, then open only `harness/features/<ID
 
 ## State Summary
 
-draft: 0, reviewable: 0, active: 3, blocked: 0, passing: 5, retired: 0
+draft: 0, reviewable: 0, active: 2, blocked: 0, passing: 6, retired: 0
 
 ## Feature Lookup
 
@@ -18,5 +18,5 @@ draft: 0, reviewable: 0, active: 3, blocked: 0, passing: 5, retired: 0
 | MK-DETECT-001 | passing | profiles | Stack profiles and detection: rails, laravel, node, django, go; detect and init --detect | 2026-11-27 |
 | MK-GUARD-001 | passing | guards | Guards: boot context, protected push, deploy-branch edit, migration, risky command, evidence at stop | 2026-11-27 |
 | MK-PACKS-001 | passing | packs | Skill packs and port tooling: mk alias, pack loading and rendering, skills lint, port script | 2026-11-27 |
-| MK-PORT-001 | active | packs | Migration batch 1: workflow pack, clean skills and agents |  |
+| MK-PORT-001 | passing | packs | Migration batch 1: workflow pack, clean skills and agents | 2026-11-27 |
 | MK-VERIFY-001 | passing | harness | Trustworthy evidence: verify command, acceptance criteria, stale evidence, verifier agent, redaction | 2026-11-27 |
