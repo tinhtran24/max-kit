@@ -1,5 +1,5 @@
 {
-  "name": "payment-integration-scripts",
+  "name": "mk-payments-scripts",
   "version": "1.0.0",
   "description": "Webhook verifiers and checkout helpers for SePay, PayFS, Polar, Stripe, Creem, Dodo Payments, Lemon Squeezy, Paddle and PayPal",
   "scripts": {

@@ -7,10 +7,12 @@ state: active
 verification_level: contract
 trigger:
   type: user_request
-  summary: "Port the backend and mobile packs (docs/skills-migration.md batch 6), keeping skill names short."
+  summary: "Port the backend and mobile packs (docs/skills-migration.md batch 6),
+    keeping skill names short."
 behavior: >
-  The backend pack ships 8 skills (backend, databases, better-auth, payments, shopify, google-adk, agentize,
-  mcp-builder) and the mobile pack ships mk-mobile; long source names are shortened everywhere and forbidden in lint.
+  The backend pack ships 8 skills (backend, databases, better-auth, payments,
+  shopify, google-adk, agentize, mcp-builder) and the mobile pack ships
+  mk-mobile; long source names are shortened everywhere and forbidden in lint.
 acceptance:
   - id: AC1
     then: skills lint passes with source names and the old long names forbidden
@@ -24,8 +26,8 @@ verification:
   commands:
     - run: npm test
     - run: npm run check
-      covers: [AC1]
-  covers: [AC2]
+      covers: [ AC1 ]
+  covers: [ AC2 ]
   expected_result: "All tests pass; check passed with forbidden patterns active."
 evidence: []
 unknowns: []
