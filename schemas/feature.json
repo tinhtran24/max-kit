@@ -3,47 +3,230 @@
   "$id": "https://github.com/tinhtran24/max-kit/schemas/feature.json",
   "title": "max-kit harness feature",
   "type": "object",
-  "required": ["id", "title", "area", "state", "verification_level", "trigger", "behavior", "verification", "updated_at"],
+  "required": [
+    "id",
+    "title",
+    "area",
+    "state",
+    "verification_level",
+    "trigger",
+    "behavior",
+    "verification",
+    "updated_at"
+  ],
   "properties": {
-    "id": { "type": "string", "description": "Matches the file name and harness.idPattern, e.g. APP-AUTH-001" },
-    "title": { "type": "string" },
-    "products": { "type": "array", "items": { "type": "string" } },
-    "area": { "type": "string" },
-    "priority": { "enum": ["low", "medium", "high"] },
-    "state": { "enum": ["draft", "reviewable", "active", "blocked", "passing", "retired"] },
-    "verification_level": { "enum": ["contract", "structural", "dry_run", "boot", "endpoint", "golden_path", "e2e", "manual"] },
-    "trigger": {
-      "type": "object",
-      "required": ["type", "summary"],
-      "properties": {
-        "type": { "enum": ["user_request", "ticket", "incident", "eval_finding", "source_review", "tooling_decision", "migration"] },
-        "summary": { "type": "string" },
-        "ref": { "type": "string", "description": "Ticket key, incident id or URL" }
+    "id": {
+      "type": "string",
+      "description": "Matches the file name and harness.idPattern, e.g. APP-AUTH-001"
+    },
+    "title": {
+      "type": "string"
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "string"
       }
     },
-    "behavior": { "type": "string", "description": "Observable behavior that proves the feature works" },
+    "area": {
+      "type": "string"
+    },
+    "priority": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "state": {
+      "enum": [
+        "draft",
+        "reviewable",
+        "active",
+        "blocked",
+        "passing",
+        "retired"
+      ]
+    },
+    "verification_level": {
+      "enum": [
+        "contract",
+        "structural",
+        "dry_run",
+        "boot",
+        "endpoint",
+        "golden_path",
+        "e2e",
+        "manual"
+      ]
+    },
+    "trigger": {
+      "type": "object",
+      "required": [
+        "type",
+        "summary"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "user_request",
+            "ticket",
+            "incident",
+            "eval_finding",
+            "source_review",
+            "tooling_decision",
+            "migration"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string",
+          "description": "Ticket key, incident id or URL"
+        }
+      }
+    },
+    "behavior": {
+      "type": "string",
+      "description": "Observable behavior that proves the feature works"
+    },
     "scope": {
       "type": "object",
       "properties": {
-        "in": { "type": "array", "items": { "type": "string" } },
-        "out": { "type": "array", "items": { "type": "string" } }
+        "in": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "out": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
-    "source": { "type": "object" },
+    "source": {
+      "type": "object"
+    },
     "verification": {
       "type": "object",
-      "required": ["expected_result"],
+      "required": [
+        "expected_result"
+      ],
       "properties": {
-        "mode": { "enum": ["automated", "manual"] },
-        "commands": { "type": "array", "items": { "type": "string" } },
-        "protocol": { "type": "string" },
-        "expected_result": { "type": "string" }
+        "mode": {
+          "enum": [
+            "automated",
+            "manual"
+          ]
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "run"
+                ],
+                "properties": {
+                  "run": {
+                    "type": "string"
+                  },
+                  "repo": {
+                    "type": "string"
+                  },
+                  "covers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "expected_result": {
+          "type": "string"
+        },
+        "covers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Acceptance ids covered by the manual protocol"
+        }
       }
     },
-    "evidence": { "type": "array", "items": { "type": "string" }, "description": "Paths relative to knowledge/ (usually harness/runs/...) or URLs" },
-    "unknowns": { "type": "array", "items": { "type": "string" } },
-    "blocker": { "type": "string" },
-    "updated_at": { "type": "string", "format": "date" },
-    "last_verified_at": { "type": "string", "format": "date" }
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Paths relative to knowledge/ (usually harness/runs/...) or URLs"
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocker": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_verified_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "repo": {
+      "type": "string",
+      "description": "Default repo id for verification commands"
+    },
+    "watch": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Paths (git pathspecs, relative to the verified repo) whose change since the verified commit makes the evidence stale"
+    },
+    "acceptance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "then"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "e.g. AC1"
+          },
+          "given": {
+            "type": "string"
+          },
+          "when": {
+            "type": "string"
+          },
+          "then": {
+            "type": "string"
+          }
+        }
+      }
+    }
   }
 }

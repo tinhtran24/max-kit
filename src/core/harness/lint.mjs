@@ -3,6 +3,25 @@ import { kb } from "../config.mjs";
 import { daysSince, result } from "../util.mjs";
 import { loadFeatures, loadRuns, STATES, TRIGGERS, LEVELS, RUN_RESULTS } from "./store.mjs";
 
+function lintAcceptance(at, f, r) {
+  const v = f.verification || {};
+  const ids = new Set();
+  for (const [i, c] of (f.acceptance || []).entries()) {
+    if (!c?.id) r.errors.push(`${at}: acceptance[${i}] needs an id`);
+    else if (ids.has(c.id)) r.errors.push(`${at}: duplicate acceptance id ${c.id}`);
+    else ids.add(c.id);
+    if (!c?.then) r.errors.push(`${at}: acceptance ${c?.id || i} needs then (the observable outcome)`);
+  }
+  const covered = new Set([].concat(v.covers || []));
+  for (const [i, c] of (v.commands || []).entries()) {
+    if (typeof c === "string") continue;
+    if (!c || typeof c.run !== "string" || !c.run) r.errors.push(`${at}: verification.commands[${i}] needs run`);
+    for (const id of [].concat(c?.covers || [])) covered.add(id);
+  }
+  for (const id of covered) if (!ids.has(id)) r.errors.push(`${at}: covers unknown acceptance id ${id}`);
+  for (const id of ids) if (!covered.has(id)) r.warnings.push(`${at}: acceptance ${id} is not covered by any verification command or protocol (covers)`);
+}
+
 export function lintHarness(cfg) {
   const r = result("harness lint");
   const idPattern = new RegExp(cfg.harness.idPattern);
@@ -31,6 +50,7 @@ export function lintHarness(cfg) {
     const v = f.verification || {};
     if (!(v.commands?.length || v.protocol)) r.errors.push(`${at}: verification needs commands or protocol`);
     if (!v.expected_result) r.errors.push(`${at}: verification.expected_result is required`);
+    lintAcceptance(at, f, r);
 
     for (const ref of f.evidence || []) if (!exists(ref)) r.errors.push(`${at}: evidence not found: ${ref}`);
 

@@ -11,4 +11,4 @@ function git(dir, args) {
 
 export const branchOf = (dir) => git(dir, ["branch", "--show-current"]);
 export const headOf = (dir) => git(dir, ["rev-parse", "--short", "HEAD"]);
-export const isDirty = (dir) => git(dir, ["status", "--porcelain"]).length > 0;
+export const isDirty = (dir, exclude = []) => git(dir, ["status", "--porcelain", "--", ".", ...exclude.map((e) => `:(exclude)${e}`)]).length > 0;

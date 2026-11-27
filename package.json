@@ -30,7 +30,9 @@
     "new:feature": "node bin/max-kit.mjs new feature",
     "new:run": "node bin/max-kit.mjs new run",
     "log": "node bin/max-kit.mjs log",
-    "doctor": "node bin/max-kit.mjs doctor"
+    "doctor": "node bin/max-kit.mjs doctor",
+    "verify": "node bin/max-kit.mjs verify",
+    "detect": "node bin/max-kit.mjs detect"
   },
   "dependencies": {
     "yaml": "2.5.1"

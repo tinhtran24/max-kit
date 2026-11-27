@@ -19,10 +19,25 @@ export function loadSkills(dir = path.join(KIT_ROOT, "skills")) {
     }));
 }
 
+export function loadAgents(dir = path.join(KIT_ROOT, "agents")) {
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .sort()
+    .map((f) => {
+      const text = fs.readFileSync(path.join(dir, f), "utf8").replace(/\r\n/g, "\n");
+      const m = text.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+      const field = (k) => m?.[1].match(new RegExp(`^${k}:\\s*(.+)$`, "m"))?.[1].trim() || "";
+      return { name: field("name") || f.slice(0, -3), description: field("description"), body: (m ? m[2] : text).trim() };
+    });
+}
+
 export const COMMANDS = [
   ["npm run check", "Quality gate: harness lint, index, log, links, boot budget, generated files"],
   ["npm run new:feature -- <ID> \"<title>\" <area>", "New draft feature (only with a real trigger)"],
-  ["npm run new:run -- <ID> <slug>", "New evidence file; fill result, tier and commit"],
+  ["npm run verify -- <ID>", "Run the feature's verification commands, record the run, mark passing on success"],
+  ["npm run new:run -- <ID> <slug>", "New evidence file for manual protocols; fill result, tier and commit"],
   ["npm run log -- <kind> \"<title>\" [note]", "Append to this month's log"],
   ["npm run index", "Regenerate the feature index"],
   ["npm run rollup", "Regenerate the log index and recent changes"],
@@ -41,6 +56,7 @@ export function buildModel(cfg) {
     teamRulesPath: TEAM_RULES,
     teamRules: fs.existsSync(rulesFile) ? fs.readFileSync(rulesFile, "utf8").trim() : "",
     commands: COMMANDS,
-    skills: loadSkills()
+    skills: loadSkills(),
+    agents: loadAgents()
   };
 }

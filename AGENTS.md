@@ -25,7 +25,8 @@ No app repos configured yet; add them to `max-kit.config.json` › `repos`.
 | --- | --- |
 | `npm run check` | Quality gate: harness lint, index, log, links, boot budget, generated files |
 | `npm run new:feature -- <ID> "<title>" <area>` | New draft feature (only with a real trigger) |
-| `npm run new:run -- <ID> <slug>` | New evidence file; fill result, tier and commit |
+| `npm run verify -- <ID>` | Run the feature's verification commands, record the run, mark passing on success |
+| `npm run new:run -- <ID> <slug>` | New evidence file for manual protocols; fill result, tier and commit |
 | `npm run log -- <kind> "<title>" [note]` | Append to this month's log |
 | `npm run index` | Regenerate the feature index |
 | `npm run rollup` | Regenerate the log index and recent changes |

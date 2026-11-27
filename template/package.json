@@ -10,6 +10,8 @@
     "rollup": "max-kit rollup",
     "new:feature": "max-kit new feature",
     "new:run": "max-kit new run",
+    "verify": "max-kit verify",
+    "detect": "max-kit detect",
     "log": "max-kit log",
     "doctor": "max-kit doctor"
   },

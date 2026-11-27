@@ -3,63 +3,190 @@
   "$id": "https://github.com/tinhtran24/max-kit/schemas/config.json",
   "title": "max-kit.config.json",
   "type": "object",
-  "required": ["project"],
+  "required": [
+    "project"
+  ],
   "properties": {
-    "$schema": { "type": "string" },
-    "project": { "type": "string", "description": "Short project name shown in the boot context" },
-    "idPrefix": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*$", "description": "Feature id prefix, e.g. SHOP gives SHOP-AUTH-001" },
-    "profile": { "type": "string", "description": "Stack profile from the kit's profiles/ folder", "default": "generic" },
+    "$schema": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string",
+      "description": "Short project name shown in the boot context"
+    },
+    "idPrefix": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*$",
+      "description": "Feature id prefix, e.g. SHOP gives SHOP-AUTH-001"
+    },
+    "profile": {
+      "type": "string",
+      "description": "Stack profile from the kit's profiles/ folder",
+      "default": "generic"
+    },
     "repos": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "path"],
+        "required": [
+          "id",
+          "path"
+        ],
         "properties": {
-          "id": { "type": "string" },
-          "path": { "type": "string", "description": "App checkout inside the knowledgebase folder" },
-          "profile": { "type": "string" },
-          "container": { "type": "string" },
-          "testCommand": { "type": "string" },
-          "migrationGenerator": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "description": "App checkout inside the knowledgebase folder"
+          },
+          "profile": {
+            "type": "string"
+          },
+          "container": {
+            "type": "string"
+          },
+          "testCommand": {
+            "type": "string"
+          },
+          "migrationGenerator": {
+            "type": "string"
+          }
         }
       }
     },
-    "targets": { "type": "array", "items": { "type": "string" }, "default": ["claude"], "description": "Adapter ids to render for" },
-    "packs": { "type": "array", "items": { "type": "string" } },
-    "adapters": { "type": "array", "items": { "type": "string" }, "description": "Extra adapter modules: package names or paths relative to this folder" },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "claude"
+      ],
+      "description": "Adapter ids to render for"
+    },
+    "packs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Extra adapter modules: package names or paths relative to this folder"
+    },
     "branches": {
       "type": "object",
       "properties": {
-        "protected": { "type": "array", "items": { "type": "string" } },
-        "deploy": { "type": "array", "items": { "type": "string" } }
+        "protected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deploy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "guards": {
       "type": "object",
       "properties": {
-        "riskyCommands": { "type": "object", "properties": { "extend": { "type": "array", "items": { "type": "string" } } } },
-        "migrationPaths": { "type": "object", "properties": { "extend": { "type": "array", "items": { "type": "string" } } } },
-        "evidenceReminder": { "type": "boolean" },
-        "askFallback": { "enum": ["deny", "warn"], "description": "For runtimes that cannot ask from a hook: block the call (deny) or only add a warning (warn)" },
-        "disabled": { "type": "array", "items": { "enum": ["boot", "branch", "migration", "risky-command", "evidence"] } }
+        "riskyCommands": {
+          "type": "object",
+          "properties": {
+            "extend": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "migrationPaths": {
+          "type": "object",
+          "properties": {
+            "extend": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "evidenceReminder": {
+          "type": "boolean"
+        },
+        "askFallback": {
+          "enum": [
+            "deny",
+            "warn"
+          ],
+          "description": "For runtimes that cannot ask from a hook: block the call (deny) or only add a warning (warn)"
+        },
+        "disabled": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "boot",
+              "branch",
+              "migration",
+              "risky-command",
+              "evidence"
+            ]
+          }
+        }
       }
     },
     "harness": {
       "type": "object",
       "properties": {
-        "idPattern": { "type": "string" },
-        "staleActiveDays": { "type": "integer", "minimum": 1 },
-        "staleVerifiedDays": { "type": "integer", "minimum": 1 }
+        "idPattern": {
+          "type": "string"
+        },
+        "staleActiveDays": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "staleVerifiedDays": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "staleEvidence": {
+          "enum": [
+            "warn",
+            "error"
+          ],
+          "description": "How check reports passing features whose watched paths changed since the verified commit"
+        }
       }
     },
     "boot": {
       "type": "object",
       "properties": {
-        "maxChars": { "type": "integer", "maximum": 10000 },
-        "maxInstructionLines": { "type": "integer" },
-        "ruleFiles": { "type": "array", "items": { "type": "string" } }
+        "maxChars": {
+          "type": "integer",
+          "maximum": 10000
+        },
+        "maxInstructionLines": {
+          "type": "integer"
+        },
+        "ruleFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
-    "kitVersion": { "type": "string" }
+    "kitVersion": {
+      "type": "string"
+    }
   }
 }

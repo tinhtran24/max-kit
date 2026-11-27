@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-VERIFY-001
+title: "Trustworthy evidence: verify command, acceptance criteria, stale evidence, verifier agent, redaction"
+area: harness
+priority: high
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Phase 4 of docs/plan.md: evidence written by the tool from real output, tied to a commit, and flagged when the code moves on."
+behavior: >
+  max-kit verify runs a feature's commands in their repos and records commit, branch, dirty flag and redacted output;
+  passing is set only when every command passed, no unknowns are open and the repo is clean; check warns when watched
+  paths changed after the verified commit; acceptance criteria must be covered by commands or the protocol.
+acceptance:
+  - id: AC1
+    when: verification commands pass in a clean repo
+    then: a run file with commit and redacted output exists and the feature is passing with that evidence
+  - id: AC2
+    when: a command fails, an unknown is open or the repo is dirty
+    then: the feature is not marked passing (and passing is demoted on failure)
+  - id: AC3
+    when: a watched path changes after the verified commit
+    then: npm run check reports the evidence as stale
+watch:
+  - src/core/harness/verify.mjs
+  - src/core/harness/freshness.mjs
+  - src/core/redact.mjs
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [AC1, AC2, AC3]
+    - run: npm run check
+  expected_result: "All tests pass, including test/verify.test.mjs; check passed."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27
