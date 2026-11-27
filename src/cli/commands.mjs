@@ -12,6 +12,7 @@ export const COMMANDS = {
   update: ["./update.mjs", "Refresh kit-owned files in a knowledgebase and re-render"],
   doctor: ["./doctor.mjs", "Report setup problems"],
   adapters: ["./adapters.mjs", "adapters list | adapters show <id>"],
+  improve: ["./improve.mjs", "Content-free skill and guard events: status, events, nudge, clear"],
   journal: ["./journal.mjs", "Session journals in plans/journals: create, list, show, validate"],
   handoff: ["./handoff.mjs", "Live state for a continuation note: branch, changes, current plan, active features [--json]"],
   lang: ["./lang.mjs", "Writing language for human-facing prose (MAX_KIT_LANGUAGE, prefs locale.responseLanguage) [--json]"],
@@ -26,12 +27,14 @@ export const COMMANDS = {
 export const COMMAND_NAMES = Object.keys(COMMANDS);
 
 export const SUBCOMMANDS = {
+  improve: ["./improve.mjs", "Content-free skill and guard events: status, events, nudge, clear"],
   journal: ["./journal.mjs", "Session journals in plans/journals: create, list, show, validate"],
   handoff: ["./handoff.mjs", "Live state for a continuation note: branch, changes, current plan, active features [--json]"],
   lang: ["./lang.mjs", "Writing language for human-facing prose (MAX_KIT_LANGUAGE, prefs locale.responseLanguage) [--json]"],
   "pr-body": ["./pr-body.mjs", "Check a pull request body has the required sections: pr-body check [--loose] [--file f]"],
   plan: ["create", "add-phase", "list", "search", "show", "status", "check", "uncheck", "update", "use", "resolve", "validate", "close", "archive", "help"],
   "pr-body": ["check"],
+  improve: ["status", "events", "nudge", "clear"],
   journal: ["create", "list", "show", "validate"],
   prefs: ["resolve", "get", "set", "unset", "validate"],
   secrets: ["set", "rotate", "annotate", "get", "describe", "list", "search", "compare", "delete", "rm", "import-env", "export", "run", "request", "approve", "grants", "revoke", "audit", "store", "status", "help"],

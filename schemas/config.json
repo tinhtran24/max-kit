@@ -139,7 +139,8 @@
               "migration",
               "risky-command",
               "evidence",
-              "secrets"
+              "secrets",
+              "improve"
             ]
           }
         },
@@ -206,6 +207,16 @@
         "store": {
           "type": "string",
           "pattern": "^(mk-vault|env-file|external:[\\w.-]+)$"
+        }
+      }
+    },
+    "improve": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Record content-free session and guard events in .max-kit/improve and nudge when a skill keeps failing"
         }
       }
     }
