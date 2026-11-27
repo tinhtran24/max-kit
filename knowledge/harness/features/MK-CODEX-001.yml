@@ -22,7 +22,8 @@ verification:
     - npm test
     - npm run check
   expected_result: "test/codex.test.mjs passes; an installed knowledgebase answers a Codex PreToolUse payload through npx."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-phase-3-codex.md
 unknowns:
   - "Not yet exercised in a live Codex session with trusted hooks; payload fixtures follow the documented fields and generated schemas."
 updated_at: 2026-11-27

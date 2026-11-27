@@ -13,7 +13,7 @@ draft: 0, reviewable: 0, active: 2, blocked: 0, passing: 3, retired: 0
 | ID | State | Area | Title | Last run |
 | --- | --- | --- | --- | --- |
 | MK-CLAUDE-001 | active | adapters | Claude Code adapter: plugin, hooks, CLAUDE.md import and adapter registry | 2026-11-27 |
-| MK-CODEX-001 | active | adapters | Codex CLI adapter: AGENTS.md, .agents/skills, .codex/hooks.json bridge, apply_patch parsing, ask fallback |  |
+| MK-CODEX-001 | active | adapters | Codex CLI adapter: AGENTS.md, .agents/skills, .codex/hooks.json bridge, apply_patch parsing, ask fallback | 2026-11-27 |
 | MK-CORE-001 | passing | core | CLI and harness core: init, check, sync, new feature and run, log, index, rollup | 2026-11-27 |
 | MK-DETECT-001 | passing | profiles | Stack profiles and detection: rails, laravel, node, django, go; detect and init --detect | 2026-11-27 |
 | MK-GUARD-001 | passing | guards | Guards: boot context, protected push, deploy-branch edit, migration, risky command, evidence at stop | 2026-11-27 |
