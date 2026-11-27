@@ -30,7 +30,7 @@ function golden(dir, files) {
       fs.mkdirSync(path.dirname(file), { recursive: true });
       fs.writeFileSync(file, f.content);
     }
-    assert.equal(f.content, fs.readFileSync(file, "utf8"), `${dir}/${f.path} matches golden file`);
+    assert.equal(f.content, fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n"), `${dir}/${f.path} matches golden file`);
   }
 }
 

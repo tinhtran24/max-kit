@@ -3,7 +3,7 @@ import path from "node:path";
 import { loadConfig, requireRoot } from "../core/config.mjs";
 import { buildModel } from "../core/model.mjs";
 import { loadAdapters, renderTargets } from "../adapters/registry.mjs";
-import { printResult, result } from "../core/util.mjs";
+import { printResult, result, sameText } from "../core/util.mjs";
 import { parseArgs } from "./args.mjs";
 
 export async function syncKnowledgebase(cfg, { check = false, dryRun = false, only } = {}) {
@@ -22,7 +22,7 @@ export async function syncKnowledgebase(cfg, { check = false, dryRun = false, on
   for (const f of files) {
     const abs = path.join(cfg.root, f.path);
     const current = fs.existsSync(abs) ? fs.readFileSync(abs, "utf8") : null;
-    if (current === f.content) continue;
+    if (sameText(current, f.content)) continue;
     if (check) r.errors.push(`${f.path} is out of date; run npm run sync`);
     else if (dryRun) r.notes.push(`would write ${f.path} (${f.owner})`);
     else {

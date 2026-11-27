@@ -39,9 +39,11 @@ export function result(name) {
   return { name, errors: [], warnings: [], notes: [] };
 }
 
+export const sameText = (a, b) => a !== null && a.replace(/\r\n/g, "\n") === b.replace(/\r\n/g, "\n");
+
 export function writeOrCheck(file, content, check) {
   const current = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
-  if (current === content) return { changed: false, ok: true };
+  if (sameText(current, content)) return { changed: false, ok: true };
   if (check) return { changed: true, ok: false };
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, content);
