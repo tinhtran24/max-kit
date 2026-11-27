@@ -4,10 +4,11 @@ import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";
 import claude from "./claude/adapter.mjs";
 import agentsMd from "./agents-md/adapter.mjs";
+import codex from "./codex/adapter.mjs";
 import { renderAgentsMd } from "./agents-md/render.mjs";
 import { kitVersion } from "../core/config.mjs";
 
-export const BUILT_IN = [claude, agentsMd];
+export const BUILT_IN = [claude, codex, agentsMd];
 const PACKAGE_PREFIX = "max-kit-adapter-";
 
 const semver = (v) => String(v || "0.0.0").split(/[.+-]/).slice(0, 3).map(Number);

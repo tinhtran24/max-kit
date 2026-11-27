@@ -92,6 +92,7 @@ export function loadConfig(root) {
       riskyCommands: uniq([...(profile.riskyCommands || []), ...repos.flatMap((r) => (r.profile !== profile.id ? loadProfile(r.profile).riskyCommands || [] : [])), ...(guards.riskyCommands?.extend || [])]),
       migrationPaths: uniq([...(profile.migrations?.paths || []), ...repos.flatMap((r) => r.migrationPaths), ...(guards.migrationPaths?.extend || [])]),
       evidenceReminder: guards.evidenceReminder ?? true,
+      askFallback: guards.askFallback === "warn" ? "warn" : "deny",
       disabled: guards.disabled || []
     },
     harness: {

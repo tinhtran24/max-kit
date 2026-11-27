@@ -1,5 +1,6 @@
 import path from "node:path";
 import { branchOf } from "../core/git.mjs";
+import { filesOf } from "./files.mjs";
 
 const PUSH = /(?:^|\s)git((?:\s+-[cC]\s+\S+)*)\s+push(?=\s|$)(.*)$/;
 const unquote = (w) => w.replace(/^['"]|['"]$/g, "");
@@ -43,10 +44,12 @@ export default {
       }
       return null;
     }
-    if ((tool.kind === "edit" || tool.kind === "write") && tool.filePath && cfg.branches.deploy.length) {
-      const branch = branchOf(path.dirname(path.resolve(input.cwd, tool.filePath)));
-      if (branch && cfg.branches.deploy.includes(branch)) {
-        return { type: "deny", reason: `'${branch}' is a deploy branch: do not edit code here. Ask the user to switch to a development branch first.` };
+    if ((tool.kind === "edit" || tool.kind === "write") && cfg.branches.deploy.length) {
+      for (const f of filesOf(tool)) {
+        const branch = branchOf(path.dirname(path.resolve(input.cwd, f.path)));
+        if (branch && cfg.branches.deploy.includes(branch)) {
+          return { type: "deny", reason: `'${branch}' is a deploy branch: do not edit code here. Ask the user to switch to a development branch first.` };
+        }
       }
     }
     return null;

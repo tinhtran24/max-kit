@@ -5,7 +5,7 @@ A control-plane kit for coding agents. It gives any project a small knowledgebas
 - **Evidence-based done.** One YAML file per feature, run files with real output and the commit verified, and a check that fails when something is marked `passing` without evidence.
 - **Guards.** Session boot context, no push to protected branches, no edits on deploy branches, no hand-written migrations, confirmation for risky commands, an evidence reminder before the agent stops. Written once, bridged into each runtime's hook system.
 - **Any stack.** Profiles (`generic`, `rails`, `laravel`, `node`, `django`, `go`) supply migration folders, generators, test commands and risky-command patterns. `max-kit detect` reads each app repo (Gemfile, composer.json, package.json and lockfiles, pyproject.toml, go.mod, compose files) and fills in the profile, test command, migration generator and container.
-- **Any runtime.** Claude Code is built in. Other runtimes are adapters: a folder in this repo, an npm package named `max-kit-adapter-*`, or a local module listed in the config. See [docs/adapters.md](docs/adapters.md).
+- **Any runtime.** Claude Code and Codex CLI are built in. Other runtimes are adapters: a folder in this repo, an npm package named `max-kit-adapter-*`, or a local module listed in the config. See [docs/adapters.md](docs/adapters.md).
 
 Plan and roadmap: [docs/plan.md](docs/plan.md).
 
@@ -33,6 +33,12 @@ To install the Claude Code plugin by hand:
 ```
 
 The hooks act only inside a folder that has `max-kit.config.json`, so the plugin never interferes with other workspaces.
+
+### Codex CLI
+
+Add `codex` to `targets` (or `init --targets claude,codex`) and run `npm run sync`. It writes `.codex/hooks.json` (hooks call `npx --no-install max-kit`, so run `npm install` first) and `.agents/skills/harness/`; Codex reads `AGENTS.md` itself. Open Codex in the knowledgebase and run `/hooks` to review and trust them: Codex does not run untrusted project hooks.
+
+Codex hooks cannot ask the user, so risky commands are blocked with a reason by default. Set `guards.askFallback` to `"warn"` to let them run with a warning instead.
 
 ## Commands
 
