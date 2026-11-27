@@ -4,7 +4,7 @@ title: "Migration batch 4: delivery pack, mk lang, mk pr-body, identifier-aware
   porting"
 area: packs
 priority: high
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
@@ -38,6 +38,8 @@ verification:
     - run: npm run check
       covers: [ AC3 ]
   expected_result: "All tests pass; check passed with forbidden patterns active."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-004-2.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
