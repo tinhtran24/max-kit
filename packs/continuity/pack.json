@@ -1,0 +1,26 @@
+{
+  "description": "Keep work going across sessions: handoff, journal, retro, status, context budgets.",
+  "requires": [
+    "workflow"
+  ],
+  "skills": [],
+  "agents": [],
+  "planned": [
+    "mk-handoff",
+    "mk-journal",
+    "mk-retro",
+    "mk-watzup",
+    "mk-context-engineering",
+    "mk-dogfood",
+    "mk-goal-warmup",
+    "mk-loop",
+    "mk-autoresearch",
+    "mk-codex-goal",
+    "mk-folder-context",
+    "mk-interview-docs"
+  ],
+  "plannedAgents": [
+    "mk-journal-writer",
+    "mk-kongming"
+  ]
+}

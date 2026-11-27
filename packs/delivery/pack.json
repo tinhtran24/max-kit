@@ -1,0 +1,19 @@
+{
+  "description": "Git, GitHub, pull request review, shipping and worktrees.",
+  "requires": [
+    "workflow"
+  ],
+  "skills": [],
+  "agents": [],
+  "planned": [
+    "mk-git",
+    "mk-github",
+    "mk-review-pr",
+    "mk-ship",
+    "mk-vibe",
+    "mk-worktree"
+  ],
+  "plannedAgents": [
+    "mk-git-manager"
+  ]
+}

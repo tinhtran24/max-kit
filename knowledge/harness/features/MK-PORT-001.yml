@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-001
+title: "Migration batch 1: workflow pack, clean skills and agents"
+area: packs
+priority: medium
+state: passing
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 1)."
+behavior: >
+  The workflow pack ships 14 skills and 9 agents named mk-*, with no source
+  names, no commands max-kit lacks and the third-party notice kept; enabling the
+  pack renders them for Claude Code and Codex and the knowledgebase check
+  passes.
+acceptance:
+  - id: AC1
+    then: skills lint passes with the source-name patterns supplied in
+      MK_SKILLS_FORBIDDEN
+  - id: AC2
+    then: a knowledgebase with packs [workflow] renders the skills and agents and
+      passes its check
+verification:
+  mode: automated
+  commands:
+    - run: npm run check
+      covers: [ AC1 ]
+    - run: npm test
+  covers: [ AC2 ]
+  expected_result: "check passed with forbidden patterns active; all tests pass."
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-001.md
+unknowns: []
+updated_at: 2026-11-27
+last_verified_at: 2026-11-27

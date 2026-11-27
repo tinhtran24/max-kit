@@ -13,7 +13,8 @@
     "verify": "max-kit verify",
     "detect": "max-kit detect",
     "log": "max-kit log",
-    "doctor": "max-kit doctor"
+    "doctor": "max-kit doctor",
+    "postinstall": "max-kit sync"
   },
   "devDependencies": {
     "max-kit": "{{kitSpec}}"

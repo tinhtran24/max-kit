@@ -1,0 +1,10 @@
+{
+  "description": "Threat intelligence and OSINT analysis.",
+  "requires": [],
+  "skills": [],
+  "agents": [],
+  "planned": [
+    "mk-cti-expert"
+  ],
+  "plannedAgents": []
+}

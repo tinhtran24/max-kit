@@ -1,0 +1,16 @@
+{
+  "description": "Architecture and technical diagrams, code graphs and previews.",
+  "requires": [],
+  "skills": [],
+  "agents": [],
+  "planned": [
+    "mk-diagram",
+    "mk-excalidraw",
+    "mk-mermaidjs-v11",
+    "mk-tech-graph",
+    "mk-graphify",
+    "mk-gkg",
+    "mk-preview"
+  ],
+  "plannedAgents": []
+}

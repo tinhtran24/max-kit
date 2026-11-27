@@ -1,0 +1,22 @@
+{
+  "description": "Multi-agent and multi-session orchestration, routing and skill authoring.",
+  "requires": [
+    "workflow"
+  ],
+  "skills": [],
+  "agents": [],
+  "planned": [
+    "mk-orchestrate",
+    "mk-team",
+    "mk-project-management",
+    "mk-plans-kanban",
+    "mk-router",
+    "mk-help",
+    "mk-find-skills",
+    "mk-skill-creator",
+    "mk-coding-level"
+  ],
+  "plannedAgents": [
+    "mk-project-manager"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Images, video, audio and brand design.",
+  "requires": [],
+  "skills": [],
+  "agents": [],
+  "planned": [
+    "mk-ai-artist",
+    "mk-ai-multimodal",
+    "mk-media-processing",
+    "mk-remotion",
+    "mk-hyperframes",
+    "mk-design"
+  ],
+  "plannedAgents": []
+}

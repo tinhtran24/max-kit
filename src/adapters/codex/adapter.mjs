@@ -69,10 +69,10 @@ export default {
 
   render(model) {
     const files = [{ path: ".codex/hooks.json", content: `${JSON.stringify(renderHooks(), null, 2)}\n` }];
-    for (const skill of model.skills || []) {
+    for (const skill of [...(model.skills || []), ...(model.packSkills || [])]) {
       for (const f of skill.files) files.push({ path: `.agents/skills/${skill.name}/${f.path}`, content: f.content });
     }
-    for (const agent of model.agents || []) {
+    for (const agent of [...(model.agents || []), ...(model.packAgents || [])]) {
       files.push({
         path: `.agents/skills/${agent.name}/SKILL.md`,
         content: `---\nname: ${agent.name}\ndescription: ${JSON.stringify(agent.description)}\n---\n\n${agent.body}\n`
