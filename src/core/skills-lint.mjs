@@ -5,7 +5,13 @@ import { result, walk } from "./util.mjs";
 import { listPacks, loadPack } from "./model.mjs";
 import { COMMAND_NAMES, SUBCOMMANDS } from "../cli/commands.mjs";
 
-const TEXT = /\.(md|mdx|txt|json|ya?ml|js|cjs|mjs|ts|py|sh|html|css|toml)$/i;
+const isText = (file) => {
+  const fd = fs.openSync(file, "r");
+  const buf = Buffer.alloc(8192);
+  const n = fs.readSync(fd, buf, 0, buf.length, 0);
+  fs.closeSync(fd);
+  return !buf.subarray(0, n).includes(0);
+};
 const DEFAULT_MAX_KB = 512;
 
 function frontMatter(text) {
@@ -89,7 +95,7 @@ export function lintSkills(root = KIT_ROOT) {
       const kb = Math.round(dirSize(dir) / 1024);
       if (kb > maxKb) r.errors.push(`${at}: ${kb} KB, budget ${maxKb} KB (set maxSkillKb in pack.json to allow it)`);
 
-      for (const f of walk(dir, "").filter((x) => TEXT.test(x))) {
+      for (const f of walk(dir, "").filter(isText)) {
         const body = fs.readFileSync(f, "utf8");
         const relf = path.relative(dir, f).split(path.sep).join("/");
         for (const re of forbidden) if (re.test(body)) r.errors.push(`${at}/${relf}: contains a forbidden source name (${re.source})`);

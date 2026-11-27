@@ -1,6 +1,6 @@
-# Copy this file to <project-root>/.agentkit/journal.yaml and edit the
+# Copy this file to <project-root>/.max-kit/journal.yaml and edit the
 # account ids for your own zernio-connected accounts. Never commit
-# .agentkit/.env or any API key alongside this file — only account ids
+# .max-kit/.env or any API key alongside this file — only account ids
 # belong here. See references/config-schema.md and
 # references/channels-config.md for the full schema.
 
