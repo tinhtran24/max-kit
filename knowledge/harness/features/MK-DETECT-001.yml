@@ -3,7 +3,7 @@ id: MK-DETECT-001
 title: "Stack profiles and detection: rails, laravel, node, django, go; detect and init --detect"
 area: profiles
 priority: high
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
@@ -21,6 +21,8 @@ verification:
     - npm test
     - npm run check
   expected_result: "test/detect.test.mjs passes, including the golden detection file and one migration case per stack."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-phase-2-detect.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
