@@ -5,6 +5,8 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const test = require('node:test');
 
+const POSIX_ONLY = process.platform === 'win32' && 'the fake npx is a POSIX shell script';
+
 const SCRIPT = path.join(__dirname, 'post-social.cjs');
 
 /**
