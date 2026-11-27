@@ -43,6 +43,7 @@ evidence:
   - harness/runs/2026-11-27-verify-mk-packs-001-4.md
   - harness/runs/2026-11-27-verify-mk-packs-001-6.md
   - harness/runs/2026-11-27-verify-mk-packs-001-7.md
+  - harness/runs/2026-11-27-verify-mk-packs-001-8.md
 unknowns: []
 updated_at: 2026-11-27
 last_verified_at: 2026-11-27
