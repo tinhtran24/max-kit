@@ -40,6 +40,7 @@ verification:
   expected_result: "All tests pass; check passed with forbidden patterns active."
 evidence:
   - harness/runs/2026-11-27-verify-mk-port-004-2.md
+  - harness/runs/2026-11-27-verify-mk-port-004-3.md
 unknowns: []
 updated_at: 2026-11-27
 last_verified_at: 2026-11-27
