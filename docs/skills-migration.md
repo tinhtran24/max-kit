@@ -54,19 +54,21 @@ Counts are calls found in the source skills.
 
 | Source subcommand | Calls | max-kit target | Status |
 | --- | --- | --- | --- |
-| `plan ...` | 78 | `mk new feature`, feature `acceptance`, `mk verify` | map now |
+| `plan create/add-phase/list/search/show/status/check/uncheck/update/use/resolve/validate/close/archive` | about 60 | `mk plan <same>` (files only, no index), plans link to features with `--feature` | done |
+| `plan reindex/kanban/cleanup/publish/parse/migrate/phase` | about 18 | none: no index exists; publishing is done with `gh` | rewrite |
 | `journal ...` | 22 | `mk log` | map now |
 | `doctor` | 15 | `mk doctor` | map now |
 | `kit init`, `kit refresh` | 29 | `mk init`, `mk update` | map now |
 | `update`, `self-update` | 49 | `npm update max-kit && mk update` | map now |
-| `test ...` | 11 | the feature's verification commands, `mk verify` | map now |
+| `test optimize/classify-e2e/benchmark` | 11 | none: suite optimisation runs on repository tools | remove the CLI passages |
 | `skills link/route/kit` | 203 (with below) | `mk sync`, pack config | map now |
 | `skills improve/evolution/self-improve` | | `mk improve` (Phase 7: corrections to review queue) | build, then map |
 | `secrets set/get/list/search/annotate/rotate/delete/compare/import-env/export/run/request/approve/grants/revoke/audit/status` | about 75 | `mk secrets <same>` (local vault) | map now |
 | `secrets sync/recovery/members/remote/bundle/trust/alias/approvals` | about 59 | none until a sync server exists | rewrite: drop sync and recovery passages, keep local use |
-| `config prefs/start` | 49 | `max-kit.config.json` | rewrite |
+| `config prefs resolve/get/set/unset/validate` | about 30 | `mk prefs <same>` (`resolve --json` keeps the `.prefs` shape) | done |
+| `config start` and other config calls | about 19 | `max-kit.config.json` | rewrite |
 | `orchestrate`, `sessions`, `watch` | 48 | `mk handoff` (Phase 5) plus runtime agents | build `handoff`, rewrite rest |
-| `eval` | 30 | `mk eval` (Phase 9) | build, then map |
+| `eval` | 30 | none: all are opt-in cloud "shadow experiment" sections | remove the section |
 | `insights`, `analytics`, `features`, `agents model`, `backups`, `projects`, `login`, `content*`, `policy`, `migrate`, `render`, `mcp` | about 110 | none | rewrite or drop the passage |
 
 ## 5. Port mechanics

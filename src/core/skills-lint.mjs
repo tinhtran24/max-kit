@@ -3,7 +3,7 @@ import path from "node:path";
 import { KIT_ROOT } from "./config.mjs";
 import { result, walk } from "./util.mjs";
 import { listPacks, loadPack } from "./model.mjs";
-import { COMMAND_NAMES } from "../cli/commands.mjs";
+import { COMMAND_NAMES, SUBCOMMANDS } from "../cli/commands.mjs";
 
 const TEXT = /\.(md|mdx|txt|json|ya?ml|js|cjs|mjs|ts|py|sh|html|css|toml)$/i;
 const DEFAULT_MAX_KB = 512;
@@ -101,8 +101,9 @@ export function lintSkills(root = KIT_ROOT) {
           else unresolved.set(ref, (unresolved.get(ref) || new Set()).add(name));
         }
         const code = [...body.matchAll(/```[\s\S]*?```|`[^`\n]+`/g)].map((m) => m[0]).join("\n");
-        for (const [, cmd] of code.matchAll(/(?:^|[\s`'"(;&|])(?:mk|max-kit) ([a-z][a-z-]*)\b/gm)) {
+        for (const [, cmd, sub] of code.matchAll(/(?:^|[\s`'"(;&|])(?:mk|max-kit) ([a-z][a-z-]*)(?:[ \t]+([a-z][a-z-]*))?/gm)) {
           if (!COMMAND_NAMES.includes(cmd)) r.errors.push(`${at}/${relf}: mentions "mk ${cmd}", which is not a max-kit command`);
+          else if (sub && SUBCOMMANDS[cmd] && !SUBCOMMANDS[cmd].includes(sub)) r.errors.push(`${at}/${relf}: mentions "mk ${cmd} ${sub}", which is not a max-kit command`);
         }
       }
     }

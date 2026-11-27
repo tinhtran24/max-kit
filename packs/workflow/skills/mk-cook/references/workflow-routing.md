@@ -1,0 +1,40 @@
+# Workflow Routing
+
+Use this file when choosing the sequence for multi-step work. It is a routing
+map only; load the owning `SKILL.md` before executing details.
+
+## Core Sequences
+
+| User intent | Sequence |
+|---|---|
+| Implement a feature | `/mk-brainstorm` -> `the engineer plan skill` -> `/mk-cook` -> `the installed test skill` -> `the installed code-review skill` |
+| Execute an accepted plan | reuse its brainstorm contract -> `/mk-cook <plan-path>` |
+| Quick implementation | bounded brainstorm gate -> `/mk-cook --fast` |
+| Bug, error, failed test, or CI failure | opening intent frame -> `/mk-fix` |
+| Investigate before deciding | `/mk-scout` -> `the engineer debug skill` -> `/mk-brainstorm` -> `the engineer plan skill` |
+| Review a PR | `the installed review-pr skill <PR>` |
+| Fix review feedback | `the installed review-pr skill <PR> --fix` or `/mk-fix --parallel` |
+| Ship a completed branch | `the engineer ship skill` |
+| Explain work visually | `/mk-preview --explain` or `/mk-preview --html --diff` |
+| Update project docs | `/mk-docs update` |
+
+## Implementation Owner
+
+- Use `the engineer plan skill` when work needs architecture, phases, file ownership, or TDD
+  structure.
+- Read-only scout, debug, review, and explanation work may stop without an
+  interactive design loop. Satisfy the brainstorm gate if it crosses into
+  delivery or workspace mutation.
+
+## Handoff Rules
+
+- Establish the brainstorm contract, then use the domain skill for evidence and
+  design, followed by the workflow owner. Example: for a React feature, route
+  to `the installed frontend-development skill`, then execute through the
+  installed plan skill and `/mk-cook`.
+- For visual explanations, invoke the installed preview skill and follow its
+  explanation routing.
+- For documentation changes, invoke `/mk-docs update` and follow the installed
+  documentation-management routing.
+- If `find-skills` is installed and skill choice is ambiguous, invoke it for
+  domain routing. Otherwise use the installed skill names and descriptions.
