@@ -52,6 +52,12 @@ test("transform renames, maps exact commands and reports the rest", () => {
   assert.doesNotMatch(out, /license:/);
   assert.match(out, /author: max-kit/);
   assert.equal(transform("break the jazz-band", SRC).out, "break the jazz-band", "only whole-prefix matches change");
+  const code = transform("const zetaHome = process.env.ZETA_HOME; function getZetaHome() {}; find_zeta_repo(); new ZetaDiagram(); 'zeta CLI'", SRC).out;
+  assert.equal(transform("_zz_lib x; __zz_init; zz_on_path; uses_zz_ns; ZZ_GH_REST=1; pizza_zz", SRC).out, "_mk_lib x; __mk_init; mk_on_path; uses_mk_ns; MK_GH_REST=1; pizza_zz", "snake and upper forms of the prefix; a trailing suffix is left alone");
+  assert.equal(transform("printf 'a\\nZZ_GH_REST: %s'", SRC).out, "printf 'a\\nMK_GH_REST: %s'", "after an escape sequence");
+  assert.equal(transform("opts.zetaHome and .zeta/x", SRC).out, "opts.maxKitHome and .max-kit/x", "the config folder rule stops at identifiers");
+  assert.equal(code, "const maxKitHome = process.env.MAX_KIT_HOME; function getMaxKitHome() {}; find_max_kit_repo(); new MaxKitDiagram(); 'max-kit CLI'");
+  assert.equal(transform("see bestzetas/zeta-docs and bestzetas/zeta", { ...SRC, tokens: { "bestzetas/zeta-docs": "acme/docs", "bestzetas/zeta": "owner/max-kit" } }).out, "see acme/docs and owner/max-kit");
 });
 
 test("port --write copies into packs, drops owner notices and keeps third-party ones", () => {
