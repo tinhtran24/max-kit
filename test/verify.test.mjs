@@ -149,6 +149,17 @@ test("watched paths changing after the verified commit make evidence stale", asy
   assert.equal(checkFreshness(strict).errors.length, 1);
 });
 
+test("the newest same-day run decides freshness, not file-name order", async () => {
+  const { kb, cfg, api, file } = await setup(VERIFY_OK);
+  fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace("repo: api", "repo: api\nwatch:\n  - src/"));
+  runVerify(cfg, "SHOP-ORDER-001");
+  commit(api, "src/a.js", "1");
+  assert.equal(checkFreshness(loadConfig(kb)).warnings.length, 1);
+  const second = runVerify(loadConfig(kb), "SHOP-ORDER-001");
+  assert.match(second.runFile, /-2\.md$/);
+  assert.deepEqual(checkFreshness(loadConfig(kb)).warnings, []);
+});
+
 test("evidence naming a commit that does not exist is reported", async () => {
   const { kb, cfg } = await setup(VERIFY_OK);
   const r = runVerify(cfg, "SHOP-ORDER-001");

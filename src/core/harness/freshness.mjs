@@ -16,9 +16,9 @@ function git(dir, args) {
 function latestPassingRun(cfg, evidence) {
   const runs = (evidence || [])
     .filter((ref) => /^harness\/runs\/.+\.md$/.test(ref) && fs.existsSync(kb(cfg, ref)))
-    .map((ref) => ({ ref, meta: frontMatter(fs.readFileSync(kb(cfg, ref), "utf8")) || {} }))
+    .map((ref, order) => ({ ref, order, meta: frontMatter(fs.readFileSync(kb(cfg, ref), "utf8")) || {} }))
     .filter((r) => r.meta.result === "passed" && r.meta.commit)
-    .sort((a, b) => String(a.meta.date).localeCompare(String(b.meta.date)) || a.ref.localeCompare(b.ref));
+    .sort((a, b) => String(a.meta.date).localeCompare(String(b.meta.date)) || a.order - b.order);
   return runs.at(-1);
 }
 
