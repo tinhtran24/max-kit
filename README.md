@@ -2,7 +2,7 @@
 
 A control-plane kit for coding agents. It gives any project a small knowledgebase that tells every agent session what to read first, which rules apply, which commands are dangerous and what proves a task is done. You write it once; adapters render it for each agent runtime your team uses.
 
-- **Evidence-based done.** One YAML file per feature, run files with real output and the commit verified, and a check that fails when something is marked `passing` without evidence.
+- **Evidence-based done.** One YAML file per feature with optional acceptance criteria; `max-kit verify` runs its commands and records real output and the commit verified; the check fails when something is `passing` without evidence and warns when files the feature `watch`es changed after the verified commit. A fresh-context `verifier` agent reviews high-risk features against their evidence.
 - **Guards.** Session boot context, no push to protected branches, no edits on deploy branches, no hand-written migrations, confirmation for risky commands, an evidence reminder before the agent stops. Written once, bridged into each runtime's hook system.
 - **Any stack.** Profiles (`generic`, `rails`, `laravel`, `node`, `django`, `go`) supply migration folders, generators, test commands and risky-command patterns. `max-kit detect` reads each app repo (Gemfile, composer.json, package.json and lockfiles, pyproject.toml, go.mod, compose files) and fills in the profile, test command, migration generator and container.
 - **Any runtime.** Claude Code and Codex CLI are built in. Other runtimes are adapters: a folder in this repo, an npm package named `max-kit-adapter-*`, or a local module listed in the config. See [docs/adapters.md](docs/adapters.md).
@@ -51,7 +51,8 @@ Run inside a knowledgebase (`npm run <script>` wraps each one).
 | `max-kit check` | Quality gate: harness lint, index, log, links, boot budget, generated files |
 | `max-kit sync [--target a,b] [--dry-run] [--check]` | Render `AGENTS.md`, `CLAUDE.md` and each target's files |
 | `max-kit new feature <ID> "<title>" <area> [trigger]` | New draft feature |
-| `max-kit new run <ID[,ID]> <slug> [--repo <id>]` | New evidence file with the repo's commit |
+| `max-kit verify <ID> [--dry-run] [--allow-risky]` | Run the feature's verification commands in their repos, write the run file (commit, branch, redacted output) and mark it passing on success |
+| `max-kit new run <ID[,ID]> <slug> [--repo <id>]` | New evidence file for manual protocols, with the repo's commit |
 | `max-kit log <kind> "<title>" [note ...]` | Append to this month's log |
 | `max-kit index` / `max-kit rollup` | Regenerate the feature index / log views |
 | `max-kit update` | Refresh kit-owned files and re-render after upgrading the kit |

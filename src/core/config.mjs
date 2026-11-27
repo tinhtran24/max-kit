@@ -98,7 +98,8 @@ export function loadConfig(root) {
     harness: {
       idPattern: raw.harness?.idPattern || (idPrefix ? `^${idPrefix}(-[A-Z0-9]+)+-[0-9]{3}$` : "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+-[0-9]{3}$"),
       staleActiveDays: raw.harness?.staleActiveDays ?? 30,
-      staleVerifiedDays: raw.harness?.staleVerifiedDays ?? 120
+      staleVerifiedDays: raw.harness?.staleVerifiedDays ?? 120,
+      staleEvidence: raw.harness?.staleEvidence === "error" ? "error" : "warn"
     },
     boot: {
       maxChars: raw.boot?.maxChars ?? 9000,

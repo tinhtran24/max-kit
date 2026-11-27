@@ -5,6 +5,7 @@ const COMMANDS = {
   hook: ["./hook.mjs", "Hook entry point for agent runtimes: hook <event> --runtime <id>"],
   check: ["./check.mjs", "Quality gate: harness lint, index, log, links, boot budget, sync"],
   new: ["./new.mjs", "new feature <ID> \"<title>\" <area> [trigger] | new run <ID[,ID]> <slug> [--repo <id>]"],
+  verify: ["./verify.mjs", "Run a feature's verification commands and record the evidence: verify <ID> [--repo <id>] [--tier high|low] [--allow-risky] [--dry-run]"],
   log: ["./log.mjs", "Append to this month's log: log <kind> \"<title>\" [note ...]"],
   index: ["./index-cmd.mjs", "Regenerate knowledge/harness/features-index.md: index [--check]"],
   rollup: ["./rollup.mjs", "Regenerate log index and recent changes: rollup [--check | --split <file>]"],

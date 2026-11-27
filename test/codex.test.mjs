@@ -8,7 +8,7 @@ import { BUILT_IN, renderTargets, validateAdapter } from "../src/adapters/regist
 import { syncKnowledgebase } from "../src/cli/sync.mjs";
 import { handleHook } from "../src/cli/hook.mjs";
 import { loadConfig } from "../src/core/config.mjs";
-import { loadSkills } from "../src/core/model.mjs";
+import { loadAgents, loadSkills } from "../src/core/model.mjs";
 import { editConfig, fixture, gitRepo, makeKb } from "./helpers.mjs";
 
 const GOLDEN = path.join(path.dirname(fileURLToPath(import.meta.url)), "golden", "codex");
@@ -38,9 +38,9 @@ test("codex adapter satisfies the contract and is built in", () => {
 });
 
 test("codex render matches golden files", () => {
-  const model = { project: "shop", skills: loadSkills() };
+  const model = { project: "shop", skills: loadSkills(), agents: loadAgents() };
   const files = codex.render(model);
-  assert.deepEqual(files.map((f) => f.path), [".codex/hooks.json", ".agents/skills/harness/SKILL.md"]);
+  assert.deepEqual(files.map((f) => f.path), [".codex/hooks.json", ".agents/skills/harness/SKILL.md", ".agents/skills/verifier/SKILL.md"]);
   for (const f of files) {
     const file = path.join(GOLDEN, f.path);
     if (process.env.UPDATE_GOLDEN) {

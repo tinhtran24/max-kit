@@ -55,7 +55,7 @@ export default {
   capabilities: {
     instructions: "native",
     skills: "native",
-    agents: "none",
+    agents: "as-skills",
     hooks: ["session", "prompt", "pre-tool", "stop"],
     plugin: "none",
     blocking: "json",
@@ -71,6 +71,12 @@ export default {
     const files = [{ path: ".codex/hooks.json", content: `${JSON.stringify(renderHooks(), null, 2)}\n` }];
     for (const skill of model.skills || []) {
       for (const f of skill.files) files.push({ path: `.agents/skills/${skill.name}/${f.path}`, content: f.content });
+    }
+    for (const agent of model.agents || []) {
+      files.push({
+        path: `.agents/skills/${agent.name}/SKILL.md`,
+        content: `---\nname: ${agent.name}\ndescription: ${JSON.stringify(agent.description)}\n---\n\n${agent.body}\n`
+      });
     }
     return files;
   },

@@ -24,12 +24,21 @@ Run every command from the knowledgebase root (the folder with `max-kit.config.j
 
 ## 3. Verify and record
 
-1. Run the feature's `verification.commands` or follow its `protocol`.
-2. `npm run new:run -- <ID>[,<ID>] <slug> [--repo <id>]`; fill the front matter:
-   - `result`: passed | failed | blocked | skipped
-   - `tier`: high | low (with the reason)
-   - `commit` is filled from the repo; use `pr:` instead when verifying a pull request
-3. Paste commands and the output summary into the run body. Fake data only; no customer data.
+Automated features (`verification.commands`):
+
+```sh
+npm run verify -- <ID>            # add --dry-run first to see the commands
+```
+
+It runs each command in its repo, writes `harness/runs/<date>-verify-<id>.md` with the commit, branch and redacted output, and on success adds the evidence and sets `passing` (unless unknowns are open or the repo is dirty). Commands that match a risky pattern need the user's yes, then `--allow-risky`.
+
+Manual features (`verification.protocol`):
+
+1. Follow the protocol.
+2. `npm run new:run -- <ID>[,<ID>] <slug> [--repo <id>]`; fill `result`, `tier` (high | low, with the reason) and the observed output. Use `pr:` instead of `commit` when verifying a pull request.
+3. Fake data only; no customer data.
+
+High-risk features: before marking `passing`, ask the `verifier` agent (fresh context) to check the feature against its evidence.
 
 ## 4. Move state
 
