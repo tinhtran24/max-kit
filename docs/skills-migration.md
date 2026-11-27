@@ -56,7 +56,7 @@ Counts are calls found in the source skills.
 | --- | --- | --- | --- |
 | `plan create/add-phase/list/search/show/status/check/uncheck/update/use/resolve/validate/close/archive` | about 60 | `mk plan <same>` (files only, no index), plans link to features with `--feature` | done |
 | `plan reindex/kanban/cleanup/publish/parse/migrate/phase` | about 18 | none: no index exists; publishing is done with `gh` | rewrite |
-| `journal ...` | 22 | `mk log` | map now |
+| `journal create/list/show/validate` | 22 | `mk journal <same>` (files in `plans/journals/`) | done |
 | `doctor` | 15 | `mk doctor` | map now |
 | `kit init`, `kit refresh` | 29 | `mk init`, `mk update` | map now |
 | `update`, `self-update` | 49 | `npm update max-kit && mk update` | map now |
@@ -97,7 +97,7 @@ Each batch is one pull request with a harness feature, the port report in the ru
 | 0 | `mk` alias, pack loader and rendering, `postinstall` sync, port script, `mk skills lint`, `THIRD_PARTY_NOTICES.md` | Phase 4 |
 | 1 | `workflow` pack, CLI-free skills first: advise, ask, brainstorm, bro, code-review, debug, explain, problem-solving, predict, scenario, scout, sumup, research, research-prompt, sowat, xia, fable-thinking; agents planner, debugger, code-reviewer, tester, researcher, brainstormer, advisor, explore | 0 |
 | 2 | `workflow` remainder (plan, cook, fix, test, issue-to-plan, atoz) mapped to harness features and `mk verify` | 1 |
-| 3 | `continuity` (handoff, journal, retro, watzup, context-engineering, ...), with `mk handoff` from Phase 5 | 2, Phase 5 |
+| 3 | `continuity` (handoff, journal, retro, watzup, context-engineering, ...), with `mk journal` and `mk handoff`; dogfood moves to batch 8 with `mk improve` | 2 |
 | 4 | `delivery` (git, github, review-pr, ship, vibe, worktree) | 2 |
 | 5 | `docs`, `diagrams` | 0 |
 | 6 | `frontend`, `backend`, `mobile` | 0 |

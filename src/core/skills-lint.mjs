@@ -49,6 +49,11 @@ export function lintSkills(root = KIT_ROOT) {
     for (const n of [...(m.planned || []), ...(m.plannedAgents || [])]) known.add(n);
   }
   const unresolved = new Map();
+  const skillDirs = new Map();
+  for (const u of units) {
+    if (!fs.existsSync(u.skillsDir)) continue;
+    for (const d of fs.readdirSync(u.skillsDir)) skillDirs.set(d, path.join(u.skillsDir, d));
+  }
   let count = 0;
   for (const u of units) {
     const where = u.pack ? `packs/${u.pack}` : "";
@@ -92,7 +97,11 @@ export function lintSkills(root = KIT_ROOT) {
           const plain = body.replace(/```[\s\S]*?```/g, "");
           for (const [, target] of plain.matchAll(/\[[^\]]*\]\(([^)\s]+)\)/g)) {
             if (/^(https?:|mailto:|#)/.test(target)) continue;
-            if (!fs.existsSync(path.resolve(path.dirname(f), decodeURI(target.split("#")[0])))) r.errors.push(`${at}/${relf}: broken link ${target}`);
+            const local = path.resolve(path.dirname(f), decodeURI(target.split("#")[0]));
+            if (fs.existsSync(local)) continue;
+            const sibling = path.relative(u.skillsDir, local).split(path.sep);
+            const elsewhere = sibling[0]?.startsWith("mk-") && skillDirs.has(sibling[0]) && fs.existsSync(path.join(skillDirs.get(sibling[0]), ...sibling.slice(1)));
+            if (!elsewhere) r.errors.push(`${at}/${relf}: broken link ${target}`);
           }
         }
         for (const [, ref] of body.matchAll(/(?<![\w/.-])(mk-[a-z0-9]+(?:-[a-z0-9]+)*)(?![\w/-]|\.[a-z0-9])/g)) {

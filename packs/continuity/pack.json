@@ -3,24 +3,28 @@
   "requires": [
     "workflow"
   ],
-  "skills": [],
-  "agents": [],
-  "planned": [
-    "mk-handoff",
-    "mk-journal",
-    "mk-retro",
-    "mk-watzup",
-    "mk-context-engineering",
-    "mk-dogfood",
-    "mk-goal-warmup",
-    "mk-loop",
+  "skills": [
     "mk-autoresearch",
     "mk-codex-goal",
+    "mk-context-engineering",
     "mk-folder-context",
-    "mk-interview-docs"
+    "mk-goal-warmup",
+    "mk-handoff",
+    "mk-interview-docs",
+    "mk-journal",
+    "mk-loop",
+    "mk-retro",
+    "mk-watzup"
   ],
-  "plannedAgents": [
+  "agents": [
     "mk-journal-writer",
     "mk-kongming"
-  ]
+  ],
+  "planned": [
+    "mk-dogfood"
+  ],
+  "plannedAgents": [],
+  "deferred": {
+    "mk-dogfood": "built on skill self-improvement; ports with mk improve (Phase 7)"
+  }
 }
