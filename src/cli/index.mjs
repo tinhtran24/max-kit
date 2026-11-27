@@ -1,5 +1,6 @@
 const COMMANDS = {
-  init: ["./init.mjs", "Create a knowledgebase: init [dir] --project <name> --id-prefix <ABC> [--profile <id>]"],
+  init: ["./init.mjs", "Create a knowledgebase: init [dir] --project <name> --id-prefix <ABC> [--profile <id>] [--detect]"],
+  detect: ["./detect.mjs", "Detect stack, test command, migration generator and container per repo: detect [--write]"],
   sync: ["./sync.mjs", "Render runtime files from the knowledgebase: sync [--target a,b] [--dry-run] [--check]"],
   hook: ["./hook.mjs", "Hook entry point for agent runtimes: hook <event> --runtime <id>"],
   check: ["./check.mjs", "Quality gate: harness lint, index, log, links, boot budget, sync"],

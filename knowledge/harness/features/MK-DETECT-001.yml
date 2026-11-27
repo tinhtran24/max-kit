@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-DETECT-001
+title: "Stack profiles and detection: rails, laravel, node, django, go; detect and init --detect"
+area: profiles
+priority: high
+state: passing
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Phase 2 of docs/plan.md: work for any stack through profiles and detection, not hard-coded patterns."
+behavior: >
+  max-kit detect reads each app repo and proposes profile, test command, migration generator and container;
+  --write fills only empty config fields; guard patterns come from profiles plus config extensions; the migration
+  guard blocks a hand-written file in each profile's migration folder and names the generator and container.
+scope:
+  in: [profiles, src/core/detect, src/cli/detect.mjs, init --detect]
+  out: [monorepo workspaces with several stacks in one checkout]
+verification:
+  mode: automated
+  commands:
+    - npm test
+    - npm run check
+  expected_result: "test/detect.test.mjs passes, including the golden detection file and one migration case per stack."
+evidence:
+  - harness/runs/2026-11-27-phase-2-detect.md
+unknowns: []
+updated_at: 2026-11-27
+last_verified_at: 2026-11-27

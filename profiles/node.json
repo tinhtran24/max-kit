@@ -1,0 +1,14 @@
+{
+  "id": "node",
+  "extends": "generic",
+  "description": "Node.js or TypeScript; migration tool detected per repo (Prisma, Knex, TypeORM, Drizzle, Sequelize).",
+  "testCommand": "npm test",
+  "migrations": { "paths": ["/prisma/migrations/", "/drizzle/", "/src/migrations/"], "generator": "" },
+  "riskyCommands": [
+    "\\bprisma\\s+migrate\\s+reset\\b",
+    "\\bprisma\\s+db\\s+push\\b.*--force-reset",
+    "\\bdrizzle-kit\\s+(push|drop)\\b",
+    "\\b(knex|sequelize)\\s+.*db:drop\\b",
+    "\\bNODE_ENV=(staging|production)\\b"
+  ]
+}

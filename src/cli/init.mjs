@@ -6,6 +6,7 @@ import { fill, today } from "../core/util.mjs";
 import { appendLog, rollup } from "../core/harness/log.mjs";
 import { writeIndex } from "../core/harness/index.mjs";
 import { syncKnowledgebase } from "./sync.mjs";
+import { detectAndWrite } from "./detect.mjs";
 import { parseArgs } from "./args.mjs";
 
 export const TEMPLATE_DIR = path.join(KIT_ROOT, "template");
@@ -83,7 +84,7 @@ updated_at: ${date}
 }
 
 export default async function init(argv) {
-  const args = parseArgs(argv, { flags: ["force", "no-git"], options: ["project", "id-prefix", "profile", "kit", "targets"] });
+  const args = parseArgs(argv, { flags: ["force", "no-git", "detect"], options: ["project", "id-prefix", "profile", "kit", "targets"] });
   const target = path.resolve(args._[0] || ".");
   const project = args.options.project || path.basename(target);
   const prefix = (args.options["id-prefix"] || project.replace(/[^a-z0-9]/gi, "").slice(0, 4)).toUpperCase();
@@ -115,9 +116,10 @@ export default async function init(argv) {
   };
   fs.writeFileSync(path.join(target, CONFIG_FILE), `${JSON.stringify(config, null, 2)}\n`);
 
+  if (args.flags.detect) await detectAndWrite(target, { write: true });
   const cfg = loadConfig(target);
   const ids = seedFeatures(path.join(target, "knowledge", "harness", "features"), prefix, date);
-  appendLog(cfg, "tooling", "Knowledgebase created with max-kit", [`Kit: ${kitVersion()}`, `Profile: ${profile}`, `Seed features: ${ids.join(", ")}`], date);
+  appendLog(cfg, "tooling", "Knowledgebase created with max-kit", [`Kit: ${kitVersion()}`, `Profile: ${cfg.profile}`, `Seed features: ${ids.join(", ")}`], date);
   writeIndex(cfg);
   rollup(cfg);
   await syncKnowledgebase(cfg);
@@ -130,7 +132,7 @@ export default async function init(argv) {
     }
   }
 
-  console.log(`created knowledgebase "${project}" in ${target} (prefix ${prefix}, profile ${profile}, targets ${targets.join(", ")})
+  console.log(`created knowledgebase "${project}" in ${target} (prefix ${prefix}, profile ${cfg.profile}, targets ${targets.join(", ")})
 
 next:
   cd ${path.relative(process.cwd(), target).startsWith("..") ? target : path.relative(process.cwd(), target) || "."}

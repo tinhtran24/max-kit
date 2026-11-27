@@ -1,0 +1,8 @@
+services:
+  db:
+    image: mysql:8
+  api:
+    build: .
+    container_name: shop_api
+    volumes:
+      - .:/backend

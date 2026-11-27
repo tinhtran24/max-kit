@@ -14,7 +14,8 @@ export default {
     const target = norm(file);
     if (!cfg.guards.migrationPaths.some((p) => target.includes(p))) return null;
     const repo = cfg.repos.find((r) => target.startsWith(norm(path.join(cfg.root, r.path)) + "/"));
-    const how = repo?.migrationGenerator ? ` Generate it with: ${repo.migrationGenerator}` : " Use the repo's own migration generator (see its instructions file).";
+    const where = repo?.container ? ` inside the ${repo.container} container` : "";
+    const how = repo?.migrationGenerator ? ` Generate it${where} with: ${repo.migrationGenerator}` : ` Use the repo's own migration generator${where} (see its instructions file).`;
     return { type: "deny", reason: `New migration files must come from the generator, named by what they do, never hand-written.${how} Then edit the generated file.` };
   }
 };
