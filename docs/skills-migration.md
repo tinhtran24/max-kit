@@ -63,7 +63,7 @@ Counts are calls found in the source skills.
 | `test optimize/classify-e2e/benchmark` | 11 | none: suite optimisation runs on repository tools | remove the CLI passages |
 | `skills link/route/kit` | 203 (with below) | `mk sync`, pack config | map now |
 | `skills self-improve status/history` | | `mk improve status/events` | done |
-| `skills improve/evolution/kit/link`, `features list` | | none: personal kits, overlays and SkillX publishing are not part of max-kit | removed with their lanes |
+| `skills improve/evolution/kit/link`, `features list` | | none: personal kits, overlays and marketplace publishing are not part of max-kit | removed with their lanes |
 | `secrets set/get/list/search/annotate/rotate/delete/compare/import-env/export/run/request/approve/grants/revoke/audit/status` | about 75 | `mk secrets <same>` (local vault) | map now |
 | `secrets sync/recovery/members/remote/bundle/trust/alias/approvals` | about 59 | none until a sync server exists | rewrite: drop sync and recovery passages, keep local use |
 | `config prefs resolve/get/set/unset/validate` | about 30 | `mk prefs <same>` (`resolve --json` keeps the `.prefs` shape) | done |
