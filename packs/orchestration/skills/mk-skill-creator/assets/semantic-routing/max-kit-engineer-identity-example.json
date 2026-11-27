@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "mappings": [
+    {
+      "from": "mk-watzup",
+      "to": ["mk-sumup"],
+      "kind": "merge",
+      "note": "Hypothetical example, not a roster decision: one recap owner for handoff and technical summaries."
+    },
+    {
+      "from": "mk-sowat",
+      "to": ["mk-sumup"],
+      "kind": "merge",
+      "note": "Hypothetical example, not a roster decision."
+    },
+    {
+      "from": "mk-mermaidjs-v11",
+      "to": ["mk-mermaid"],
+      "kind": "rename",
+      "note": "Hypothetical example: a stable id without a version suffix."
+    }
+  ]
+}

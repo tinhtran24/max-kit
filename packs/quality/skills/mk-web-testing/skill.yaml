@@ -2,7 +2,7 @@ name: web-testing
 version: "1.0.0"
 description: Web E2E and unit testing with Playwright, Vitest, k6 — bootstrap configs, fixtures, runners.
 
-# Declarative runtime block interpreted by the `ak` skill-env manager.
+# Declarative runtime block for a skill-environment manager, when one is installed.
 # Behavior unchanged for users without the MAX_KIT_SKILL_RUNTIME=1 flag;
 # users with the flag get an isolated node_modules at
 # ~/.max-kit/cache/<hash>/node_modules instead of polluting the user's

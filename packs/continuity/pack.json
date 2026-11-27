@@ -7,6 +7,7 @@
     "mk-autoresearch",
     "mk-codex-goal",
     "mk-context-engineering",
+    "mk-dogfood",
     "mk-folder-context",
     "mk-goal-warmup",
     "mk-handoff",
@@ -20,11 +21,6 @@
     "mk-journal-writer",
     "mk-kongming"
   ],
-  "planned": [
-    "mk-dogfood"
-  ],
-  "plannedAgents": [],
-  "deferred": {
-    "mk-dogfood": "built on skill self-improvement; ports with mk improve (Phase 7)"
-  }
+  "planned": [],
+  "plannedAgents": []
 }

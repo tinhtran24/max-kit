@@ -98,6 +98,7 @@ export default {
         runtime: "codex",
         cwd: p.cwd || process.cwd(),
         sessionId: p.session_id || "",
+        transcriptPath: p.transcript_path || "",
         stopActive: Boolean(p.stop_hook_active),
         prompt: p.prompt || "",
         tool

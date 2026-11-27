@@ -78,7 +78,11 @@ export function productForm(match, pre, word, post) {
 }
 
 export function renamePath(relf, o) {
-  let out = relf.replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`, "g"), "$1mk-");
+  const base = esc(o.prefix.replace(/-$/, ""));
+  let out = relf
+    .replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`, "g"), "$1mk-")
+    .replace(new RegExp(`(^|[^A-Za-z0-9])(_*)${base}_`, "g"), "$1$2mk_")
+    .replace(new RegExp(`_${base}_`, "g"), "_mk_");
   if (o.product) out = out.replace(new RegExp(`([A-Za-z0-9_]*?)(${esc(o.product)})([A-Za-z0-9_]*)`, "gi"), productForm);
   return out;
 }
@@ -96,6 +100,7 @@ export function transform(text, o) {
   });
   out = out
     .replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`, "g"), "$1mk-")
+    .replace(new RegExp(`(?<![A-Za-z0-9_])${esc(o.prefix.replace(/-$/, ""))}:(?=[a-z])`, "g"), "mk:")
     .replace(new RegExp(`(?<![A-Za-z0-9])(_*)${esc(o.prefix.replace(/-$/, ""))}_`, "g"), "$1mk_")
     .replace(new RegExp(`_${esc(o.prefix.replace(/-$/, ""))}_`, "g"), "_mk_")
     .replace(new RegExp(`(?<![A-Za-z0-9]|\\\\[nrt])${esc(o.prefix.replace(/-$/, "").toUpperCase())}_|(?<=\\\\[nrt])${esc(o.prefix.replace(/-$/, "").toUpperCase())}_`, "g"), "MK_")

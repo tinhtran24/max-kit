@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-009
+title: "Migration batch 8: orchestration pack and dogfood (orchestrate deferred)"
+area: packs
+priority: medium
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 8)."
+behavior: >
+  Orchestration ships team, find-skills, project-management, help, coding-level,
+  plans-kanban, a new router and skill-creator (local authoring, pack layout, no
+  publishing lanes); continuity gains dogfood with mk improve evidence and a
+  contributor lane that finds the max-kit checkout. orchestrate is deferred with
+  its reason recorded.
+acceptance:
+  - id: AC1
+    then: skills lint passes with every source-name form forbidden (prefix, snake,
+      upper, colon, quoted CLI, product, repo paths)
+  - id: AC2
+    then: skill-creator (171) and dogfood (10) Python suites pass and media's
+      routing contract runs against skill-creator cases
+  - id: AC3
+    then: an enabled orchestration pack renders and the coding level reaches the
+      session context
+watch:
+  - packs/orchestration/
+  - packs/continuity/skills/mk-dogfood/
+  - src/guards/boot.mjs
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+    - run: npm run check
+      covers: [ AC1 ]
+  covers: [ AC2, AC3 ]
+  expected_result: "All tests pass; check passed with forbidden patterns active."
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-009.md
+unknowns:
+  - "mk-orchestrate: build an mk orchestrate engine or rewrite around runtime
+    subagents (owner decision)"
+updated_at: 2026-11-27

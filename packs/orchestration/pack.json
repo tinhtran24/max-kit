@@ -3,20 +3,27 @@
   "requires": [
     "workflow"
   ],
-  "skills": [],
-  "agents": [],
-  "planned": [
-    "mk-orchestrate",
-    "mk-team",
-    "mk-project-management",
-    "mk-plans-kanban",
-    "mk-router",
-    "mk-help",
+  "skills": [
+    "mk-coding-level",
     "mk-find-skills",
+    "mk-help",
+    "mk-plans-kanban",
+    "mk-project-management",
+    "mk-router",
     "mk-skill-creator",
-    "mk-coding-level"
+    "mk-team"
   ],
-  "plannedAgents": [
+  "agents": [
     "mk-project-manager"
-  ]
+  ],
+  "planned": [
+    "mk-orchestrate"
+  ],
+  "plannedAgents": [],
+  "deferred": {
+    "mk-orchestrate": "its source is driven by a session engine max-kit does not have; needs a decision: build an mk orchestrate engine or rewrite around runtime subagents"
+  },
+  "maxSkillKb": {
+    "mk-skill-creator": 600
+  }
 }

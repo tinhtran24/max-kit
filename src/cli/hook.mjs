@@ -1,6 +1,7 @@
 import { findRoot, loadConfig } from "../core/config.mjs";
 import { getAdapter } from "../adapters/registry.mjs";
 import { EVENTS, runGuards } from "../guards/index.mjs";
+import { appendEvent, enabled } from "../improve/events.mjs";
 import { parseArgs } from "./args.mjs";
 
 function readStdin() {
@@ -31,7 +32,15 @@ export async function handleHook(event, runtime, raw) {
   const root = findRoot(input.cwd);
   if (!root) return { stdout: "", exitCode: 0 };
   const cfg = loadConfig(root);
-  return adapter.hookBridge.respond(event, askFallback(runGuards(input, cfg), adapter, cfg));
+  const decision = askFallback(runGuards(input, cfg), adapter, cfg);
+  if (decision && ["deny", "ask", "block"].includes(decision.type) && enabled(cfg)) {
+    try {
+      appendEvent(cfg.root, { kind: "guard", guard: decision.guard || "unknown", decision: decision.type, runtime: input.runtime });
+    } catch {
+      /* recording never blocks a hook */
+    }
+  }
+  return adapter.hookBridge.respond(event, decision);
 }
 
 export default async function hook(argv) {

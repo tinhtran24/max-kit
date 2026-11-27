@@ -52,7 +52,7 @@ function readYamlFile(filePath) {
 }
 
 /**
- * Mirrors the Go `isRootedPlansDirValue` (apps/cli/internal/runtime/ckprefs/plans_dir.go):
+ * Rooted-value rule shared with the plans directory setting:
  * reports whether `v` is an absolute or rooted path, evaluated identically on
  * every OS regardless of the host platform, so a value written on one
  * platform (e.g. a Windows drive letter) is recognized the same way when this
@@ -133,7 +133,7 @@ function realpathDeepestExisting(p) {
  * while an unbounded `../../../../etc/cron.d`-style value cannot escape onto
  * the rest of the filesystem. This mirrors the intent (not the exact rule) of
  * the Go `isRootedPlansDirValue`/`PlansDirName` precedent
- * (apps/cli/internal/runtime/ckprefs/plans_dir.go), which rejects any `..`
+ * (the plans directory rule), which rejects any `..`
  * outright; that stricter rule is not used here because the sibling layout
  * this project's own issue recommends requires exactly one `..` to work.
  * A `.max-kit`-first-segment value is rejected outright, matching that same

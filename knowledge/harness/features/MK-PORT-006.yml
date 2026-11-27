@@ -39,6 +39,7 @@ verification:
 evidence:
   - harness/runs/2026-11-27-verify-mk-port-006.md
   - harness/runs/2026-11-27-verify-mk-port-006-2.md
+  - harness/runs/2026-11-27-verify-mk-port-006-3.md
 unknowns: []
 updated_at: 2026-11-27
 last_verified_at: 2026-11-27

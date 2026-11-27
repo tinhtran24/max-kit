@@ -15,7 +15,7 @@ const SCRIPT = join(SCRIPT_DIR, 'render-mermaid.mjs');
 const BUNDLE = join(SCRIPT_DIR, '..', 'assets', 'pele.mjs');
 
 // Characters the kit emitter strips from every text file it installs (see
-// apps/cli/internal/runtime/sanitize), after NFC normalization.
+// sanitizer), after NFC normalization.
 const EMIT_STRIPPED_RANGES = [
   [0x200b, 0x200f], [0x202a, 0x202e], [0x2060, 0x2064], [0x2066, 0x2069], [0xfeff, 0xfeff], [0xe0000, 0xe007f],
 ];
