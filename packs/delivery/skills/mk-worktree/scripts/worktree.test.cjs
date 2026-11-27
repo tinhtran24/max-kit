@@ -14,7 +14,7 @@ const SCRIPT_PATH = path.join(__dirname, 'worktree.cjs');
 // installed in: some cases call `create` without --dry-run, and running them
 // against the host repository created real worktrees and branches there.
 const STANDALONE_DIR = (() => {
-  const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'mk-wt-test-host-')));
+  const dir = fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(), 'mk-wt-test-host-')));
   const git = (args) => execSync(`git ${args}`, { cwd: dir, stdio: ['pipe', 'pipe', 'pipe'] });
   git('init -q');
   // Name the branch without `init -b` (git >= 2.28) so older git still works.
@@ -104,7 +104,7 @@ function mkTempGitRepo() {
   // though `os.tmpdir()` hands back the unresolved `/var/...` path. Return
   // the resolved path here so every worktreeRoot comparison against `repo`
   // in this suite matches what the CLI actually computes.
-  return fs.realpathSync(dir);
+  return fs.realpathSync.native(dir);
 }
 
 function mkTempHome() {
@@ -496,7 +496,7 @@ test('info shows worktreeRoot and worktreeRootSource', () => {
 });
 
 test('create --worktree-root overrides default location', () => {
-  const customRoot = '/tmp/test-worktrees';
+  const customRoot = path.join(os.tmpdir(), 'test-worktrees');
   const result = run(`create test-custom-root --prefix feat --dry-run --json --worktree-root "${customRoot}"`);
   assert(result.success, 'Should succeed with custom root');
   const json = assertJSON(result.output);
@@ -530,7 +530,7 @@ test('superproject detection in submodule', () => {
 });
 
 test('WORKTREE_ROOT env var overrides detection', () => {
-  const envRoot = '/tmp/env-worktrees';
+  const envRoot = path.join(os.tmpdir(), 'env-worktrees');
   {
     const output = execSync(`node "${SCRIPT_PATH}" create test-env --prefix feat --dry-run --json`, { env: { ...process.env, WORKTREE_ROOT: envRoot },
       encoding: 'utf-8',
@@ -1139,7 +1139,7 @@ test('scenario: user cleans up old worktrees', () => {
 });
 
 test('scenario: user with WORKTREE_ROOT env var', () => {
-  const customRoot = '/tmp/custom-worktrees';
+  const customRoot = path.join(os.tmpdir(), 'custom-worktrees');
   {
     const output = execSync(
       `node "${SCRIPT_PATH}" info --json`,

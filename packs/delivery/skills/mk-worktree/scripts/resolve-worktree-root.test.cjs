@@ -256,14 +256,14 @@ test('mk prefs locations: project max-kit.config.json and user prefs.json are re
   fs.mkdirSync(repo, { recursive: true });
   fs.writeFileSync(path.join(kb, 'max-kit.config.json'), JSON.stringify({ project: 'x', prefs: { worktree: { root: '../wt-from-prefs' } } }));
   const home = mkTempDir('mk-wt-prefs-home-');
-  fs.writeFileSync(path.join(home, 'prefs.json'), JSON.stringify({ prefs: { worktree: { root: '/abs/user-wt' } } }));
+  fs.writeFileSync(path.join(home, 'prefs.json'), JSON.stringify({ prefs: { worktree: { root: path.join(os.tmpdir(), 'mk-wt-user-abs') } } }));
   const project = resolveWorktreeRoot({ gitRoot: repo, maxKitHome: home });
   assert(project.source === 'project', `source ${project.source}`);
   assert(project.root === path.resolve(repo, '../wt-from-prefs'), `root ${project.root}`);
   fs.writeFileSync(path.join(kb, 'max-kit.config.json'), JSON.stringify({ project: 'x' }));
   const user = resolveWorktreeRoot({ gitRoot: repo, maxKitHome: home });
   assert(user.source === 'user', `source ${user.source}`);
-  assert(user.root === path.resolve('/abs/user-wt'), `root ${user.root}`);
+  assert(user.root === path.join(os.tmpdir(), 'mk-wt-user-abs'), `root ${user.root}`);
 });
 
 console.log(`Results: ${passed} passed, ${failed} failed`);
