@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-003
+title: "Migration batch 3: continuity pack, mk journal and mk handoff"
+area: packs
+priority: medium
+state: passing
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 3)."
+behavior: >
+  The continuity pack ships 11 skills and 2 agents (dogfood waits for mk
+  improve). mk journal writes redacted session journals in plans/journals; mk
+  handoff reports branch, changes, current plan and harness state for a
+  continuation note. Ported script tests run in the kit's test suite.
+acceptance:
+  - id: AC1
+    then: mk journal creates, lists, shows and validates entries and redacts secrets
+  - id: AC2
+    then: mk handoff reports repo, plan and harness facts
+  - id: AC3
+    then: the ported journal and watzup script tests pass, and skills lint passes
+      with source-name patterns
+watch:
+  - src/cli/journal.mjs
+  - src/cli/handoff.mjs
+  - packs/continuity/
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [ AC1, AC2, AC3 ]
+    - run: npm run check
+      covers: [ AC3 ]
+  expected_result: "All tests pass including test/journal-handoff.test.mjs and the
+    ported script tests; check passed."
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-003.md
+  - harness/runs/2026-11-27-verify-mk-port-003-2.md
+  - harness/runs/2026-11-27-verify-mk-port-003-3.md
+  - harness/runs/2026-11-27-verify-mk-port-003-4.md
+unknowns: []
+updated_at: 2026-11-27
+last_verified_at: 2026-11-27

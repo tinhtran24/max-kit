@@ -12,6 +12,8 @@ export const COMMANDS = {
   update: ["./update.mjs", "Refresh kit-owned files in a knowledgebase and re-render"],
   doctor: ["./doctor.mjs", "Report setup problems"],
   adapters: ["./adapters.mjs", "adapters list | adapters show <id>"],
+  journal: ["./journal.mjs", "Session journals in plans/journals: create, list, show, validate"],
+  handoff: ["./handoff.mjs", "Live state for a continuation note: branch, changes, current plan, active features [--json]"],
   plan: ["./plan.mjs", "Implementation plans as files: create, show, check, update, resolve, validate (mk plan help)"],
   prefs: ["./prefs.mjs", "Preferences: resolve, get, set, unset [--scope project|user]"],
   secrets: ["./secrets.mjs", "Encrypted local vault: set, get, search, run --env VAR=REF, approve, audit (mk secrets help)"],
@@ -22,7 +24,10 @@ export const COMMANDS = {
 export const COMMAND_NAMES = Object.keys(COMMANDS);
 
 export const SUBCOMMANDS = {
+  journal: ["./journal.mjs", "Session journals in plans/journals: create, list, show, validate"],
+  handoff: ["./handoff.mjs", "Live state for a continuation note: branch, changes, current plan, active features [--json]"],
   plan: ["create", "add-phase", "list", "search", "show", "status", "check", "uncheck", "update", "use", "resolve", "validate", "close", "archive", "help"],
+  journal: ["create", "list", "show", "validate"],
   prefs: ["resolve", "get", "set", "unset", "validate"],
   secrets: ["set", "rotate", "annotate", "get", "describe", "list", "search", "compare", "delete", "rm", "import-env", "export", "run", "request", "approve", "grants", "revoke", "audit", "store", "status", "help"],
   skills: ["lint", "list"],

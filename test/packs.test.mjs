@@ -24,6 +24,8 @@ function sourceKit() {
   write(path.join(dir, "skills", "zz-alpha", "LICENSE.txt"), "zz-alpha\nCopyright (c) 2026 Zeta. All Rights Reserved.\n");
   write(path.join(dir, "skills", "zz-beta", "SKILL.md"), `---\nname: zz-beta\ndescription: "Beta skill."\n---\n\n# Beta\n\nSee [ref](references/zz-guide.md).\n`);
   write(path.join(dir, "skills", "zz-beta", "references", "zz-guide.md"), "guide\n");
+  write(path.join(dir, "skills", "zz-beta", "assets", "config.yaml.example"), "# copy to .zeta/config.yaml (Zeta)\n");
+  fs.writeFileSync(path.join(dir, "skills", "zz-beta", "assets", "logo.bin"), Buffer.from([0x89, 0x50, 0x00, 0x5a, 0x65, 0x74, 0x61]));
   write(path.join(dir, "skills", "zz-beta", "LICENSE.txt"), "zz-beta\nCopyright (c) 2026 Zeta. All Rights Reserved.\nThe material below stays under its own licence.\n\nMIT License\n\nCopyright (c) 2025 Someone Else\n\nPermission is hereby granted, free of charge...\n");
   write(path.join(dir, "agents", "helper.md"), "---\nname: helper\ndescription: Helps with zz-alpha.\n---\n\nBody.\n");
   return dir;
@@ -69,6 +71,8 @@ test("port --write copies into packs, drops owner notices and keeps third-party 
   assert.doesNotMatch(alpha, /Zeta|zz-|\.zeta/);
   assert.ok(!fs.existsSync(path.join(packs, "core-pack", "skills", "mk-alpha", "LICENSE.txt")));
   assert.ok(fs.existsSync(path.join(packs, "core-pack", "skills", "mk-beta", "references", "mk-guide.md")));
+  assert.equal(fs.readFileSync(path.join(packs, "core-pack", "skills", "mk-beta", "assets", "config.yaml.example"), "utf8"), "# copy to .max-kit/config.yaml (max-kit)\n", "text is detected by content, not extension");
+  assert.deepEqual([...fs.readFileSync(path.join(packs, "core-pack", "skills", "mk-beta", "assets", "logo.bin"))], [0x89, 0x50, 0x00, 0x5a, 0x65, 0x74, 0x61], "binary files are copied byte for byte");
   assert.match(fs.readFileSync(path.join(packs, "core-pack", "agents", "mk-helper.md"), "utf8"), /^name: mk-helper$/m);
 
   const n = fs.readFileSync(notices, "utf8");

@@ -7,7 +7,13 @@ import { parseArgs } from "../src/cli/args.mjs";
 const KIT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let PACKS = path.join(KIT, "packs");
 let NOTICES = path.join(KIT, "THIRD_PARTY_NOTICES.md");
-const TEXT = /\.(md|mdx|txt|json|ya?ml|js|cjs|mjs|ts|py|sh|html|css|toml)$/i;
+const isText = (file) => {
+  const fd = fs.openSync(file, "r");
+  const buf = Buffer.alloc(8192);
+  const n = fs.readSync(fd, buf, 0, buf.length, 0);
+  fs.closeSync(fd);
+  return !buf.subarray(0, n).includes(0);
+};
 
 const USAGE = `usage: node scripts/port-skills.mjs --source <skills dir> --prefix <source prefix, e.g. xx-> --cli <source cli name>
          --product <source product name> --config-dir <source config folder> [--agents <agents dir>]
@@ -21,7 +27,8 @@ const EXACT = [
   [/^kit refresh\b/, "mk update"],
   [/^self-update\b/, "npm update max-kit && mk update"],
   [/^update\b(?! --)/, "mk update"],
-  [/^journal create\b/, "mk log"],
+  [/^journal (create|list|show|validate)\b/, "mk journal $1"],
+  [/^journal$/, "mk journal"],
   [/^secrets (set|get|describe|list|search|annotate|rotate|delete|rm|compare|import-env|export|run|request|approve|grants|revoke|audit|status)\b/, "mk secrets $1"],
   [/^secrets grant\b/, "mk secrets approve"],
   [/^config prefs (resolve|get|set|unset|validate)\b/, "mk prefs $1"],
@@ -143,7 +150,7 @@ function main() {
       const target = path.join(dest, relf.split(o.prefix).join("mk-"));
       o.selfFrom = `mk-${short}`;
       o.selfTo = mkName;
-      if (TEXT.test(file)) {
+      if (isText(file)) {
         const { out, unmapped } = transform(fs.readFileSync(file, "utf8"), o);
         for (const u of unmapped) entry.unmapped[u] = (entry.unmapped[u] || 0) + 1;
         for (const k of residuals(out, o)) entry.residual[k] = (entry.residual[k] || 0) + 1;
