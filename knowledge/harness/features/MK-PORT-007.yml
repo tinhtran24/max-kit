@@ -3,7 +3,7 @@ id: MK-PORT-007
 title: "Migration batch 6b: backend and mobile packs with short names"
 area: packs
 priority: medium
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
@@ -29,6 +29,8 @@ verification:
       covers: [ AC1 ]
   covers: [ AC2 ]
   expected_result: "All tests pass; check passed with forbidden patterns active."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-verify-mk-port-007-2.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
