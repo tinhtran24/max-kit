@@ -38,7 +38,7 @@ commit hash instead. Keep `--ultra` in every case when bootstrap received it.
 
 ## UX and AX Enhancement
 
-When the project has a website or web app, activate **mk-enhance-ux-ax** with
+When the project has a website or web app, activate **mk-ux-audit** with
 `--auto` on the running project after code review passes. It reviews the user
 experience and the AI experience (discovery files, Markdown twins, schema,
 social cards, share and send-to-AI actions), implements its Must and Should

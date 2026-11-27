@@ -30,7 +30,7 @@ map only; load the owning `SKILL.md` before executing details.
 
 - Establish the brainstorm contract, then use the domain skill for evidence and
   design, followed by the workflow owner. Example: for a React feature, route
-  to `the installed frontend-development skill`, then execute through the
+  to `the installed mk-frontend skill`, then execute through the
   installed plan skill and `/mk-cook`.
 - For visual explanations, invoke the installed preview skill and follow its
   explanation routing.

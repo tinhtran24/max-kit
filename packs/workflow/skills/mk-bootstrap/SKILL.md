@@ -1,6 +1,6 @@
 ---
 name: mk-bootstrap
-description: "Bootstrap web, mobile, CLI, API, MCP, WebMCP or library projects via mk-cook, mk-code-review, mk-enhance-ux-ax --auto and optional verified release; no planning."
+description: "Bootstrap web, mobile, CLI, API, MCP, WebMCP or library projects via mk-cook, mk-code-review, mk-ux-audit --auto and optional verified release; no planning."
 when_to_use: "Invoke to start from scratch in auto, full, fast or parallel mode; --ask locks scope via mk-advise."
 category: workflow
 keywords: [scaffold, project, setup, boilerplate]
@@ -91,7 +91,7 @@ released there and verified the way a real user or client reaches it; see
 ## Workflow Overview
 
 ```
-[Brainstorm Contract (mk-advise with --ask)] → [Git Init] → [Research?] → [Tech Stack?] → [Design?] → [mk-cook: implement + test] → [mk-code-review] → [mk-enhance-ux-ax --auto (web)] → [Release & Live Verify?] → [Docs] → [Onboard] → [Done]
+[Brainstorm Contract (mk-advise with --ask)] → [Git Init] → [Research?] → [Tech Stack?] → [Design?] → [mk-cook: implement + test] → [mk-code-review] → [mk-ux-audit --auto (web)] → [Release & Live Verify?] → [Docs] → [Onboard] → [Done]
 ```
 
 There is no separate planning phase: the locked brainstorm contract goes
@@ -124,7 +124,7 @@ After early phases (research, tech stack, design), trigger downstream skills:
 
 ### Surface Skills
 Route each surface to its owning skill during tech stack, design and
-implementation: `mk-web-frameworks` or `mk-frontend-development` for web,
+implementation: `mk-web-frameworks` or `mk-frontend` for web,
 `mk-mobile-development` for mobile, `mk-backend-development` for APIs,
 `mk-mcp-builder` for MCP servers, `mk-webmcp` for WebMCP, `mk-agentize` for
 agent-facing CLIs. The checklist names the rest.
@@ -162,7 +162,7 @@ blocking findings back through cook with the same mode flag, then review again
 with the same flags. Details and stop limits are in `references/shared-phases.md`.
 
 ### UX and AX Enhancement Phase
-When the project has a website or web app, activate **mk-enhance-ux-ax
+When the project has a website or web app, activate **mk-ux-audit
 --auto** after code review passes, then continue to release. Skip it for
 projects without a web surface. Details are in `references/shared-phases.md`.
 
@@ -209,7 +209,7 @@ phase runs `/mk-code-review codebase --ultra` (for work added to an existing
 project, `--pending --ultra` or the PR or commit with `--ultra`), including the
 re-review after UX/AX enhancement, and the code-review skill owns the best-of-5
 candidate dispatch, verification, and its evidence-validated union finalizer.
-Cook and enhance-ux-ax still run with their mode-appropriate flags, so
+Cook and mk-ux-audit still run with their mode-appropriate flags, so
 `--ultra` combines with every mode, including `--parallel`. Never pair it with
 code-review's `codebase parallel`, which that skill treats as a hard-stop.
 

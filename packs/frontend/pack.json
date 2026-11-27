@@ -1,25 +1,28 @@
 {
   "description": "Frontend, UI and UX: React, Next.js, styling, design systems, 3D.",
   "requires": [],
-  "skills": [],
-  "agents": [],
-  "planned": [
+  "skills": [
+    "mk-frontend",
     "mk-frontend-design",
-    "mk-frontend-development",
-    "mk-react-best-practices",
-    "mk-web-frameworks",
-    "mk-tanstack",
-    "mk-ui-styling",
-    "mk-ui-ux-pro-max",
-    "mk-enhance-ux-ax",
     "mk-page-builder",
-    "mk-stitch",
-    "mk-show-off",
-    "mk-threejs",
+    "mk-react",
     "mk-shader",
+    "mk-show-off",
+    "mk-stitch",
+    "mk-tanstack",
+    "mk-threejs",
+    "mk-ui-styling",
+    "mk-uiux",
+    "mk-ux-audit",
+    "mk-web-frameworks",
     "mk-webmcp"
   ],
-  "plannedAgents": [
+  "agents": [
     "mk-ui-ux-designer"
-  ]
+  ],
+  "planned": [],
+  "plannedAgents": [],
+  "maxSkillKb": {
+    "mk-uiux": 1550
+  }
 }

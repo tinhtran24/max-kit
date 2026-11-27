@@ -66,5 +66,5 @@ Output: project identity, architecture snapshot (Mermaid), recent activity, deci
 
 ### Style Strategy
 - Default: static anti-slop rules from `html-design-guidelines.md` (6 curated presets)
-- For `--slides`: consider invoking `/mk-ui-ux-pro-max` for richer style selection
+- For `--slides`: consider invoking `/mk-uiux` for richer style selection
 - Agent must vary aesthetics between consecutive HTML outputs (different font pair, palette)
