@@ -3,14 +3,16 @@ id: MK-IMPROVE-001
 title: "mk improve: content-free session and guard events with a session-start nudge"
 area: improve
 priority: medium
-state: active
+state: passing
 verification_level: contract
 trigger:
   type: user_request
-  summary: "Phase 7 of docs/plan.md; mk-dogfood's evidence mode needs it (migration batch 8)."
+  summary: "Phase 7 of docs/plan.md; mk-dogfood's evidence mode needs it
+    (migration batch 8)."
 behavior: >
-  One record per session (skills, tool calls, tool errors per skill), guard decisions recorded, nothing from the
-  conversation stored; a nudge shows once when a skill keeps failing or a guard keeps firing; recording can be off.
+  One record per session (skills, tool calls, tool errors per skill), guard
+  decisions recorded, nothing from the conversation stored; a nudge shows once
+  when a skill keeps failing or a guard keeps firing; recording can be off.
 acceptance:
   - id: AC1
     then: records hold names and counts only, one per session id
@@ -26,8 +28,10 @@ verification:
   mode: automated
   commands:
     - run: npm test
-      covers: [AC1, AC2, AC3]
+      covers: [ AC1, AC2, AC3 ]
   expected_result: "test/improve.test.mjs passes with the full suite."
-evidence: []
+evidence:
+  - harness/runs/2026-11-27-verify-mk-improve-001.md
 unknowns: []
 updated_at: 2026-11-27
+last_verified_at: 2026-11-27
