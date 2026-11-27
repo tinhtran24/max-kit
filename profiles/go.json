@@ -1,0 +1,12 @@
+{
+  "id": "go",
+  "extends": "generic",
+  "description": "Go; migration tool detected per repo (goose, golang-migrate, atlas, dbmate).",
+  "testCommand": "go test ./...",
+  "migrations": { "paths": ["/migrations/", "/db/migrations/"], "generator": "" },
+  "riskyCommands": [
+    "\\bgoose\\s+.*\\b(reset|down-to\\s+0)\\b",
+    "\\bmigrate\\s+.*\\bdrop\\b",
+    "\\batlas\\s+schema\\s+(apply|clean)\\b"
+  ]
+}

@@ -1,0 +1,5 @@
+[project]
+name = "shop"
+dependencies = ["django>=5.0"]
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "shop.settings"

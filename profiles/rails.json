@@ -1,0 +1,14 @@
+{
+  "id": "rails",
+  "extends": "generic",
+  "description": "Ruby on Rails with ActiveRecord migrations.",
+  "testCommand": "bin/rails test",
+  "migrations": { "paths": ["/db/migrate/"], "generator": "bin/rails generate migration <Name>" },
+  "riskyCommands": [
+    "\\bsidekiq\\b",
+    "\\bgood_job\\s+start\\b",
+    "\\bbin/jobs\\b",
+    "\\brails\\s+db:(drop|reset|schema:load|seed:replant)\\b",
+    "\\bRAILS_ENV=(staging|production)\\b"
+  ]
+}

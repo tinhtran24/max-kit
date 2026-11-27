@@ -1,0 +1,13 @@
+{
+  "id": "laravel",
+  "extends": "generic",
+  "description": "Laravel with Artisan migrations.",
+  "testCommand": "php artisan test",
+  "migrations": { "paths": ["/database/migrations/"], "generator": "php artisan make:migration <name>" },
+  "riskyCommands": [
+    "\\bartisan\\s+(queue:work|queue:listen|horizon|schedule:work|schedule:run)\\b",
+    "\\bartisan\\s+migrate:(fresh|reset|refresh)\\b",
+    "\\bartisan\\s+db:wipe\\b",
+    "\\bAPP_ENV=(staging|production)\\b"
+  ]
+}

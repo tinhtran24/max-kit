@@ -1,0 +1,12 @@
+{
+  "id": "django",
+  "extends": "generic",
+  "description": "Django with makemigrations.",
+  "testCommand": "python manage.py test",
+  "migrations": { "paths": ["/migrations/"], "generator": "python manage.py makemigrations <app> --name <name>" },
+  "riskyCommands": [
+    "\\bmanage\\.py\\s+(flush|reset_db|sqlflush)\\b",
+    "\\bcelery\\s+.*\\b(worker|beat)\\b",
+    "\\bDJANGO_SETTINGS_MODULE=\\S*(prod|production|staging)\\b"
+  ]
+}

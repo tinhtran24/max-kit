@@ -1,0 +1,85 @@
+{
+  "django": {
+    "profile": "django",
+    "testCommand": "pytest",
+    "migrationGenerator": "python manage.py makemigrations <app> --name <name>",
+    "container": "",
+    "signals": [
+      "manage.py"
+    ]
+  },
+  "go-goose": {
+    "profile": "go",
+    "testCommand": "go test ./...",
+    "migrationGenerator": "goose -dir db/migrations create <name> sql",
+    "container": "",
+    "signals": [
+      "go.mod"
+    ]
+  },
+  "laravel": {
+    "profile": "laravel",
+    "testCommand": "./vendor/bin/pest",
+    "migrationGenerator": "php artisan make:migration <name>",
+    "container": "app",
+    "signals": [
+      "composer.json with laravel/framework",
+      "compose.yaml service app"
+    ]
+  },
+  "node-no-tests": {
+    "profile": "node",
+    "testCommand": "",
+    "migrationGenerator": "",
+    "container": "",
+    "signals": [
+      "package.json"
+    ]
+  },
+  "node-prisma-pnpm": {
+    "profile": "node",
+    "testCommand": "pnpm test",
+    "migrationGenerator": "pnpm exec prisma migrate dev --create-only --name <name>",
+    "container": "",
+    "signals": [
+      "package.json"
+    ]
+  },
+  "php-dbmate": {
+    "profile": "generic",
+    "testCommand": "",
+    "migrationGenerator": "dbmate new <name>",
+    "container": "",
+    "signals": [
+      "dbmate"
+    ]
+  },
+  "plain": {
+    "profile": "generic",
+    "testCommand": "",
+    "migrationGenerator": "",
+    "container": "",
+    "signals": []
+  },
+  "rails-minitest": {
+    "profile": "rails",
+    "testCommand": "bin/rails test",
+    "migrationGenerator": "bin/rails generate migration <Name>",
+    "container": "",
+    "signals": [
+      "Gemfile with rails",
+      "config/application.rb"
+    ]
+  },
+  "rails-rspec": {
+    "profile": "rails",
+    "testCommand": "bundle exec rspec",
+    "migrationGenerator": "bin/rails generate migration <Name>",
+    "container": "shop_api",
+    "signals": [
+      "Gemfile with rails",
+      "config/application.rb",
+      "docker-compose.yml service api"
+    ]
+  }
+}

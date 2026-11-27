@@ -4,7 +4,7 @@ A control-plane kit for coding agents. It gives any project a small knowledgebas
 
 - **Evidence-based done.** One YAML file per feature, run files with real output and the commit verified, and a check that fails when something is marked `passing` without evidence.
 - **Guards.** Session boot context, no push to protected branches, no edits on deploy branches, no hand-written migrations, confirmation for risky commands, an evidence reminder before the agent stops. Written once, bridged into each runtime's hook system.
-- **Any stack.** Profiles supply migration folders, generators and risky-command patterns; the config can extend them.
+- **Any stack.** Profiles (`generic`, `rails`, `laravel`, `node`, `django`, `go`) supply migration folders, generators, test commands and risky-command patterns. `max-kit detect` reads each app repo (Gemfile, composer.json, package.json and lockfiles, pyproject.toml, go.mod, compose files) and fills in the profile, test command, migration generator and container.
 - **Any runtime.** Claude Code is built in. Other runtimes are adapters: a folder in this repo, an npm package named `max-kit-adapter-*`, or a local module listed in the config. See [docs/adapters.md](docs/adapters.md).
 
 Plan and roadmap: [docs/plan.md](docs/plan.md).
@@ -16,6 +16,8 @@ Requirements: Node.js 20+, git.
 ```sh
 npx github:tinhtran24/max-kit init ~/shop-kb --project shop --id-prefix SHOP
 cd ~/shop-kb
+git clone <api-repo-url> api && echo /api/ >> .gitignore    # app checkouts live inside
+npx max-kit detect --write
 npm install
 npm run check
 npx max-kit install claude        # once per machine: plugin with hooks and the harness skill
@@ -38,7 +40,8 @@ Run inside a knowledgebase (`npm run <script>` wraps each one).
 
 | Command | Does |
 | --- | --- |
-| `max-kit init [dir] --project <name> --id-prefix <ABC> [--profile <id>] [--targets claude,...]` | Create a knowledgebase |
+| `max-kit init [dir] --project <name> --id-prefix <ABC> [--profile <id>] [--targets claude,...] [--detect]` | Create a knowledgebase |
+| `max-kit detect [--write]` | Detect each repo's stack, test command, migration generator and container; `--write` fills empty config fields only |
 | `max-kit check` | Quality gate: harness lint, index, log, links, boot budget, generated files |
 | `max-kit sync [--target a,b] [--dry-run] [--check]` | Render `AGENTS.md`, `CLAUDE.md` and each target's files |
 | `max-kit new feature <ID> "<title>" <area> [trigger]` | New draft feature |
