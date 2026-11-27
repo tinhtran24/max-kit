@@ -36,6 +36,7 @@ verification:
     ported script tests; check passed."
 evidence:
   - harness/runs/2026-11-27-verify-mk-port-003.md
+  - harness/runs/2026-11-27-verify-mk-port-003-2.md
 unknowns: []
 updated_at: 2026-11-27
 last_verified_at: 2026-11-27
