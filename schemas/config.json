@@ -40,6 +40,7 @@
         "riskyCommands": { "type": "object", "properties": { "extend": { "type": "array", "items": { "type": "string" } } } },
         "migrationPaths": { "type": "object", "properties": { "extend": { "type": "array", "items": { "type": "string" } } } },
         "evidenceReminder": { "type": "boolean" },
+        "askFallback": { "enum": ["deny", "warn"], "description": "For runtimes that cannot ask from a hook: block the call (deny) or only add a warning (warn)" },
         "disabled": { "type": "array", "items": { "enum": ["boot", "branch", "migration", "risky-command", "evidence"] } }
       }
     },

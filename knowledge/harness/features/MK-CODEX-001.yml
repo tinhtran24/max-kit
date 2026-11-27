@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-CODEX-001
+title: "Codex CLI adapter: AGENTS.md, .agents/skills, .codex/hooks.json bridge, apply_patch parsing, ask fallback"
+area: adapters
+priority: high
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Phase 3 of docs/plan.md: second runtime through the adapter contract, verified against OpenAI's Codex hooks, skills and AGENTS.md docs."
+behavior: >
+  With codex in targets, sync renders .codex/hooks.json and .agents/skills; the bridge reads Codex payloads
+  (Bash command, apply_patch patch text) and answers in Codex's JSON; ask decisions become deny (or a warning with
+  guards.askFallback warn) because Codex does not honour ask; the hook command resolves through npx from any folder
+  inside an installed knowledgebase.
+scope:
+  in: [src/adapters/codex, src/guards/files.mjs, src/cli/hook.mjs askFallback, test/fixtures/codex]
+  out: [Codex plugin packaging and marketplace, live Codex session]
+verification:
+  mode: automated
+  commands:
+    - npm test
+    - npm run check
+  expected_result: "test/codex.test.mjs passes; an installed knowledgebase answers a Codex PreToolUse payload through npx."
+evidence: []
+unknowns:
+  - "Not yet exercised in a live Codex session with trusted hooks; payload fixtures follow the documented fields and generated schemas."
+updated_at: 2026-11-27

@@ -6,7 +6,7 @@ An adapter teaches max-kit one agent runtime: which files it reads, how its hook
 
 | Source | How it is found |
 | --- | --- |
-| Built in | `src/adapters/<id>/adapter.mjs`, registered in `src/adapters/registry.mjs` |
+| Built in | `src/adapters/<id>/adapter.mjs`, registered in `src/adapters/registry.mjs` (today: `claude`, `codex`, `agents-md`) |
 | npm package | Any installed package named `max-kit-adapter-*` (or `@scope/max-kit-adapter-*`) |
 | Local module | A path in `max-kit.config.json` › `adapters`, relative to the knowledgebase |
 
@@ -25,7 +25,8 @@ export default {
     agents: "none",
     hooks: [],                   // any of: session, prompt, pre-tool, stop
     plugin: "none",
-    blocking: "none"             // how a guard denies a call: json | exit-code-2 | none
+    blocking: "none",            // how a guard denies a call: json | exit-code-2 | none
+    ask: false                   // can a hook ask the user? if false, "ask" follows guards.askFallback
   },
   detect({ cfg }) { return { used: true, note: "example found" }; },
   render(model) { return [{ path: ".example/rules.md", content: "..." }]; },
@@ -66,9 +67,17 @@ The runtime calls `max-kit hook <event> --runtime <id>` with its payload on stdi
   runtime: "example",
   cwd: "/path/the/agent/is/in",
   stopActive: false,            // true when the runtime is re-running a stop hook
-  tool: { name: "shell", kind: "shell", command: "git push", filePath: "" }
+  tool: {
+    name: "apply_patch",
+    kind: "write",              // shell | edit | write | read | search | web | other
+    command: "",                // shell command text, for kind "shell"
+    filePath: "",               // single-file tools
+    files: [{ path: "db/migrate/1_add_total.rb", op: "add" }]   // multi-file tools; op: add | write | update | delete
+  }
 }
 ```
+
+Fill `files` when one call touches several files (patches); guards read `files` first and fall back to `filePath`. Use kind `write` when the call creates a file, so the migration guard sees it.
 
 Tool kinds: `shell`, `edit`, `write`, `read`, `search`, `web`, `other`. Map the runtime's tool names onto them.
 
@@ -81,7 +90,7 @@ Tool kinds: `shell`, `edit`, `write`, `read`, `search`, `web`, `other`. Map the 
 | `{ type: "ask", reason }` | Ask the user before the tool call |
 | `{ type: "block", reason }` | Do not stop yet; continue with the reason |
 
-If the runtime cannot ask, treat `ask` as `deny` with the reason. Any exception in the hook path fails open.
+Set `capabilities.ask: false` when the runtime cannot ask from a hook. Core then turns `ask` into `deny` (default) or into a context warning when the knowledgebase sets `guards.askFallback: "warn"`. Any exception in the hook path fails open.
 
 ## Checklist for a new adapter
 

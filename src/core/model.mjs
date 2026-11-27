@@ -1,6 +1,23 @@
 import fs from "node:fs";
 import path from "node:path";
 import { READ_ORDER, TEAM_RULES } from "../guards/boot.mjs";
+import { KIT_ROOT } from "./config.mjs";
+import { rel, walk } from "./util.mjs";
+
+export function loadSkills(dir = path.join(KIT_ROOT, "skills")) {
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && fs.existsSync(path.join(dir, e.name, "SKILL.md")))
+    .map((e) => e.name)
+    .sort()
+    .map((name) => ({
+      name,
+      files: walk(path.join(dir, name), "")
+        .sort()
+        .map((f) => ({ path: rel(path.join(dir, name), f), content: fs.readFileSync(f, "utf8").replace(/\r\n/g, "\n") }))
+    }));
+}
 
 export const COMMANDS = [
   ["npm run check", "Quality gate: harness lint, index, log, links, boot budget, generated files"],
@@ -23,6 +40,7 @@ export function buildModel(cfg) {
     readOrder: READ_ORDER,
     teamRulesPath: TEAM_RULES,
     teamRules: fs.existsSync(rulesFile) ? fs.readFileSync(rulesFile, "utf8").trim() : "",
-    commands: COMMANDS
+    commands: COMMANDS,
+    skills: loadSkills()
   };
 }

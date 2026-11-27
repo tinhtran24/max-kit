@@ -40,7 +40,8 @@ export default {
     agents: "plugin",
     hooks: ["session", "prompt", "pre-tool", "stop"],
     plugin: "native",
-    blocking: "json"
+    blocking: "json",
+    ask: true
   },
   toolKinds: TOOL_KINDS,
 

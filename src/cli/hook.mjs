@@ -14,14 +14,24 @@ function readStdin() {
   });
 }
 
+export function askFallback(decision, adapter, cfg) {
+  if (decision?.type !== "ask" || adapter.capabilities.ask !== false) return decision;
+  if (cfg.guards.askFallback === "warn") return { type: "context", text: `max-kit warning: ${decision.reason}` };
+  return {
+    ...decision,
+    type: "deny",
+    reason: `${decision.reason} This runtime cannot ask from a hook, so the call is blocked: ask the user in chat; if they agree, they run it themselves or set guards.askFallback to "warn".`
+  };
+}
+
 export async function handleHook(event, runtime, raw) {
   const adapter = await getAdapter(runtime);
   if (!adapter?.hookBridge) throw new Error(`runtime "${runtime}" has no hook bridge`);
   const input = adapter.hookBridge.parse(raw, event);
   const root = findRoot(input.cwd);
   if (!root) return { stdout: "", exitCode: 0 };
-  const decision = runGuards(input, loadConfig(root));
-  return adapter.hookBridge.respond(event, decision);
+  const cfg = loadConfig(root);
+  return adapter.hookBridge.respond(event, askFallback(runGuards(input, cfg), adapter, cfg));
 }
 
 export default async function hook(argv) {

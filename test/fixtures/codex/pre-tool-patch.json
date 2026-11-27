@@ -1,0 +1,1 @@
+{"session_id":"s1","transcript_path":null,"cwd":"{{cwd}}","hook_event_name":"PreToolUse","model":"gpt-5-codex","permission_mode":"default","turn_id":"t1","tool_name":"apply_patch","tool_use_id":"u2","tool_input":{"command":"{{patch}}"}}

@@ -1,0 +1,53 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx --no-install max-kit hook session --runtime codex",
+            "timeout": 30,
+            "statusMessage": "max-kit: loading boot context"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx --no-install max-kit hook prompt --runtime codex",
+            "timeout": 30,
+            "statusMessage": "max-kit: harness reminder"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(Bash|apply_patch|Edit|Write)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx --no-install max-kit hook pre-tool --runtime codex",
+            "timeout": 30,
+            "statusMessage": "max-kit: checking guards"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx --no-install max-kit hook stop --runtime codex",
+            "timeout": 30,
+            "statusMessage": "max-kit: checking evidence"
+          }
+        ]
+      }
+    ]
+  }
+}

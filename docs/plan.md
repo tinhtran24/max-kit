@@ -106,7 +106,7 @@ Rules that keep it dynamic:
 | Runtime | Instructions | Skills | Agents | Hooks | Package | Phase |
 | --- | --- | --- | --- | --- | --- | --- |
 | Claude Code (CLI, VS Code, JetBrains, desktop) | `CLAUDE.md` importing `AGENTS.md` | `.claude/skills/` or plugin | `.claude/agents/` or plugin | plugin `hooks/hooks.json` | plugin + marketplace | 1 |
-| Codex CLI (+ IDE extension) | `AGENTS.md` | `.agents/skills/` | rendered as skills | `.codex/hooks.json` | Codex plugin | 3 |
+| Codex CLI (+ IDE extension) | `AGENTS.md` (native) | `.agents/skills/` | none | `.codex/hooks.json` (needs `/hooks` trust; cannot ask) | project files; plugin packaging later | 3 |
 | Generic AGENTS.md readers | `AGENTS.md` | linked | none | none (CI check) | none | 3 |
 | Gemini CLI | `GEMINI.md` or `contextFileName` | per its format | — | per its format | extension | later |
 | Cursor | `.cursor/rules/` | — | — | — | — | later |
