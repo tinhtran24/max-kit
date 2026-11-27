@@ -90,6 +90,7 @@ export function loadConfig(root) {
     },
     guards: {
       riskyCommands: uniq([...(profile.riskyCommands || []), ...repos.flatMap((r) => (r.profile !== profile.id ? loadProfile(r.profile).riskyCommands || [] : [])), ...(guards.riskyCommands?.extend || [])]),
+      secretPaths: uniq([...(profile.secretPaths || []), ...(guards.secretPaths?.extend || [])]),
       migrationPaths: uniq([...(profile.migrations?.paths || []), ...repos.flatMap((r) => r.migrationPaths), ...(guards.migrationPaths?.extend || [])]),
       evidenceReminder: guards.evidenceReminder ?? true,
       askFallback: guards.askFallback === "warn" ? "warn" : "deny",

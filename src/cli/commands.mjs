@@ -12,6 +12,7 @@ export const COMMANDS = {
   update: ["./update.mjs", "Refresh kit-owned files in a knowledgebase and re-render"],
   doctor: ["./doctor.mjs", "Report setup problems"],
   adapters: ["./adapters.mjs", "adapters list | adapters show <id>"],
+  secrets: ["./secrets.mjs", "Encrypted local vault: set, get, search, run --env VAR=REF, approve, audit (mk secrets help)"],
   skills: ["./skills.mjs", "Skills and packs: skills lint | skills list"],
   install: ["./install.mjs", "Register the kit with a runtime: install <runtime> [--source <path|owner/repo>]"]
 };

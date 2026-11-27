@@ -21,7 +21,9 @@ const EXACT = [
   [/^kit refresh\b/, "mk update"],
   [/^self-update\b/, "npm update max-kit && mk update"],
   [/^update\b(?! --)/, "mk update"],
-  [/^journal create\b/, "mk log"]
+  [/^journal create\b/, "mk log"],
+  [/^secrets (set|get|describe|list|search|annotate|rotate|delete|rm|compare|import-env|export|run|request|approve|grants|revoke|audit|status)\b/, "mk secrets $1"],
+  [/^secrets grant\b/, "mk secrets approve"]
 ];
 
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
