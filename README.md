@@ -3,7 +3,9 @@
 A control-plane kit for coding agents. It gives any project a small knowledgebase that tells every agent session what to read first, which rules apply, which commands are dangerous and what proves a task is done. You write it once; adapters render it for each agent runtime your team uses.
 
 - **Evidence-based done.** One YAML file per feature with optional acceptance criteria; `max-kit verify` runs its commands and records real output and the commit verified; the check fails when something is `passing` without evidence and warns when files the feature `watch`es changed after the verified commit. A fresh-context `verifier` agent reviews high-risk features against their evidence.
-- **Guards.** Session boot context, no push to protected branches, no edits on deploy branches, no hand-written migrations, confirmation for risky commands, an evidence reminder before the agent stops. Written once, bridged into each runtime's hook system.
+- **Guards.** Session boot context, no push to protected branches, no edits on deploy branches, no hand-written migrations, no agent reads of `.env` and key files, confirmation for risky commands, an evidence reminder before the agent stops.
+- **Secrets vault.** `mk secrets` keeps values encrypted with the key in the OS keychain; agents use a secret through `mk secrets run`, which injects it and redacts it from the output, and only after the user approves in their own terminal.
+- **Skill packs.** Opt-in `mk-*` skills and agents (`packs` in the config), rendered for each runtime. Written once, bridged into each runtime's hook system.
 - **Any stack.** Profiles (`generic`, `rails`, `laravel`, `node`, `django`, `go`) supply migration folders, generators, test commands and risky-command patterns. `max-kit detect` reads each app repo (Gemfile, composer.json, package.json and lockfiles, pyproject.toml, go.mod, compose files) and fills in the profile, test command, migration generator and container.
 - **Any runtime.** Claude Code and Codex CLI are built in. Other runtimes are adapters: a folder in this repo, an npm package named `max-kit-adapter-*`, or a local module listed in the config. See [docs/adapters.md](docs/adapters.md).
 
@@ -57,6 +59,8 @@ Run inside a knowledgebase (`npm run <script>` wraps each one).
 | `max-kit index` / `max-kit rollup` | Regenerate the feature index / log views |
 | `max-kit update` | Refresh kit-owned files and re-render after upgrading the kit |
 | `max-kit doctor` | Report setup problems |
+| `mk secrets <command>` | Encrypted local vault: `set`/`rotate` from stdin, `search`, `compare`, `import-env`, `run --env VAR=REF -- <program>` with output redaction, user approvals for agents, `audit` (see `mk secrets help`) |
+| `mk skills lint` / `skills list` | Check skill packs; list packs |
 | `max-kit adapters list` / `adapters show <id>` | Runtimes the kit can render for |
 | `max-kit install <runtime>` | Register the kit with a runtime (Claude Code plugin) |
 | `max-kit hook <event> --runtime <id>` | Hook entry point called by runtimes |

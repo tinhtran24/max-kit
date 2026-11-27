@@ -138,8 +138,20 @@
               "branch",
               "migration",
               "risky-command",
-              "evidence"
+              "evidence",
+              "secrets"
             ]
+          }
+        },
+        "secretPaths": {
+          "type": "object",
+          "properties": {
+            "extend": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -187,6 +199,15 @@
     },
     "kitVersion": {
       "type": "string"
+    },
+    "secrets": {
+      "type": "object",
+      "properties": {
+        "store": {
+          "type": "string",
+          "pattern": "^(mk-vault|env-file|external:[\\w.-]+)$"
+        }
+      }
     }
   }
 }

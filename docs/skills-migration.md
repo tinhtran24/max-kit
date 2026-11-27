@@ -62,7 +62,8 @@ Counts are calls found in the source skills.
 | `test ...` | 11 | the feature's verification commands, `mk verify` | map now |
 | `skills link/route/kit` | 203 (with below) | `mk sync`, pack config | map now |
 | `skills improve/evolution/self-improve` | | `mk improve` (Phase 7: corrections to review queue) | build, then map |
-| `secrets ...` | 134 | `mk secrets` (vault) or the project's own secret manager | decide: build or rewrite |
+| `secrets set/get/list/search/annotate/rotate/delete/compare/import-env/export/run/request/approve/grants/revoke/audit/status` | about 75 | `mk secrets <same>` (local vault) | map now |
+| `secrets sync/recovery/members/remote/bundle/trust/alias/approvals` | about 59 | none until a sync server exists | rewrite: drop sync and recovery passages, keep local use |
 | `config prefs/start` | 49 | `max-kit.config.json` | rewrite |
 | `orchestrate`, `sessions`, `watch` | 48 | `mk handoff` (Phase 5) plus runtime agents | build `handoff`, rewrite rest |
 | `eval` | 30 | `mk eval` (Phase 9) | build, then map |
@@ -103,8 +104,10 @@ Each batch is one pull request with a harness feature, the port report in the ru
 
 Hooks are not copied as files: each becomes a max-kit guard so it works in every runtime. The mapping is privacy-block and secret-output to Phase 6; context-firewall, scout-block and pre-compact to Phase 5; self-improve recorder and nudge, and the agent-behaviour linter, to Phase 7. Statusline and notification hooks are left out for now.
 
-## 7. Decisions needed
+## 7. Decisions
 
-1. `secrets`: build an `mk secrets` vault (large: storage, approvals, run injection) or rewrite `vault` and the 134 calls to use the project's existing secret manager. Recommendation: rewrite first; build later only if teams ask.
-2. Licence for max-kit itself, now that ported content takes it.
-3. Whether the large packs (`frontend`, `diagrams`, `media`, `security-intel`) ship in this repo or as separate packages (`max-kit-pack-*`), to keep installs small.
+Decided (2026-11-27):
+
+1. `secrets`: max-kit has its own local vault (`mk secrets`). Cross-device sync, recovery and shared vault members wait for a sync server.
+2. Licence: none for now (`UNLICENSED`); a public licence can be added later.
+3. Large packs ship in this repo.

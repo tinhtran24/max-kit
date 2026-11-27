@@ -3,9 +3,10 @@ import branch from "./branch.mjs";
 import migration from "./migration.mjs";
 import risky from "./risky.mjs";
 import evidence from "./evidence.mjs";
+import secrets from "./secrets.mjs";
 
 export const EVENTS = ["session", "prompt", "pre-tool", "stop"];
-export const GUARDS = [boot, branch, migration, risky, evidence];
+export const GUARDS = [boot, branch, secrets, migration, risky, evidence];
 
 const RANK = { deny: 3, block: 3, ask: 2 };
 

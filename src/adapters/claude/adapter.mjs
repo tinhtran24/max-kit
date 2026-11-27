@@ -87,7 +87,7 @@ export default {
           name,
           kind: TOOL_KINDS[name] || (name ? "other" : ""),
           command: p.tool_input?.command || "",
-          filePath: p.tool_input?.file_path || p.tool_input?.notebook_path || ""
+          filePath: p.tool_input?.file_path || p.tool_input?.notebook_path || (name === "Grep" ? p.tool_input?.path || "" : "")
         }
       };
     },
