@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-005
+title: "Migration batch 5: docs and diagrams packs"
+area: packs
+priority: medium
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 5)."
+behavior: >
+  The docs pack ships 9 skills and the docs-manager agent; the diagrams pack ships 7 skills. The render-CLI route and
+  its wrapper scripts are removed; the diagram compiler stays self-contained. Ported script suites pass, and skills
+  lint understands nested sub-skills, longer code fences and inline code.
+acceptance:
+  - id: AC1
+    then: the ported docs and diagrams suites pass (viewer server, mermaid render) and the diagram compiler suites pass
+  - id: AC2
+    then: skills lint passes with source-name patterns and no render-route mention remains
+watch:
+  - packs/docs/
+  - packs/diagrams/
+  - src/core/skills-lint.mjs
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [AC1]
+    - run: node packs/diagrams/skills/mk-diagram/scripts/test_compiler_matrix.mjs
+      covers: [AC1]
+    - run: node packs/diagrams/skills/mk-diagram/scripts/test_layout_geometry.mjs
+      covers: [AC1]
+    - run: node packs/diagrams/skills/mk-diagram/scripts/test_reader_interactions.mjs
+      covers: [AC1]
+    - run: npm run check
+      covers: [AC2]
+  expected_result: "All suites pass; check passed with forbidden patterns active."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27

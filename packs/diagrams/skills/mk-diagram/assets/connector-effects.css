@@ -1,0 +1,122 @@
+/*
+ * mk-diagram animated connector effects
+ * 8 zero-dependency effects. Apply via data-fx="<name>" on SVG <path>, <line>, <polyline>.
+ * Every effect exposes CSS custom properties for tuning — see references/animation-effects.md.
+ * All effects respect prefers-reduced-motion via the media query at the bottom.
+ */
+
+svg [data-fx] {
+  --mk-fx-speed: 2s;
+  --mk-fx-color: var(--mk-diag-accent, #2563eb);
+  --mk-fx-glow: var(--mk-diag-accent, #2563eb);
+  --mk-fx-glow-blur: 0px;
+  fill: none;
+  stroke: var(--mk-fx-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 var(--mk-fx-glow-blur) var(--mk-fx-glow));
+}
+
+/* 1. marching-ants — walking dash */
+svg [data-fx="marching-ants"] {
+  --mk-fx-dash: 10 8;
+  stroke-dasharray: var(--mk-fx-dash);
+  animation: mk-fx-march var(--mk-fx-speed, 2.4s) linear infinite;
+}
+@keyframes mk-fx-march {
+  to { stroke-dashoffset: -36; }
+}
+
+/* 2. comet — bright head, fading tail. --mk-fx-length is dash length. */
+svg [data-fx="comet"] {
+  --mk-fx-length: 28;
+  --mk-fx-gap: 220;
+  stroke-dasharray: var(--mk-fx-length) var(--mk-fx-gap);
+  animation: mk-fx-comet-move var(--mk-fx-speed, 3.2s) ease-in-out infinite;
+}
+@keyframes mk-fx-comet-move {
+  from { stroke-dashoffset: calc(var(--mk-fx-length) + var(--mk-fx-gap)); }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* 3. wave — stroke width breathes between --mk-fx-min and --mk-fx-max */
+svg [data-fx="wave"] {
+  --mk-fx-min: 1.2px;
+  --mk-fx-max: 3.4px;
+  animation: mk-fx-wave var(--mk-fx-speed, 2s) ease-in-out infinite;
+}
+@keyframes mk-fx-wave {
+  0%, 100% { stroke-width: var(--mk-fx-min); }
+  50%      { stroke-width: var(--mk-fx-max); }
+}
+
+/* 4. morse — dot-dash rhythm along the path */
+svg [data-fx="morse"] {
+  --mk-fx-dash: 12 6 3 6;
+  stroke-dasharray: var(--mk-fx-dash);
+  animation: mk-fx-march var(--mk-fx-speed, 3s) linear infinite;
+}
+
+/* 5. glow — pulsing halo, no motion of the line itself */
+svg [data-fx="glow"] {
+  --mk-fx-blur-max: 10px;
+  animation: mk-fx-glow-pulse var(--mk-fx-speed, 2.4s) ease-in-out infinite;
+}
+@keyframes mk-fx-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 1px var(--mk-fx-glow, var(--mk-fx-color))); }
+  50%      { filter: drop-shadow(0 0 var(--mk-fx-blur-max) var(--mk-fx-glow, var(--mk-fx-color))); }
+}
+
+/* 6. silhouette-on-path — rider element uses offset-path */
+[data-fx="silhouette"] {
+  --mk-fx-shape-size: 10px;
+  width: var(--mk-fx-shape-size);
+  height: var(--mk-fx-shape-size);
+  offset-path: var(--mk-fx-path);
+  offset-rotate: auto;
+  animation: mk-fx-silhouette var(--mk-fx-speed, 3.6s) linear infinite;
+}
+@keyframes mk-fx-silhouette {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+
+/* 7. pulse — thickness + opacity breathe together */
+svg [data-fx="pulse"] {
+  --mk-fx-min-op: 0.55;
+  animation: mk-fx-pulse var(--mk-fx-speed, 1.8s) ease-in-out infinite;
+}
+@keyframes mk-fx-pulse {
+  0%, 100% { stroke-width: 2; opacity: var(--mk-fx-min-op); }
+  50%      { stroke-width: 4; opacity: 1; }
+}
+
+/* 8. dashed-flow — steady dashes drifting forward, low contrast for background flows */
+svg [data-fx="dashed-flow"] {
+  --mk-fx-dash: 4 8;
+  stroke-dasharray: var(--mk-fx-dash);
+  stroke-opacity: 0.55;
+  animation: mk-fx-flow var(--mk-fx-speed, 6s) linear infinite;
+}
+@keyframes mk-fx-flow {
+  to { stroke-dashoffset: -24; }
+}
+
+/* Freeze helper — render.py adds .mk-fx-frozen to <svg> and <body> before screenshot */
+.mk-fx-frozen [data-fx],
+.mk-fx-frozen [data-fx="silhouette"] {
+  animation-play-state: paused !important;
+  animation-delay: 0s !important;
+}
+
+/*
+ * Global reduced-motion respect. Scoped by the effect selector itself (not by
+ * a wrapper class) so Tier 3 raw HTML input honors it too.
+ */
+@media (prefers-reduced-motion: reduce) {
+  svg [data-fx],
+  [data-fx="silhouette"] {
+    animation: none !important;
+    filter: none !important;
+  }
+}

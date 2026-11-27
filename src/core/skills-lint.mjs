@@ -14,6 +14,10 @@ const isText = (file) => {
 };
 const DEFAULT_MAX_KB = 512;
 
+export function stripFences(text) {
+  return text.replace(/^([ \t]*)(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\1\2[ \t]*$/gm, "");
+}
+
 function frontMatter(text) {
   const m = text.replace(/\r\n/g, "\n").match(/^---\n([\s\S]*?)\n---/);
   if (!m) return null;
@@ -55,6 +59,7 @@ export function lintSkills(root = KIT_ROOT) {
     for (const n of [...(m.planned || []), ...(m.plannedAgents || [])]) known.add(n);
   }
   const unresolved = new Map();
+  const nestedSkills = (dir) => walk(dir, "SKILL.md").map((f) => path.basename(path.dirname(f)));
   const skillDirs = new Map();
   for (const u of units) {
     if (!fs.existsSync(u.skillsDir)) continue;
@@ -95,12 +100,13 @@ export function lintSkills(root = KIT_ROOT) {
       const kb = Math.round(dirSize(dir) / 1024);
       if (kb > maxKb) r.errors.push(`${at}: ${kb} KB, budget ${maxKb} KB (set maxSkillKb in pack.json to allow it)`);
 
+      const nested = new Set(nestedSkills(dir));
       for (const f of walk(dir, "").filter(isText)) {
         const body = fs.readFileSync(f, "utf8");
         const relf = path.relative(dir, f).split(path.sep).join("/");
         for (const re of forbidden) if (re.test(body)) r.errors.push(`${at}/${relf}: contains a forbidden source name (${re.source})`);
         if (f.endsWith(".md")) {
-          const plain = body.replace(/```[\s\S]*?```/g, "");
+          const plain = stripFences(body).replace(/`[^`\n]*`/g, "");
           for (const [, target] of plain.matchAll(/\[[^\]]*\]\(([^)\s]+)\)/g)) {
             if (/^(https?:|mailto:|#)/.test(target)) continue;
             const local = path.resolve(path.dirname(f), decodeURI(target.split("#")[0]));
@@ -110,9 +116,9 @@ export function lintSkills(root = KIT_ROOT) {
             if (!elsewhere) r.errors.push(`${at}/${relf}: broken link ${target}`);
           }
         }
-        const isTest = /\.test\.[a-z]+$/.test(relf);
+        const isTest = /\.test\.[a-z]+$/.test(relf) || !/\.mdx?$/.test(relf);
         for (const [, ref] of isTest ? [] : body.matchAll(/(?<![\w/.-])(mk-[a-z0-9]+(?:-[a-z0-9]+)*)(?![\w/-]|\.[a-z0-9])/g)) {
-          if (ref === name || ported.has(ref)) continue;
+          if (ref === name || ported.has(ref) || nested.has(ref)) continue;
           if (!known.has(ref)) r.errors.push(`${at}/${relf}: refers to ${ref}, which is not a max-kit skill or agent`);
           else unresolved.set(ref, (unresolved.get(ref) || new Set()).add(name));
         }

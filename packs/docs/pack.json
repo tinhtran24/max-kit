@@ -1,20 +1,23 @@
 {
   "description": "Project docs, docs sites, office documents and repository packing.",
   "requires": [],
-  "skills": [],
-  "agents": [],
-  "planned": [
+  "skills": [
+    "mk-copywriting",
     "mk-docs",
     "mk-docs-seeker",
-    "mk-llms",
-    "mk-mintlify",
     "mk-document-skills",
+    "mk-llms",
     "mk-markdown-novel-viewer",
-    "mk-repomix",
+    "mk-mintlify",
     "mk-project-organization",
-    "mk-copywriting"
+    "mk-repomix"
   ],
-  "plannedAgents": [
+  "agents": [
     "mk-docs-manager"
-  ]
+  ],
+  "planned": [],
+  "plannedAgents": [],
+  "maxSkillKb": {
+    "mk-document-skills": 560
+  }
 }
