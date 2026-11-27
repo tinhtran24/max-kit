@@ -119,7 +119,7 @@ theme: {
 
 AgentWiki's default `Content-Security-Policy` for hosted documents does NOT include `cdn.jsdelivr.net` in `script-src`. Two options when publishing an artifact through the `--wiki` path:
 
-1. **Inline the UMD** — download the pinned file, embed inline in a `<script>` tag (adds 874 KB to the artifact). This is the documented exception for `mk-cti-expert --format html --wiki` where offline-in-incident viewing matters.
+1. **Inline the UMD** — download the pinned file, embed inline in a `<script>` tag (adds 874 KB to the artifact). This is the documented exception for `mk-cti --format html --wiki` where offline-in-incident viewing matters.
 2. **Skip AntV in wiki artifacts** — for anything else, drop to Mermaid/Chart.js.
 
 The publish helper should detect the wiki target and switch to inline automatically; skill guides refer to that helper rather than embedding raw fetch code.

@@ -77,6 +77,12 @@ export function productForm(match, pre, word, post) {
   return `${pre}maxKit${post}`;
 }
 
+export function renamePath(relf, o) {
+  let out = relf.replace(new RegExp(`(^|[^A-Za-z0-9_])${esc(o.prefix)}`, "g"), "$1mk-");
+  if (o.product) out = out.replace(new RegExp(`([A-Za-z0-9_]*?)(${esc(o.product)})([A-Za-z0-9_]*)`, "gi"), productForm);
+  return out;
+}
+
 export function transform(text, o) {
   const unmapped = [];
   let tokenized = text;
@@ -164,7 +170,7 @@ function main() {
         continue;
       }
       entry.files++;
-      const target = path.join(dest, relf.split(o.prefix).join("mk-"));
+      const target = path.join(dest, renamePath(relf, o));
       o.selfFrom = `mk-${short}`;
       o.selfTo = mkName;
       if (isText(file)) {

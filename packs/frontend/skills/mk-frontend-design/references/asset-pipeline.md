@@ -72,7 +72,7 @@ Compare variations only when exploring or when the first result misses.
   (`linear-gradient(to right, oklch(15% 0.02 var(--hue) / 0.7), transparent 60%)`)
   rather than a full dark overlay or heavy text shadow.
 - Post-processing (resize, crop, background removal, sprite sheets, video): use the
-  installed media-processing owner when present.
+  installed mk-media owner when present.
 
 ## Icons and illustration
 

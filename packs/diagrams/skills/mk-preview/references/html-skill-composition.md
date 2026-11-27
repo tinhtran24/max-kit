@@ -15,7 +15,7 @@ The unified HTML composition protocol activates whenever a skill produces an HTM
 | `mk-advise` | `mk-advise/SKILL.md` | `--html` |
 | `mk-show-off` | `mk-show-off/SKILL.md` | Every invocation (inherently HTML output) |
 | `mk-retro` | `mk-retro/SKILL.md` | `--format html` |
-| `mk-cti-expert` | `mk-cti-expert/SKILL.md` | `--format html` |
+| `mk-cti` | `mk-cti/SKILL.md` | `--format html` |
 | `mk-issue-to-plan` | `mk-issue-to-plan/SKILL.md` | Mandatory downstream `mk-plan --html` delegation |
 
 Non-HTML modes (Markdown, terminal CLI) do NOT activate visual capabilities or load this protocol.

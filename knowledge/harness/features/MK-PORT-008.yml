@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=../../../schemas/feature.json
+id: MK-PORT-008
+title: "Migration batch 7: ops, quality, media and security-intel packs"
+area: packs
+priority: medium
+state: active
+verification_level: contract
+trigger:
+  type: user_request
+  summary: "Port the owner's kit into max-kit (docs/skills-migration.md batch 7), with short names."
+behavior: >
+  ops gains deploy, devops and security beside vault; quality ships agent-browser, chrome-profile, deep-swe and
+  web-testing; media ships ai-artist, ai-multimodal, design, hyperframes, media and remotion; security-intel ships
+  mk-cti. Source-CLI hooks and roadmap notes are removed, file names keep words that merely contain the prefix, and
+  product names in paths follow the content rules.
+acceptance:
+  - id: AC1
+    then: skills lint passes with source names and long names forbidden
+  - id: AC2
+    then: ported suites pass (devops 48, media 138, chrome-profile 27, hyperframes in npm test)
+  - id: AC3
+    then: path renaming leaves words that contain the prefix alone and renames the product name in paths
+watch:
+  - packs/ops/
+  - packs/quality/
+  - packs/media/
+  - packs/security-intel/
+  - scripts/port-skills.mjs
+verification:
+  mode: automated
+  commands:
+    - run: npm test
+      covers: [AC3]
+    - run: npm run check
+      covers: [AC1]
+  covers: [AC2]
+  expected_result: "All tests pass; check passed with forbidden patterns active."
+evidence: []
+unknowns: []
+updated_at: 2026-11-27

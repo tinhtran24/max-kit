@@ -1,13 +1,13 @@
 {
   "description": "Web testing and browser automation.",
   "requires": [],
-  "skills": [],
-  "agents": [],
-  "planned": [
-    "mk-web-testing",
+  "skills": [
     "mk-agent-browser",
     "mk-chrome-profile",
-    "mk-deep-swe"
+    "mk-deep-swe",
+    "mk-web-testing"
   ],
+  "agents": [],
+  "planned": [],
   "plannedAgents": []
 }
